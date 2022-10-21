@@ -1,0 +1,2304 @@
+openapi: 3.0.2
+info:
+  description: |
+    This is a REST API reference for the Phase Two Keycloak custom resources. These are extensions to the standard [Keycloak Admin REST API](https://www.keycloak.org/docs-api/17.0/rest-api/index.html).
+
+    ### Base URI format
+    Paths specified in the documentation are relative to the the base URI.
+    - Format: `https://<host>:<port>/auth/realms`
+    - Example: `https://app.phasetwo.io/auth/realms`
+
+    ### Authentication
+    Authentication is achieved by using the `Authentication: Bearer <token>` header in all requests. This is either the access token received from a normal authentication, or by a request directly to the OpenID Connect token endpoint.
+
+    It is recommended that you use a Keycloak Admin Client, such as [this one for Javascript](https://github.com/keycloak/keycloak-nodejs-admin-client), as they take care of authetication, getting an access token, and refreshing it when it expires.
+
+    #### Client credentials grant example
+    ```
+    POST /auth/realms/test-realm/protocol/openid-connect/token
+    Host: app.phasetwo.io
+    Accept: application/json
+    Content-type: application/x-www-form-urlencoded
+
+    grant_type=client_credentials&client_id=admin-cli&client_secret=fd649804-3a74-4d69-acaa-8f065c6b7da1
+    ```
+
+    #### Password grant example
+    ```
+    POST /auth/realms/test-realm/protocol/openid-connect/token
+    Host: app.phasetwo.io
+    Accept: application/json
+    Content-type: application/x-www-form-urlencoded
+
+    grant_type=password&username=uname@foo.com&password=pwd123AZY&client_id=admin-cli
+    ```
+  title: Phase Two Admin REST API
+  version: v1
+externalDocs:
+  description: Public documentation
+  url: https://phasetwo.io/docs
+servers:
+- url: "{protocol}://{host}{port}/auth/realms"
+  variables:
+    host:
+      default: app.phasetwo.io
+      description: API host
+      enum:
+      - app.phasetwo.io
+      - localhost
+    port:
+      default: ""
+      description: API port
+      enum:
+      - ""
+      - "8081"
+    protocol:
+      default: https
+      enum:
+      - http
+      - https
+security:
+- access_token: []
+paths:
+  /{realm}/orgs:
+    get:
+      description: Get a paginated list of organizations using an optional search
+        query.
+      operationId: getOrganizations
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: first
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: max
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/OrganizationRepresentation'
+                type: array
+          description: success
+      summary: Get organizations
+      tags:
+      - Organizations
+      x-accepts: application/json
+      x-tags:
+      - tag: Organizations
+    post:
+      operationId: createOrganization
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizationRepresentation'
+        required: true
+      responses:
+        "201":
+          description: success
+      summary: Create a new organization
+      tags:
+      - Organizations
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Organizations
+  /{realm}/orgs/{orgId}:
+    delete:
+      operationId: deleteOrganization
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: success
+      summary: Delete the organization
+      tags:
+      - Organizations
+      x-accepts: application/json
+      x-tags:
+      - tag: Organizations
+    get:
+      operationId: getOrganizationById
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationRepresentation'
+          description: success
+      summary: Get organization by id
+      tags:
+      - Organizations
+      x-accepts: application/json
+      x-tags:
+      - tag: Organizations
+    put:
+      operationId: updateOrganization
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizationRepresentation'
+        required: true
+      responses:
+        "204":
+          description: success
+      summary: Update this organization by id
+      tags:
+      - Organizations
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Organizations
+  /{realm}/orgs/{orgId}/portal-link:
+    post:
+      description: "Create a link for this organizations admin portal. This link encodes\
+        \ an action token on behalf of the organization's default admin user, or the\
+        \ user that is optionally specified in this request. The user specified must\
+        \ be a member of this organization, and have full organization admin roles."
+      operationId: createPortalLink
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/createPortalLink_request'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PortalLinkRepresentation'
+          description: success
+      summary: Create a link for the organization's admin portal
+      tags:
+      - Organizations
+      x-content-type: application/x-www-form-urlencoded
+      x-accepts: application/json
+      x-tags:
+      - tag: Organizations
+  /{realm}/orgs/{orgId}/members:
+    get:
+      description: Get a paginated list of users who are a member of the specified
+        organization.
+      operationId: getOrganizationMemberships
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: first
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: max
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/UserRepresentation'
+                type: array
+          description: success
+      summary: Get organization memberships
+      tags:
+      - Organization Memberships
+      x-accepts: application/json
+      x-tags:
+      - tag: Organization Memberships
+  /{realm}/orgs/{orgId}/domains:
+    get:
+      operationId: getOrganizationDomains
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/OrganizationDomainRepresentation'
+                type: array
+          description: success
+      summary: Get details for all domains owned by an organization
+      tags:
+      - Organization Domains
+      x-accepts: application/json
+      x-tags:
+      - tag: Organization Domains
+  /{realm}/orgs/{orgId}/domains/{domainName}:
+    get:
+      operationId: getOrganizationDomain
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: domain name
+        explode: false
+        in: path
+        name: domainName
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationDomainRepresentation'
+          description: success
+      summary: Get details for a domain owned by an organization
+      tags:
+      - Organization Domains
+      x-accepts: application/json
+      x-tags:
+      - tag: Organization Domains
+  /{realm}/orgs/{orgId}/domains/{domainName}/verify:
+    post:
+      description: Initiate a verification check for the domain name owned by this
+        organization
+      operationId: verifyDomain
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: domain name
+        explode: false
+        in: path
+        name: domainName
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "202":
+          description: success
+      summary: Start domain verification
+      tags:
+      - Organization Domains
+      x-accepts: application/json
+      x-tags:
+      - tag: Organization Domains
+  /{realm}/orgs/{orgId}/members/{userId}:
+    delete:
+      description: Remove the specified user from the specified organization as a
+        member
+      operationId: removeOrganizationMember
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: user id
+        explode: false
+        in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: success
+      summary: Remove an organization member
+      tags:
+      - Organization Memberships
+      x-accepts: application/json
+      x-tags:
+      - tag: Organization Memberships
+    get:
+      operationId: checkOrganizationMembership
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: user id
+        explode: false
+        in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: success
+      summary: Check if a user is a member of an organization
+      tags:
+      - Organization Memberships
+      x-accepts: application/json
+      x-tags:
+      - tag: Organization Memberships
+    put:
+      description: Add the specified user to the specified organization as a member
+      operationId: addOrganizationMember
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: user id
+        explode: false
+        in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "201":
+          description: success
+      summary: Add an organization member
+      tags:
+      - Organization Memberships
+      x-accepts: application/json
+      x-tags:
+      - tag: Organization Memberships
+  /{realm}/orgs/{orgId}/invitations:
+    get:
+      description: "Get a paginated list of invitations to an organization, using\
+        \ an optional search query for email address."
+      operationId: getOrganizationInvitations
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: first
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: max
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/InvitationRepresentation'
+                type: array
+          description: success
+      summary: Get organization invitations
+      tags:
+      - Organization Invitations
+      x-accepts: application/json
+      x-tags:
+      - tag: Organization Invitations
+    post:
+      operationId: addOrganizationInvitation
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvitationRequestRepresentation'
+        required: true
+      responses:
+        "201":
+          description: success
+        "409":
+          description: invitation already exists
+      summary: Create an invitation to an organization
+      tags:
+      - Organization Invitations
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Organization Invitations
+  /{realm}/orgs/{orgId}/invitations/{invitationId}:
+    delete:
+      operationId: removeOrganizationInvitation
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: invitation id
+        explode: false
+        in: path
+        name: invitationId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: success
+      summary: Remove a pending invitation
+      tags:
+      - Organization Invitations
+      x-accepts: application/json
+      x-tags:
+      - tag: Organization Invitations
+  /{realm}/orgs/{orgId}/roles:
+    get:
+      operationId: getOrganizationRoles
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/OrganizationRoleRepresentation'
+                type: array
+          description: success
+      summary: Get roles for this organization
+      tags:
+      - Organization Roles
+      x-accepts: application/json
+      x-tags:
+      - tag: Organization Roles
+    post:
+      operationId: createOrganizationRole
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizationRoleRepresentation'
+        required: true
+      responses:
+        "201":
+          description: success
+      summary: Create a new role for this organization
+      tags:
+      - Organization Roles
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Organization Roles
+  /{realm}/orgs/{orgId}/roles/{name}:
+    delete:
+      operationId: deleteOrganizationRole
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization role name
+        explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: success
+      summary: Delete this organization role
+      tags:
+      - Organization Roles
+      x-accepts: application/json
+      x-tags:
+      - tag: Organization Roles
+    get:
+      operationId: getOrganizationRole
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization role name
+        explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationRoleRepresentation'
+          description: success
+      summary: Get role for this organization by name
+      tags:
+      - Organization Roles
+      x-accepts: application/json
+      x-tags:
+      - tag: Organization Roles
+    put:
+      operationId: updateOrganizationRole
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization role name
+        explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizationRoleRepresentation'
+        required: true
+      responses:
+        "204":
+          description: success
+      summary: Update role for this organization
+      tags:
+      - Organization Roles
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Organization Roles
+  /{realm}/orgs/{orgId}/roles/{name}/users:
+    get:
+      operationId: getUserOrganizationRoles
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization role name
+        explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/UserRepresentation'
+                type: array
+          description: success
+      summary: Get users with this organization role
+      tags:
+      - Organization Roles
+      x-accepts: application/json
+      x-tags:
+      - tag: Organization Roles
+  /{realm}/orgs/{orgId}/roles/{name}/users/{userId}:
+    delete:
+      description: Revoke the specified organization role from the specified user
+      operationId: revokeUserOrganizationRole
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization role name
+        explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: user id
+        explode: false
+        in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: success
+      summary: Revoke an organization role from a user
+      tags:
+      - Organization Roles
+      x-accepts: application/json
+      x-tags:
+      - tag: Organization Roles
+    get:
+      operationId: checkUserOrganizationRole
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization role name
+        explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: user id
+        explode: false
+        in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: success
+      summary: Check if a user has an organization role
+      tags:
+      - Organization Roles
+      x-accepts: application/json
+      x-tags:
+      - tag: Organization Roles
+    put:
+      description: Grant the specified user to the specified organization role
+      operationId: grantUserOrganizationRole
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization role name
+        explode: false
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: user id
+        explode: false
+        in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "201":
+          description: success
+      summary: Grant a user an organization role
+      tags:
+      - Organization Roles
+      x-accepts: application/json
+      x-tags:
+      - tag: Organization Roles
+  /{realm}/orgs/{orgId}/idps/import-config:
+    post:
+      operationId: importIdpJson
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "2XX":
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+          description: success
+      summary: Import identity provider from uploaded JSON file
+      tags:
+      - Identity Providers
+      x-accepts: application/json
+      x-tags:
+      - tag: Identity Providers
+  /{realm}/orgs/{orgId}/idps:
+    get:
+      operationId: getIdps
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/IdentityProviderRepresentation'
+                type: array
+          description: success
+      summary: Get identity providers for this organization
+      tags:
+      - Identity Providers
+      x-accepts: application/json
+      x-tags:
+      - tag: Identity Providers
+    post:
+      operationId: createIdp
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdentityProviderRepresentation'
+        description: JSON body
+        required: true
+      responses:
+        "201":
+          description: success
+      summary: Create a new identity provider for this organization
+      tags:
+      - Identity Providers
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Identity Providers
+  /{realm}/orgs/{orgId}/idps/{alias}:
+    delete:
+      operationId: deleteIdp
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Identity Provider alias
+        explode: false
+        in: path
+        name: alias
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: success
+      summary: Delete the identity provider
+      tags:
+      - Identity Providers
+      x-accepts: application/json
+      x-tags:
+      - tag: Identity Providers
+    get:
+      operationId: getIdp
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Identity Provider alias
+        explode: false
+        in: path
+        name: alias
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentityProviderRepresentation'
+          description: success
+      summary: Get identity provider for this organization by alias
+      tags:
+      - Identity Providers
+      x-accepts: application/json
+      x-tags:
+      - tag: Identity Providers
+    put:
+      operationId: updateIdp
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Identity Provider alias
+        explode: false
+        in: path
+        name: alias
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdentityProviderRepresentation'
+        required: true
+      responses:
+        "200":
+          description: success
+      summary: Update identity provider for this organization by alias
+      tags:
+      - Identity Providers
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Identity Providers
+  /{realm}/orgs/{orgId}/idps/{alias}/mappers:
+    get:
+      operationId: getIdpMappers
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: alias
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/IdentityProviderMapperRepresentation'
+                type: array
+          description: success
+      summary: Get mappers for identity provider
+      tags:
+      - Identity Providers
+      x-accepts: application/json
+      x-tags:
+      - tag: Identity Providers
+    post:
+      operationId: addIdpMapper
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: alias
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdentityProviderMapperRepresentation'
+        required: true
+      responses:
+        "201":
+          description: success
+      summary: Add a mapper to identity provider
+      tags:
+      - Identity Providers
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Identity Providers
+  /{realm}/orgs/{orgId}/idps/{alias}/mappers/{id}:
+    delete:
+      operationId: deleteIdpMapper
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: alias
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Mapper id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: success
+      summary: Delete a mapper for the identity provider
+      tags:
+      - Identity Providers
+      x-accepts: application/json
+      x-tags:
+      - tag: Identity Providers
+    get:
+      operationId: getIdpMapper
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: alias
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Mapper id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentityProviderMapperRepresentation'
+          description: success
+      summary: Get mapper by id for the identity provider
+      tags:
+      - Identity Providers
+      x-accepts: application/json
+      x-tags:
+      - tag: Identity Providers
+    put:
+      operationId: updateIdpMapper
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: alias
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Mapper id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdentityProviderMapperRepresentation'
+        required: true
+      responses:
+        "200":
+          description: success
+      summary: Update a mapper for the identity provider
+      tags:
+      - Identity Providers
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Identity Providers
+  /{realm}/users/{userId}/orgs:
+    get:
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: user id
+        explode: false
+        in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/OrganizationRepresentation'
+                type: array
+          description: success
+      summary: List organizations for the given user
+      tags:
+      - Users
+      x-accepts: application/json
+      x-tags:
+      - tag: Users
+  /{realm}/users/{userId}/orgs/{orgId}/roles:
+    get:
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: user id
+        explode: false
+        in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/OrganizationRoleRepresentation'
+                type: array
+          description: success
+      summary: List organization roles for the given user and org
+      tags:
+      - Users
+      x-accepts: application/json
+      x-tags:
+      - tag: Users
+  /{realm}/events:
+    post:
+      operationId: createEvent
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventRepresentation'
+        description: JSON body
+        required: true
+      responses:
+        "202":
+          description: Event received
+        "400":
+          description: Malformed event
+        "403":
+          description: Rate limit exceeded
+        "409":
+          description: Reserved event type
+      summary: Create a new audit log event
+      tags:
+      - Events
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Events
+  /{realm}/attributes:
+    get:
+      description: Get a list of attributes for this realm
+      operationId: getRealmAttributes
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/KeyedRealmAttributeRepresentation'
+                type: array
+          description: success
+      summary: Get realm attributes
+      tags:
+      - Attributes
+      x-accepts: application/json
+      x-tags:
+      - tag: Attributes
+    post:
+      operationId: createRealmAttribute
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RealmAttributeRepresentation'
+        description: JSON body
+        required: true
+      responses:
+        "201":
+          description: Attribute created
+        "400":
+          description: Malformed attribute
+      summary: Create a new realm attribute
+      tags:
+      - Attributes
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Attributes
+  /{realm}/attributes/{attributeKey}:
+    delete:
+      operationId: deleteRealmAttribute
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: attribute key
+        explode: false
+        in: path
+        name: attributeKey
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: success
+        "404":
+          description: Realm attribute doesn't exist
+      summary: Delete the realm attribute
+      tags:
+      - Attributes
+      x-accepts: application/json
+      x-tags:
+      - tag: Attributes
+    get:
+      operationId: getRealmAttributeByKey
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: attribute key
+        explode: false
+        in: path
+        name: attributeKey
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RealmAttributeRepresentation'
+          description: success
+        "404":
+          description: Realm attribute doesn't exist
+      summary: Get realm attribute by key
+      tags:
+      - Attributes
+      x-accepts: application/json
+      x-tags:
+      - tag: Attributes
+    put:
+      operationId: updateRealmAttributeByKey
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: attribute key
+        explode: false
+        in: path
+        name: attributeKey
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RealmAttributeRepresentation'
+        required: true
+      responses:
+        "204":
+          description: success
+        "404":
+          description: Realm attribute doesn't exist
+      summary: Update realm attribute by key
+      tags:
+      - Attributes
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Attributes
+  /{realm}/webhooks:
+    get:
+      description: Get a list of webhooks for this realm
+      operationId: getWebhooks
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/WebhookRepresentation'
+                type: array
+          description: success
+      summary: Get webhooks
+      tags:
+      - Events
+      x-accepts: application/json
+      x-tags:
+      - tag: Events
+    post:
+      operationId: createWebhook
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookRepresentation'
+        description: JSON body
+        required: true
+      responses:
+        "201":
+          description: Webhook created
+        "400":
+          description: Malformed webhook
+      summary: Create a new webhook
+      tags:
+      - Events
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Events
+  /{realm}/webhooks/{webhookId}:
+    delete:
+      operationId: deleteWebhook
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: webhook id
+        explode: false
+        in: path
+        name: webhookId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: success
+        "404":
+          description: Webhook doesn't exist
+      summary: Delete the webhook
+      tags:
+      - Events
+      x-accepts: application/json
+      x-tags:
+      - tag: Events
+    get:
+      operationId: getWebhookById
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: webhook id
+        explode: false
+        in: path
+        name: webhookId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookRepresentation'
+          description: success
+        "404":
+          description: Webhook doesn't exist
+      summary: Get webhook by id
+      tags:
+      - Events
+      x-accepts: application/json
+      x-tags:
+      - tag: Events
+    put:
+      operationId: updateWebhook
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: webhook id
+        explode: false
+        in: path
+        name: webhookId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookRepresentation'
+        required: true
+      responses:
+        "204":
+          description: success
+        "404":
+          description: Webhook doesn't exist
+      summary: Update this webhook by id
+      tags:
+      - Events
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Events
+  /{realm}/magic-link:
+    post:
+      operationId: createMagicLink
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MagicLinkRepresentation'
+        description: JSON body
+        required: true
+      responses:
+        "200":
+          description: Magic Link created
+        "400":
+          description: Malformed request
+        "404":
+          description: User or Client not found
+      summary: Create a magic link to log in a user
+      tags:
+      - Users
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Users
+components:
+  schemas:
+    IdentityProviderRepresentation:
+      example:
+        firstBrokerLoginFlowAlias: firstBrokerLoginFlowAlias
+        internalId: internalId
+        addReadTokenRoleOnCreate: true
+        displayName: displayName
+        providerId: providerId
+        postBrokerLoginFlowAlias: postBrokerLoginFlowAlias
+        alias: alias
+        trustEmail: true
+        config:
+          key: ""
+        linkOnly: true
+        enabled: true
+        storeToken: true
+      properties:
+        addReadTokenRoleOnCreate:
+          type: boolean
+        alias:
+          type: string
+        config:
+          additionalProperties: true
+          type: object
+        displayName:
+          type: string
+        enabled:
+          type: boolean
+        firstBrokerLoginFlowAlias:
+          type: string
+        internalId:
+          type: string
+        linkOnly:
+          type: boolean
+        postBrokerLoginFlowAlias:
+          type: string
+        providerId:
+          type: string
+        storeToken:
+          type: boolean
+        trustEmail:
+          type: boolean
+      type: object
+    IdentityProviderMapperRepresentation:
+      example:
+        identityProviderAlias: identityProviderAlias
+        name: name
+        id: id
+        config:
+          key: ""
+        identityProviderMapper: identityProviderMapper
+      properties:
+        config:
+          additionalProperties: true
+          type: object
+        id:
+          type: string
+        identityProviderAlias:
+          type: string
+        identityProviderMapper:
+          type: string
+        name:
+          type: string
+      type: object
+    RealmAttributeRepresentation:
+      example:
+        name: name
+        realm: realm
+        value: value
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+        realm:
+          type: string
+      type: object
+    KeyedRealmAttributeRepresentation:
+      additionalProperties:
+        $ref: '#/components/schemas/RealmAttributeRepresentation'
+      type: object
+    OrganizationRepresentation:
+      example:
+        displayName: displayName
+        name: name
+        domains:
+        - domains
+        - domains
+        realm: realm
+        attributes:
+        - key: ""
+        - key: ""
+        id: id
+        url: url
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        displayName:
+          type: string
+        url:
+          type: string
+        realm:
+          type: string
+        domains:
+          items:
+            type: string
+          type: array
+        attributes:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+      type: object
+    OrganizationDomainRepresentation:
+      example:
+        domain_name: domain_name
+        record_key: record_key
+        record_value: record_value
+        verified: true
+        type: type
+      properties:
+        domain_name:
+          type: string
+        verified:
+          type: boolean
+        record_key:
+          type: string
+        record_value:
+          type: string
+        type:
+          type: string
+      type: object
+    OrganizationRoleRepresentation:
+      example:
+        name: name
+        description: description
+        id: id
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+      type: object
+    PortalLinkRepresentation:
+      example:
+        redirect: redirect
+        link: link
+        user: user
+      properties:
+        user:
+          type: string
+        link:
+          type: string
+        redirect:
+          type: string
+      type: object
+    InvitationRequestRepresentation:
+      example:
+        inviterId: inviterId
+        roles:
+        - roles
+        - roles
+        send: true
+        email: email
+      properties:
+        email:
+          type: string
+        send:
+          type: boolean
+        inviterId:
+          type: string
+        roles:
+          items:
+            type: string
+          type: array
+      type: object
+    InvitationRepresentation:
+      example:
+        organizationId: organizationId
+        inviterId: inviterId
+        roles:
+        - roles
+        - roles
+        id: id
+        email: email
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        inviterId:
+          type: string
+        organizationId:
+          type: string
+        roles:
+          items:
+            type: string
+          type: array
+      type: object
+    UserRepresentation:
+      example:
+        emailVerified: true
+        firstName: firstName
+        lastName: lastName
+        createdTimestamp: 0
+        groups:
+        - groups
+        - groups
+        attributes:
+          key: ""
+        id: id
+        email: email
+        enabled: true
+        username: username
+      properties:
+        attributes:
+          additionalProperties: true
+          type: object
+        createdTimestamp:
+          format: int64
+          type: integer
+        email:
+          type: string
+        emailVerified:
+          type: boolean
+        enabled:
+          type: boolean
+        firstName:
+          type: string
+        groups:
+          items:
+            type: string
+          type: array
+        id:
+          type: string
+        lastName:
+          type: string
+        username:
+          type: string
+      type: object
+    EventRepresentation:
+      example:
+        attributes:
+          key: ""
+        id: id
+      properties:
+        attributes:
+          additionalProperties: true
+          type: object
+        id:
+          type: string
+      type: object
+    WebhookRepresentation:
+      example:
+        event_types:
+        - event_types
+        - event_types
+        created_at: created_at
+        attributes: "{}"
+        realm: realm
+        id: id
+        secret: secret
+        created_by: created_by
+        enabled: true
+        url: url
+      properties:
+        attributes:
+          type: object
+        id:
+          type: string
+        enabled:
+          type: boolean
+        url:
+          type: string
+        secret:
+          type: string
+        created_by:
+          type: string
+        created_at:
+          type: string
+        realm:
+          type: string
+        event_types:
+          items:
+            type: string
+          type: array
+      type: object
+    MagicLinkRepresentation:
+      example:
+        force_create: true
+        send_email: true
+        redirect_uri: redirect_uri
+        email: email
+        client_id: client_id
+        expiration_seconds: 0
+      properties:
+        email:
+          type: string
+        client_id:
+          type: string
+        redirect_uri:
+          type: string
+        expiration_seconds:
+          type: integer
+        force_create:
+          type: boolean
+        send_email:
+          type: boolean
+      required:
+      - client_id
+      - email
+      - redirect_uri
+      type: object
+    createPortalLink_request:
+      properties:
+        userId:
+          type: string
+      type: object
+  securitySchemes:
+    access_token:
+      bearerFormat: ""
+      scheme: bearer
+      type: http
