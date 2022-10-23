@@ -2,8 +2,12 @@ package io.phasetwo.client;
 
 import static io.phasetwo.client.openapi.RestResourceRoot.APPLICATION_PATH;
 import io.phasetwo.client.openapi.api.*;
+import java.lang.reflect.Field;
 import java.net.URI;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.WebTarget;
 import org.keycloak.admin.client.Keycloak;
+import org.keycloak.admin.client.resource.BearerAuthFilter;
 
 /**
  * Main entry point for API. Use the {@link PhaseTwo#organizations(String)},
@@ -40,6 +44,17 @@ public class PhaseTwo {
     return new EventsResource(realm, getEventsApi());
   }
 
+  /**
+   * Events resource for publishing user events. This requires the access token of the
+   * currently logged in user. This will cause the authDetails of the event to represent
+   * the user.
+   * @param realm Realm name
+   * @param accessToken Valid access token for the logged in user
+   */
+  public EventsResource userEvents(String realm, String accessToken) {
+    return new EventsResource(realm, getEventsApi());
+  }
+
   public WebhooksResource webhooks(String realm) {
     return new WebhooksResource(realm, getEventsApi());
   }
@@ -52,6 +67,10 @@ public class PhaseTwo {
     return keycloak.proxy(EventsApi.class, absoluteUri);
   }
   
+  public EventsApi getEventsApiWithToken(String accessToken) {
+    return proxy(EventsApi.class, accessToken);
+  }
+
   public IdentityProvidersApi getIdentityProvidersApi() {
     return keycloak.proxy(IdentityProvidersApi.class, absoluteUri);
   }
@@ -78,6 +97,19 @@ public class PhaseTwo {
   
   public UsersApi getUsersApi() {
     return keycloak.proxy(UsersApi.class, absoluteUri);
+  }
+  
+  <T> T proxy(Class<T> proxyClass, String accessToken) {
+    try {
+      Field privateField = Keycloak.class.getDeclaredField("client");
+      privateField.setAccessible(true);
+      Client client = (Client)privateField.get(keycloak);
+      
+      WebTarget register = client.target(absoluteUri).register(new BearerAuthFilter(accessToken));
+      return Keycloak.getClientProvider().targetProxy(register, proxyClass);
+    } catch (Exception e) {
+      throw new IllegalStateException("Unable to access private field 'client'", e);
+    }
   }
   
 }

@@ -1,5 +1,6 @@
 package io.phasetwo.client.openapi.model;
 
+import io.phasetwo.client.openapi.model.AuthDetailsRepresentation;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,63 +13,253 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("EventRepresentation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2022-10-21T13:51:00.208924Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2022-10-23T17:21:23.401863Z[Etc/UTC]")
 public class EventRepresentation   {
-  private Map<String, Object> attributes = null;
-  private String id;
+  private String uid;
+  private Integer time;
+  private String realmId;
+  private String organizationId;
+  private Integer type;
+  private String representation;
+  private String operationType;
+  private String resourcePath;
+  private String resourceType;
+  private String error;
+  private AuthDetailsRepresentation authDetails;
+  private Map<String, Object> details = null;
 
   /**
    **/
-  public EventRepresentation attributes(Map<String, Object> attributes) {
-    this.attributes = attributes;
+  public EventRepresentation uid(String uid) {
+    this.uid = uid;
     return this;
   }
 
   
-  @JsonProperty("attributes")
-  public Map<String, Object> getAttributes() {
-    return attributes;
+  @JsonProperty("uid")
+  public String getUid() {
+    return uid;
   }
 
-  @JsonProperty("attributes")
-  public void setAttributes(Map<String, Object> attributes) {
-    this.attributes = attributes;
+  @JsonProperty("uid")
+  public void setUid(String uid) {
+    this.uid = uid;
   }
 
-  public EventRepresentation putAttributesItem(String key, Object attributesItem) {
-    if (this.attributes == null) {
-      this.attributes = new HashMap<>();
-    }
-
-    this.attributes.put(key, attributesItem);
-    return this;
-  }
-
-  public EventRepresentation removeAttributesItem(Object attributesItem) {
-    if (attributesItem != null && this.attributes != null) {
-      this.attributes.remove(attributesItem);
-    }
-
-    return this;
-  }
   /**
    **/
-  public EventRepresentation id(String id) {
-    this.id = id;
+  public EventRepresentation time(Integer time) {
+    this.time = time;
     return this;
   }
 
   
-  @JsonProperty("id")
-  public String getId() {
-    return id;
+  @JsonProperty("time")
+  public Integer getTime() {
+    return time;
   }
 
-  @JsonProperty("id")
-  public void setId(String id) {
-    this.id = id;
+  @JsonProperty("time")
+  public void setTime(Integer time) {
+    this.time = time;
   }
 
+  /**
+   **/
+  public EventRepresentation realmId(String realmId) {
+    this.realmId = realmId;
+    return this;
+  }
+
+  
+  @JsonProperty("realmId")
+  public String getRealmId() {
+    return realmId;
+  }
+
+  @JsonProperty("realmId")
+  public void setRealmId(String realmId) {
+    this.realmId = realmId;
+  }
+
+  /**
+   **/
+  public EventRepresentation organizationId(String organizationId) {
+    this.organizationId = organizationId;
+    return this;
+  }
+
+  
+  @JsonProperty("organizationId")
+  public String getOrganizationId() {
+    return organizationId;
+  }
+
+  @JsonProperty("organizationId")
+  public void setOrganizationId(String organizationId) {
+    this.organizationId = organizationId;
+  }
+
+  /**
+   **/
+  public EventRepresentation type(Integer type) {
+    this.type = type;
+    return this;
+  }
+
+  
+  @JsonProperty("type")
+  public Integer getType() {
+    return type;
+  }
+
+  @JsonProperty("type")
+  public void setType(Integer type) {
+    this.type = type;
+  }
+
+  /**
+   **/
+  public EventRepresentation representation(String representation) {
+    this.representation = representation;
+    return this;
+  }
+
+  
+  @JsonProperty("representation")
+  public String getRepresentation() {
+    return representation;
+  }
+
+  @JsonProperty("representation")
+  public void setRepresentation(String representation) {
+    this.representation = representation;
+  }
+
+  /**
+   **/
+  public EventRepresentation operationType(String operationType) {
+    this.operationType = operationType;
+    return this;
+  }
+
+  
+  @JsonProperty("operationType")
+  public String getOperationType() {
+    return operationType;
+  }
+
+  @JsonProperty("operationType")
+  public void setOperationType(String operationType) {
+    this.operationType = operationType;
+  }
+
+  /**
+   **/
+  public EventRepresentation resourcePath(String resourcePath) {
+    this.resourcePath = resourcePath;
+    return this;
+  }
+
+  
+  @JsonProperty("resourcePath")
+  public String getResourcePath() {
+    return resourcePath;
+  }
+
+  @JsonProperty("resourcePath")
+  public void setResourcePath(String resourcePath) {
+    this.resourcePath = resourcePath;
+  }
+
+  /**
+   **/
+  public EventRepresentation resourceType(String resourceType) {
+    this.resourceType = resourceType;
+    return this;
+  }
+
+  
+  @JsonProperty("resourceType")
+  public String getResourceType() {
+    return resourceType;
+  }
+
+  @JsonProperty("resourceType")
+  public void setResourceType(String resourceType) {
+    this.resourceType = resourceType;
+  }
+
+  /**
+   **/
+  public EventRepresentation error(String error) {
+    this.error = error;
+    return this;
+  }
+
+  
+  @JsonProperty("error")
+  public String getError() {
+    return error;
+  }
+
+  @JsonProperty("error")
+  public void setError(String error) {
+    this.error = error;
+  }
+
+  /**
+   **/
+  public EventRepresentation authDetails(AuthDetailsRepresentation authDetails) {
+    this.authDetails = authDetails;
+    return this;
+  }
+
+  
+  @JsonProperty("authDetails")
+  public AuthDetailsRepresentation getAuthDetails() {
+    return authDetails;
+  }
+
+  @JsonProperty("authDetails")
+  public void setAuthDetails(AuthDetailsRepresentation authDetails) {
+    this.authDetails = authDetails;
+  }
+
+  /**
+   **/
+  public EventRepresentation details(Map<String, Object> details) {
+    this.details = details;
+    return this;
+  }
+
+  
+  @JsonProperty("details")
+  public Map<String, Object> getDetails() {
+    return details;
+  }
+
+  @JsonProperty("details")
+  public void setDetails(Map<String, Object> details) {
+    this.details = details;
+  }
+
+  public EventRepresentation putDetailsItem(String key, Object detailsItem) {
+    if (this.details == null) {
+      this.details = new HashMap<>();
+    }
+
+    this.details.put(key, detailsItem);
+    return this;
+  }
+
+  public EventRepresentation removeDetailsItem(Object detailsItem) {
+    if (detailsItem != null && this.details != null) {
+      this.details.remove(detailsItem);
+    }
+
+    return this;
+  }
 
   @Override
   public boolean equals(Object o) {
@@ -79,13 +270,23 @@ public class EventRepresentation   {
       return false;
     }
     EventRepresentation eventRepresentation = (EventRepresentation) o;
-    return Objects.equals(this.attributes, eventRepresentation.attributes) &&
-        Objects.equals(this.id, eventRepresentation.id);
+    return Objects.equals(this.uid, eventRepresentation.uid) &&
+        Objects.equals(this.time, eventRepresentation.time) &&
+        Objects.equals(this.realmId, eventRepresentation.realmId) &&
+        Objects.equals(this.organizationId, eventRepresentation.organizationId) &&
+        Objects.equals(this.type, eventRepresentation.type) &&
+        Objects.equals(this.representation, eventRepresentation.representation) &&
+        Objects.equals(this.operationType, eventRepresentation.operationType) &&
+        Objects.equals(this.resourcePath, eventRepresentation.resourcePath) &&
+        Objects.equals(this.resourceType, eventRepresentation.resourceType) &&
+        Objects.equals(this.error, eventRepresentation.error) &&
+        Objects.equals(this.authDetails, eventRepresentation.authDetails) &&
+        Objects.equals(this.details, eventRepresentation.details);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(attributes, id);
+    return Objects.hash(uid, time, realmId, organizationId, type, representation, operationType, resourcePath, resourceType, error, authDetails, details);
   }
 
   @Override
@@ -93,8 +294,18 @@ public class EventRepresentation   {
     StringBuilder sb = new StringBuilder();
     sb.append("class EventRepresentation {\n");
     
-    sb.append("    attributes: ").append(toIndentedString(attributes)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    uid: ").append(toIndentedString(uid)).append("\n");
+    sb.append("    time: ").append(toIndentedString(time)).append("\n");
+    sb.append("    realmId: ").append(toIndentedString(realmId)).append("\n");
+    sb.append("    organizationId: ").append(toIndentedString(organizationId)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    representation: ").append(toIndentedString(representation)).append("\n");
+    sb.append("    operationType: ").append(toIndentedString(operationType)).append("\n");
+    sb.append("    resourcePath: ").append(toIndentedString(resourcePath)).append("\n");
+    sb.append("    resourceType: ").append(toIndentedString(resourceType)).append("\n");
+    sb.append("    error: ").append(toIndentedString(error)).append("\n");
+    sb.append("    authDetails: ").append(toIndentedString(authDetails)).append("\n");
+    sb.append("    details: ").append(toIndentedString(details)).append("\n");
     sb.append("}");
     return sb.toString();
   }

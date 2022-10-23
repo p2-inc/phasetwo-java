@@ -37,8 +37,9 @@ import org.keycloak.OAuth2Constants;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.KeycloakBuilder;
 import io.phasetwo.client.PhaseTwo;
+import java.util.Optional;
 
-
+// Configure the API connection
 String serverUrl = "https://my-phasetwo-host/auth";
 String realm = "my_realm_name";
 
@@ -52,8 +53,18 @@ Keycloak keycloak = KeycloakBuilder.builder()
 
 PhaseTwo phaseTwo = new PhaseTwo(keycloak, serverUrl);
 
+// Create an Organization
 OrganizationRepresentation org = new OrganizationRepresentation().name("example");
-phaseTwo.organizations(realm).create(org);
+String orgId = phaseTwo.organizations(realm).create(org);
+
+// Create an Admin Portal link for the Organization
+phaseTwo.organizations(realm).organization(orgId).portalLink(Optional.empty());
+
+// Create and publish an Audit Event
+phaseTwo.events(realm).send(new EventRepresentation()
+    .type("foo.bar")
+    .organizationId(orgId)
+    .time(System.currentTimeMillis()));
 ```
 
 ---
