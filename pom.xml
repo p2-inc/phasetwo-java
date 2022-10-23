@@ -4,7 +4,7 @@
   <artifactId>phasetwo-admin-client</artifactId>
   <packaging>jar</packaging>
   <name>phasetwo-admin-client</name>
-  <version>0.0.3-SNAPSHOT</version>
+  <version>0.0.2-SNAPSHOT</version>
 
   <parent>
     <groupId>com.github.xgp</groupId>
