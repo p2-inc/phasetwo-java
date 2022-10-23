@@ -55,3 +55,7 @@ PhaseTwo phaseTwo = new PhaseTwo(keycloak, serverUrl);
 OrganizationRepresentation org = new OrganizationRepresentation().name("example");
 phaseTwo.organizations().createOrganization(realm, org);
 ```
+
+---
+
+All documentation, source code and other files in this repository are Copyright 2022 Phase Two, Inc.
