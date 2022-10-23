@@ -46,7 +46,7 @@ Keycloak keycloak = KeycloakBuilder.builder()
     .serverUrl(serverUrl)
     .realm(realm)
     .grantType(OAuth2Constants.CLIENT_CREDENTIALS)
-    .clientId("my_client_id"))
+    .clientId("my_client_id")
     .clientSecret("my_client_secret")
     .build();
 
