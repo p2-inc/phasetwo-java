@@ -5,6 +5,13 @@ import io.phasetwo.client.openapi.api.*;
 import java.net.URI;
 import org.keycloak.admin.client.Keycloak;
 
+/**
+ * Main entry point for API. Use the {@link PhaseTwo#organizations(String)},
+ * {@link PhaseTwo#attributes(String)},
+ * {@link PhaseTwo#events(String)} and
+ * {@link PhaseTwo#webhooks(String)} methods.
+ * The *Api methods are for direct access to the generated utilities.
+ */
 public class PhaseTwo {
 
   private final Keycloak keycloak;
@@ -24,7 +31,6 @@ public class PhaseTwo {
   public OrganizationsResource organizations(String realm) {
     return new OrganizationsResource(realm, getOrganizationsApi(), this);
   }
-
 
   public RealmAttributesResource attributes(String realm) {
     return new RealmAttributesResource(realm, getAttributesApi());

@@ -1,5 +1,5 @@
 /**
- * Java SDK for Phase Two API. @see <a href="@see <a href="URL#value">label</a>">API Reference</a>.
+ * Java SDK for Phase Two API. @see <a href="https://phasetwo.io/api/">API Reference</a>.
  *
  * <pre>{@code
  * // Set up the Phase Two SDK
