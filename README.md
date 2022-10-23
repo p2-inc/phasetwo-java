@@ -53,7 +53,7 @@ Keycloak keycloak = KeycloakBuilder.builder()
 PhaseTwo phaseTwo = new PhaseTwo(keycloak, serverUrl);
 
 OrganizationRepresentation org = new OrganizationRepresentation().name("example");
-phaseTwo.organizations().createOrganization(realm, org);
+phaseTwo.organizations(realm).create(org);
 ```
 
 ---

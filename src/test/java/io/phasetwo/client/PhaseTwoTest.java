@@ -30,21 +30,21 @@ public class PhaseTwoTest {
   @Test
   public void createOrg() throws Exception {
     PhaseTwo api = new PhaseTwo(container.getKeycloakAdminClient(), container.getAuthServerUrl());
-    OrganizationsApi orgApi = api.organizations();
-    
     OrganizationRepresentation org = new OrganizationRepresentation().name("example");
-    orgApi.createOrganization("master", org);
+    OrganizationsResource orgs = api.organizations("master");
+    String orgId = orgs.create(org);
 
     try {
-      List<OrganizationRepresentation> orgs = orgApi.getOrganizations("master", null, null, null);
-      org = orgs.get(0);
+      List<OrganizationRepresentation> orglist = orgs.get();
+      org = orglist.get(0);
     } catch (Exception e) {
       e.printStackTrace();
     }
     assertThat(org, notNullValue());
     assertThat(org.getName(), is("example"));
+    assertThat(org.getId(), is(orgId));
     
-    orgApi.deleteOrganization("master", org.getId());
+    orgs.organization(org.getId()).delete();
   }
 
 }

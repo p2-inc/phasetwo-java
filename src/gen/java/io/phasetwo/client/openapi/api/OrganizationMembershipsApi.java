@@ -21,7 +21,7 @@ public interface OrganizationMembershipsApi {
 
     @GET
     @Path("/{userId}")
-    void checkOrganizationMembership(@PathParam("realm") String realm,@PathParam("orgId") String orgId,@PathParam("userId") String userId);
+    Response checkOrganizationMembership(@PathParam("realm") String realm,@PathParam("orgId") String orgId,@PathParam("userId") String userId);
 
     @GET
     @Produces({ "application/json" })

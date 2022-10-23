@@ -20,40 +20,57 @@ public class PhaseTwo {
       throw new IllegalArgumentException(e);
     }
   }
-  
-  public AttributesApi attributes() {
+
+  public OrganizationsResource organizations(String realm) {
+    return new OrganizationsResource(realm, getOrganizationsApi(), this);
+  }
+
+
+  public RealmAttributesResource attributes(String realm) {
+    return new RealmAttributesResource(realm, getAttributesApi());
+  }
+
+  public EventsResource events(String realm) {
+    return new EventsResource(realm, getEventsApi());
+  }
+
+  public WebhooksResource webhooks(String realm) {
+    return new WebhooksResource(realm, getEventsApi());
+  }
+
+  public AttributesApi getAttributesApi() {
     return keycloak.proxy(AttributesApi.class, absoluteUri);
   }
   
-  public EventsApi events() {
+  public EventsApi getEventsApi() {
     return keycloak.proxy(EventsApi.class, absoluteUri);
   }
   
-  public IdentityProvidersApi identityProviders() {
+  public IdentityProvidersApi getIdentityProvidersApi() {
     return keycloak.proxy(IdentityProvidersApi.class, absoluteUri);
   }
   
-  public OrganizationDomainsApi organizationDomains() {
+  public OrganizationDomainsApi getOrganizationDomainsApi() {
     return keycloak.proxy(OrganizationDomainsApi.class, absoluteUri);
   }
   
-  public OrganizationInvitationsApi organizationInvitations() {
+  public OrganizationInvitationsApi getOrganizationInvitationsApi() {
     return keycloak.proxy(OrganizationInvitationsApi.class, absoluteUri);
   }
   
-  public OrganizationMembershipsApi organizationMemberships() {
+  public OrganizationMembershipsApi getOrganizationMembershipsApi() {
     return keycloak.proxy(OrganizationMembershipsApi.class, absoluteUri);
   }
   
-  public OrganizationRolesApi organizationRoles() {
+  public OrganizationRolesApi getOrganizationRolesApi() {
     return keycloak.proxy(OrganizationRolesApi.class, absoluteUri);
   }
   
-  public OrganizationsApi organizations() {
+  public OrganizationsApi getOrganizationsApi() {
     return keycloak.proxy(OrganizationsApi.class, absoluteUri);
   }
   
-  public UsersApi users() {
+  public UsersApi getUsersApi() {
     return keycloak.proxy(UsersApi.class, absoluteUri);
   }
   

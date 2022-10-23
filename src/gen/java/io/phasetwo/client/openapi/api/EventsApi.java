@@ -24,7 +24,7 @@ public interface EventsApi {
     @POST
     @Path("/webhooks")
     @Consumes({ "application/json" })
-    void createWebhook(@PathParam("realm") String realm,WebhookRepresentation webhookRepresentation);
+    Response createWebhook(@PathParam("realm") String realm,WebhookRepresentation webhookRepresentation);
 
     @DELETE
     @Path("/webhooks/{webhookId}")

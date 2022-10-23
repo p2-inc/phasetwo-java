@@ -18,7 +18,7 @@ public interface OrganizationsApi {
 
     @POST
     @Consumes({ "application/json" })
-    void createOrganization(@PathParam("realm") String realm,OrganizationRepresentation organizationRepresentation);
+    Response createOrganization(@PathParam("realm") String realm,OrganizationRepresentation organizationRepresentation);
 
     @POST
     @Path("/{orgId}/portal-link")
