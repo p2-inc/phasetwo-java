@@ -13,13 +13,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("EventRepresentation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2022-10-23T17:21:23.401863Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2022-10-26T11:15:04.116427Z[Etc/UTC]")
 public class EventRepresentation   {
   private String uid;
   private Integer time;
   private String realmId;
   private String organizationId;
-  private Integer type;
+  private String type;
   private String representation;
   private String operationType;
   private String resourcePath;
@@ -102,19 +102,19 @@ public class EventRepresentation   {
 
   /**
    **/
-  public EventRepresentation type(Integer type) {
+  public EventRepresentation type(String type) {
     this.type = type;
     return this;
   }
 
   
   @JsonProperty("type")
-  public Integer getType() {
+  public String getType() {
     return type;
   }
 
   @JsonProperty("type")
-  public void setType(Integer type) {
+  public void setType(String type) {
     this.type = type;
   }
 
