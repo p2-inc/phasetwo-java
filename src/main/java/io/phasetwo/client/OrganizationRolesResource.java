@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Optional;
 import javax.ws.rs.core.Response;
 
+import static io.phasetwo.client.Resources.getIdFromResponse;
+
 public class OrganizationRolesResource  {
 
   private final String orgId;
@@ -22,8 +24,9 @@ public class OrganizationRolesResource  {
     return (impl.checkUserOrganizationRole(realm, orgId, role, userId).getStatus() == Response.Status.NO_CONTENT.getStatusCode());
   }
 
-  public void create(OrganizationRoleRepresentation organizationRoleRepresentation) {
-    impl.createOrganizationRole(realm, orgId, organizationRoleRepresentation);
+  public String create(OrganizationRoleRepresentation representation) {
+    return getIdFromResponse(impl.createOrganizationRole(realm, orgId, representation))
+            .orElseThrow(() -> new IllegalStateException("Unable to create organization role for " + representation.getName()));
   }
 
   public void delete(String role) {

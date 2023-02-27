@@ -5,6 +5,8 @@ import io.phasetwo.client.openapi.model.*;
 import java.util.List;
 import java.util.Optional;
 
+import static io.phasetwo.client.Resources.getIdFromResponse;
+
 public class WebhooksResource  {
 
   private final String realm;
@@ -16,9 +18,8 @@ public class WebhooksResource  {
   }
 
   public String create(WebhookRepresentation webhookRepresentation) {
-    Optional<String> id = Resources.getIdFromResponse(impl.createWebhook(realm, webhookRepresentation));
-    if (id.isPresent()) return id.get();
-    else throw new IllegalStateException("Unable to create webhook for "+realm);
+    return getIdFromResponse(impl.createWebhook(realm, webhookRepresentation))
+            .orElseThrow(() -> new IllegalStateException("Unable to create webhook for " + realm));
   }
 
   public void delete(String id) {

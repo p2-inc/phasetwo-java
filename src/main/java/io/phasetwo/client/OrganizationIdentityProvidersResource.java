@@ -5,6 +5,8 @@ import io.phasetwo.client.openapi.model.*;
 import java.util.List;
 import java.util.Optional;
 
+import static io.phasetwo.client.Resources.getIdFromResponse;
+
 public class OrganizationIdentityProvidersResource  {
 
   private final String orgId;
@@ -17,16 +19,14 @@ public class OrganizationIdentityProvidersResource  {
     this.impl = impl;
   }
 
-  public String addMapper(String alias, IdentityProviderMapperRepresentation identityProviderMapperRepresentation) {
-    Optional<String> id = Resources.getIdFromResponse(impl.addIdpMapper(realm, orgId, alias, identityProviderMapperRepresentation));
-    if (id.isPresent()) return id.get();
-    else throw new IllegalStateException("Unable to create mapper for "+alias);
+  public String addMapper(String alias, IdentityProviderMapperRepresentation representation) {
+    return getIdFromResponse(impl.addIdpMapper(realm, orgId, alias, representation))
+            .orElseThrow(() -> new IllegalStateException("Unable to create mapper for " + alias));
   }
 
-  public String create(IdentityProviderRepresentation identityProviderRepresentation) {
-    Optional<String> id = Resources.getIdFromResponse(impl.createIdp(realm, orgId, identityProviderRepresentation));
-    if (id.isPresent()) return id.get();
-    else throw new IllegalStateException("Unable to create mapper for "+identityProviderRepresentation.getAlias());
+  public String create(IdentityProviderRepresentation representation) {
+    return getIdFromResponse(impl.createIdp(realm, orgId, representation))
+            .orElseThrow(() -> new IllegalStateException("Unable to create mapper for " + representation.getAlias()));
   }
 
   public void delete(String alias) {
@@ -55,5 +55,9 @@ public class OrganizationIdentityProvidersResource  {
 
   public void updateMapper(String alias, String id, IdentityProviderMapperRepresentation identityProviderMapperRepresentation) {
     impl.updateIdpMapper(realm, orgId, alias, id, identityProviderMapperRepresentation);
+  }
+
+  public void deleteMapper(String alias, String id) {
+    impl.deleteIdpMapper(realm, orgId, alias, id);
   }
 }

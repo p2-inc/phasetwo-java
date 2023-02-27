@@ -310,6 +310,10 @@ components:
         - email
         - client_id
         - redirect_uri
+    ImportConfigRequest:
+      type: object
+      additionalProperties:
+        type: object
 security:
   - access_token: []
 externalDocs:
@@ -969,6 +973,12 @@ paths:
         - Identity Providers
       summary: Import identity provider from uploaded JSON file
       operationId: importIdpJson
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/definitions/ImportConfigRequest"
+        required: true
       responses:
         2XX:
           description: success
