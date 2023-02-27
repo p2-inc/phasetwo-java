@@ -24,7 +24,7 @@ jobs:
           JAVA_HOME: /usr/lib/jvm/java-11-openjdk/
         with:
           release-branch-name: "main"
-          version-minor: true
+          version-patch: true
 
           git-release-bot-name: "phasetwo-bot"
           git-release-bot-email: "support@phasetwo.io"
@@ -40,6 +40,3 @@ jobs:
           docker-registry-id: ossrh
           docker-registry-username: ${{ secrets.OSSRH_USERNAME }}
           docker-registry-password: ${{ secrets.OSSRH_PASSWORD }}
-
-          maven-development-version-number: ${parsedVersion.majorVersion}.${parsedVersion.nextMinorVersion}-SNAPSHOT
-          maven-release-version-number: ${parsedVersion.majorVersion}.${parsedVersion.minorVersion}
