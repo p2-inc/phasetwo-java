@@ -55,8 +55,9 @@ public interface IdentityProvidersApi {
 
     @POST
     @Path("/import-config")
+    @Consumes({ "application/json" })
     @Produces({ "application/json" })
-    Map<String, Object> importIdpJson(@PathParam("realm") String realm,@PathParam("orgId") String orgId);
+    Map<String, Object> importIdpJson(@PathParam("realm") String realm,@PathParam("orgId") String orgId,Map<String, Object> requestBody);
 
     @PUT
     @Path("/{alias}")

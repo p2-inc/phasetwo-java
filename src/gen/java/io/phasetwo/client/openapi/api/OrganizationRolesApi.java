@@ -22,7 +22,7 @@ public interface OrganizationRolesApi {
 
     @POST
     @Consumes({ "application/json" })
-    void createOrganizationRole(@PathParam("realm") String realm,@PathParam("orgId") String orgId,OrganizationRoleRepresentation organizationRoleRepresentation);
+    Response createOrganizationRole(@PathParam("realm") String realm,@PathParam("orgId") String orgId,OrganizationRoleRepresentation organizationRoleRepresentation);
 
     @DELETE
     @Path("/{name}")

@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Optional;
 import javax.ws.rs.core.Response;
 
+import static io.phasetwo.client.Resources.getIdFromResponse;
+
 public class OrganizationsResource  {
 
   private final String realm;
@@ -22,10 +24,9 @@ public class OrganizationsResource  {
     return new OrganizationResource(orgId, realm, impl, p2);
   }
 
-  public String create(OrganizationRepresentation organizationRepresentation) {
-    Optional<String> id = Resources.getIdFromResponse(impl.createOrganization(realm, organizationRepresentation));
-    if (id.isPresent()) return id.get();
-    else throw new IllegalStateException("Unable to create organization for "+organizationRepresentation.getName());
+  public String create(OrganizationRepresentation representation) {
+    return getIdFromResponse(impl.createOrganization(realm, representation))
+            .orElseThrow(() -> new IllegalStateException("Unable to create organization for " + representation.getName()));
   }
   
   public List<OrganizationRepresentation> get() {

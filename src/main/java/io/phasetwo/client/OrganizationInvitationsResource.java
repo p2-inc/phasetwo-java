@@ -5,6 +5,8 @@ import io.phasetwo.client.openapi.model.*;
 import java.util.List;
 import java.util.Optional;
 
+import static io.phasetwo.client.Resources.getIdFromResponse;
+
 public class OrganizationInvitationsResource  {
 
   private final String orgId;
@@ -17,8 +19,9 @@ public class OrganizationInvitationsResource  {
     this.impl = impl;
   }
 
-  public void add(InvitationRequestRepresentation invitationRequestRepresentation) {
-    impl.addOrganizationInvitation(realm, orgId, invitationRequestRepresentation);
+  public String add(InvitationRequestRepresentation representation) {
+    return getIdFromResponse(impl.addOrganizationInvitation(realm, orgId, representation))
+            .orElseThrow(() -> new IllegalStateException("Unable to create invitation for " + representation));
   }
 
   public List<InvitationRepresentation> get() {
