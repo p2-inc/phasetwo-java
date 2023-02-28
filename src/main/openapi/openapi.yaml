@@ -198,6 +198,13 @@ components:
           type: array
           items:
             type: string
+        createdAt:
+          type: string
+          format: date-time
+        teams:
+          type: array
+          items:
+            type: string
     UserRepresentation:
       type: object
       properties:
@@ -224,7 +231,7 @@ components:
         lastName:
           type: string
         username:
-          type: string          
+          type: string
     AuthDetailsRepresentation:
       type: object
       properties:
