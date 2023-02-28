@@ -23,7 +23,7 @@ public class OrganizationMembershipsResource  {
   }
 
   public boolean isMember(String userId) {
-    return (impl.checkOrganizationMembership(realm, orgId, userId).getStatus() == Response.Status.NO_CONTENT.getStatusCode());
+    return Resources.isNoContent(impl.checkOrganizationMembership(realm, orgId, userId));
   }
 
   public List<UserRepresentation> members() {
