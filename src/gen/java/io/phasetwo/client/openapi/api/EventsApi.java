@@ -13,7 +13,7 @@ import java.util.List;
 
 
 @Path("/{realm}")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2022-10-21T13:51:00.208924Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-05-21T14:48:52.320815Z[Etc/UTC]")
 public interface EventsApi {
 
     @POST
@@ -24,7 +24,7 @@ public interface EventsApi {
     @POST
     @Path("/webhooks")
     @Consumes({ "application/json" })
-    Response createWebhook(@PathParam("realm") String realm,WebhookRepresentation webhookRepresentation);
+    void createWebhook(@PathParam("realm") String realm,WebhookRepresentation webhookRepresentation);
 
     @DELETE
     @Path("/webhooks/{webhookId}")

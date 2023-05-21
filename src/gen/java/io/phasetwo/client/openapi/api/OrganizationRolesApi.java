@@ -13,16 +13,16 @@ import java.util.List;
 
 
 @Path("/{realm}/orgs/{orgId}/roles")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2022-10-21T13:51:00.208924Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-05-21T14:48:52.320815Z[Etc/UTC]")
 public interface OrganizationRolesApi {
 
     @GET
     @Path("/{name}/users/{userId}")
-    Response checkUserOrganizationRole(@PathParam("realm") String realm,@PathParam("orgId") String orgId,@PathParam("name") String name,@PathParam("userId") String userId);
+    void checkUserOrganizationRole(@PathParam("realm") String realm,@PathParam("orgId") String orgId,@PathParam("name") String name,@PathParam("userId") String userId);
 
     @POST
     @Consumes({ "application/json" })
-    Response createOrganizationRole(@PathParam("realm") String realm,@PathParam("orgId") String orgId,OrganizationRoleRepresentation organizationRoleRepresentation);
+    void createOrganizationRole(@PathParam("realm") String realm,@PathParam("orgId") String orgId,OrganizationRoleRepresentation organizationRoleRepresentation);
 
     @DELETE
     @Path("/{name}")

@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @Path("/{realm}/orgs/{orgId}/members")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2022-10-21T13:51:00.208924Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-05-21T14:48:52.320815Z[Etc/UTC]")
 public interface OrganizationMembershipsApi {
 
     @PUT
@@ -21,11 +21,16 @@ public interface OrganizationMembershipsApi {
 
     @GET
     @Path("/{userId}")
-    Response checkOrganizationMembership(@PathParam("realm") String realm,@PathParam("orgId") String orgId,@PathParam("userId") String userId);
+    void checkOrganizationMembership(@PathParam("realm") String realm,@PathParam("orgId") String orgId,@PathParam("userId") String userId);
 
     @GET
     @Produces({ "application/json" })
-    List<UserRepresentation> getOrganizationMemberships(@PathParam("realm") String realm,@PathParam("orgId") String orgId,@QueryParam("first")   Integer first,@QueryParam("max")   Integer max);
+    List<UserRepresentation> getOrganizationMemberships(@PathParam("realm") String realm,@PathParam("orgId") String orgId,@QueryParam("search")   String search,@QueryParam("first")   Integer first,@QueryParam("max")   Integer max);
+
+    @GET
+    @Path("/count")
+    @Produces({ "application/json" })
+    Integer getOrganizationMembershipsCount(@PathParam("realm") String realm,@PathParam("orgId") String orgId);
 
     @DELETE
     @Path("/{userId}")
