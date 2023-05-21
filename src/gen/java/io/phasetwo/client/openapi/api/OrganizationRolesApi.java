@@ -18,11 +18,11 @@ public interface OrganizationRolesApi {
 
     @GET
     @Path("/{name}/users/{userId}")
-    void checkUserOrganizationRole(@PathParam("realm") String realm,@PathParam("orgId") String orgId,@PathParam("name") String name,@PathParam("userId") String userId);
+    Response checkUserOrganizationRole(@PathParam("realm") String realm,@PathParam("orgId") String orgId,@PathParam("name") String name,@PathParam("userId") String userId);
 
     @POST
     @Consumes({ "application/json" })
-    void createOrganizationRole(@PathParam("realm") String realm,@PathParam("orgId") String orgId,OrganizationRoleRepresentation organizationRoleRepresentation);
+    Response createOrganizationRole(@PathParam("realm") String realm,@PathParam("orgId") String orgId,OrganizationRoleRepresentation organizationRoleRepresentation);
 
     @DELETE
     @Path("/{name}")

@@ -19,12 +19,12 @@ public interface EventsApi {
     @POST
     @Path("/events")
     @Consumes({ "application/json" })
-    void createEvent(@PathParam("realm") String realm,EventRepresentation eventRepresentation);
+    Response createEvent(@PathParam("realm") String realm,EventRepresentation eventRepresentation);
 
     @POST
     @Path("/webhooks")
     @Consumes({ "application/json" })
-    void createWebhook(@PathParam("realm") String realm,WebhookRepresentation webhookRepresentation);
+    Response createWebhook(@PathParam("realm") String realm,WebhookRepresentation webhookRepresentation);
 
     @DELETE
     @Path("/webhooks/{webhookId}")

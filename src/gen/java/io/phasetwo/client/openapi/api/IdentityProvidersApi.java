@@ -20,11 +20,11 @@ public interface IdentityProvidersApi {
     @POST
     @Path("/{alias}/mappers")
     @Consumes({ "application/json" })
-    void addIdpMapper(@PathParam("realm") String realm,@PathParam("orgId") String orgId,@PathParam("alias") String alias,IdentityProviderMapperRepresentation identityProviderMapperRepresentation);
+    Response addIdpMapper(@PathParam("realm") String realm,@PathParam("orgId") String orgId,@PathParam("alias") String alias,IdentityProviderMapperRepresentation identityProviderMapperRepresentation);
 
     @POST
     @Consumes({ "application/json" })
-    void createIdp(@PathParam("realm") String realm,@PathParam("orgId") String orgId,IdentityProviderRepresentation identityProviderRepresentation);
+    Response createIdp(@PathParam("realm") String realm,@PathParam("orgId") String orgId,IdentityProviderRepresentation identityProviderRepresentation);
 
     @DELETE
     @Path("/{alias}")
@@ -56,7 +56,7 @@ public interface IdentityProvidersApi {
     @POST
     @Path("/import-config")
     @Produces({ "application/json" })
-    Map<String, Object> importIdpJson(@PathParam("realm") String realm,@PathParam("orgId") String orgId);
+    Map<String, Object> importIdpJson(@PathParam("realm") String realm,@PathParam("orgId") String orgId, Map<String, Object> requestBody);
 
     @PUT
     @Path("/{alias}")

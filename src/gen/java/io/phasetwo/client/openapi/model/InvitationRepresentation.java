@@ -1,6 +1,7 @@
 package io.phasetwo.client.openapi.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import java.util.Objects;
@@ -18,8 +19,9 @@ public class InvitationRepresentation   {
   private String email;
   private String inviterId;
   private String organizationId;
-  private List<String> roles = null;
-
+  private List<String> roles = new ArrayList<String>();
+  private Date createdAt;
+  
   /**
    **/
   public InvitationRepresentation id(String id) {
@@ -127,6 +129,23 @@ public class InvitationRepresentation   {
     return this;
   }
 
+  /**
+   **/
+  public InvitationRepresentation createdAt(Date createdAt) {
+    this.createdAt = createdAt;
+    return this;
+  }
+
+  @JsonProperty("createdAt")
+  public Date getCreatedAt() {
+    return createdAt;
+  }
+
+  @JsonProperty("createdAt")
+  public void setCreatedAt(Date createdAt) {
+    this.createdAt = createdAt;
+  }
+  
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -140,12 +159,13 @@ public class InvitationRepresentation   {
         Objects.equals(this.email, invitationRepresentation.email) &&
         Objects.equals(this.inviterId, invitationRepresentation.inviterId) &&
         Objects.equals(this.organizationId, invitationRepresentation.organizationId) &&
-        Objects.equals(this.roles, invitationRepresentation.roles);
+        Objects.equals(this.roles, invitationRepresentation.roles) &&
+        Objects.equals(this.createdAt, invitationRepresentation.createdAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, email, inviterId, organizationId, roles);
+    return Objects.hash(id, email, inviterId, organizationId, roles, createdAt);
   }
 
   @Override
@@ -158,6 +178,7 @@ public class InvitationRepresentation   {
     sb.append("    inviterId: ").append(toIndentedString(inviterId)).append("\n");
     sb.append("    organizationId: ").append(toIndentedString(organizationId)).append("\n");
     sb.append("    roles: ").append(toIndentedString(roles)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("}");
     return sb.toString();
   }

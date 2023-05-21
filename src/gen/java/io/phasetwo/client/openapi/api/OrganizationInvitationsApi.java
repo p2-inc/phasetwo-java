@@ -18,7 +18,7 @@ public interface OrganizationInvitationsApi {
 
     @POST
     @Consumes({ "application/json" })
-    void addOrganizationInvitation(@PathParam("realm") String realm,@PathParam("orgId") String orgId,InvitationRequestRepresentation invitationRequestRepresentation);
+    Response addOrganizationInvitation(@PathParam("realm") String realm,@PathParam("orgId") String orgId,InvitationRequestRepresentation invitationRequestRepresentation);
 
     @GET
     @Produces({ "application/json" })
