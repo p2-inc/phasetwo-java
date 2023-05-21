@@ -3,6 +3,7 @@ package io.phasetwo.client;
 import io.phasetwo.client.openapi.api.*;
 import io.phasetwo.client.openapi.model.*;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import javax.ws.rs.core.Response;
 
@@ -35,5 +36,13 @@ public class OrganizationsResource  {
   
   public List<OrganizationRepresentation> get(Optional<String> search, Optional<Integer> first, Optional<Integer> max) {
     return impl.getOrganizations(realm, search.orElse(null), first.orElse(null), max.orElse(null));
+  }
+
+  public Integer count(Optional<String> search) {
+    return impl.getOrganizationsCount(realm, search.orElse(null));
+  }
+
+  public Map<String, MyOrganizationRepresentation> me() {
+    return impl.getMe(realm);
   }
 }

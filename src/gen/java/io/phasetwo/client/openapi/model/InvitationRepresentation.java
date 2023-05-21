@@ -13,17 +13,15 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("InvitationRepresentation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-02-28T10:43:46.838649Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-05-21T14:48:52.320815Z[Etc/UTC]")
 public class InvitationRepresentation   {
-
   private String id;
   private String email;
   private String inviterId;
   private String organizationId;
   private List<String> roles = new ArrayList<String>();
   private Date createdAt;
-  private List<String> teams = new ArrayList<String>();
-
+  
   /**
    **/
   public InvitationRepresentation id(String id) {
@@ -31,9 +29,7 @@ public class InvitationRepresentation   {
     return this;
   }
 
-
-
-
+  
   @JsonProperty("id")
   public String getId() {
     return id;
@@ -51,9 +47,7 @@ public class InvitationRepresentation   {
     return this;
   }
 
-
-
-
+  
   @JsonProperty("email")
   public String getEmail() {
     return email;
@@ -71,9 +65,7 @@ public class InvitationRepresentation   {
     return this;
   }
 
-
-
-
+  
   @JsonProperty("inviterId")
   public String getInviterId() {
     return inviterId;
@@ -91,9 +83,7 @@ public class InvitationRepresentation   {
     return this;
   }
 
-
-
-
+  
   @JsonProperty("organizationId")
   public String getOrganizationId() {
     return organizationId;
@@ -111,9 +101,7 @@ public class InvitationRepresentation   {
     return this;
   }
 
-
-
-
+  
   @JsonProperty("roles")
   public List<String> getRoles() {
     return roles;
@@ -126,7 +114,7 @@ public class InvitationRepresentation   {
 
   public InvitationRepresentation addRolesItem(String rolesItem) {
     if (this.roles == null) {
-      this.roles = new ArrayList<String>();
+      this.roles = new ArrayList<>();
     }
 
     this.roles.add(rolesItem);
@@ -140,15 +128,13 @@ public class InvitationRepresentation   {
 
     return this;
   }
+
   /**
    **/
   public InvitationRepresentation createdAt(Date createdAt) {
     this.createdAt = createdAt;
     return this;
   }
-
-
-
 
   @JsonProperty("createdAt")
   public Date getCreatedAt() {
@@ -159,44 +145,7 @@ public class InvitationRepresentation   {
   public void setCreatedAt(Date createdAt) {
     this.createdAt = createdAt;
   }
-
-  /**
-   **/
-  public InvitationRepresentation teams(List<String> teams) {
-    this.teams = teams;
-    return this;
-  }
-
-
-
-
-  @JsonProperty("teams")
-  public List<String> getTeams() {
-    return teams;
-  }
-
-  @JsonProperty("teams")
-  public void setTeams(List<String> teams) {
-    this.teams = teams;
-  }
-
-  public InvitationRepresentation addTeamsItem(String teamsItem) {
-    if (this.teams == null) {
-      this.teams = new ArrayList<String>();
-    }
-
-    this.teams.add(teamsItem);
-    return this;
-  }
-
-  public InvitationRepresentation removeTeamsItem(String teamsItem) {
-    if (teamsItem != null && this.teams != null) {
-      this.teams.remove(teamsItem);
-    }
-
-    return this;
-  }
-
+  
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -207,31 +156,29 @@ public class InvitationRepresentation   {
     }
     InvitationRepresentation invitationRepresentation = (InvitationRepresentation) o;
     return Objects.equals(this.id, invitationRepresentation.id) &&
-            Objects.equals(this.email, invitationRepresentation.email) &&
-            Objects.equals(this.inviterId, invitationRepresentation.inviterId) &&
-            Objects.equals(this.organizationId, invitationRepresentation.organizationId) &&
-            Objects.equals(this.roles, invitationRepresentation.roles) &&
-            Objects.equals(this.createdAt, invitationRepresentation.createdAt) &&
-            Objects.equals(this.teams, invitationRepresentation.teams);
+        Objects.equals(this.email, invitationRepresentation.email) &&
+        Objects.equals(this.inviterId, invitationRepresentation.inviterId) &&
+        Objects.equals(this.organizationId, invitationRepresentation.organizationId) &&
+        Objects.equals(this.roles, invitationRepresentation.roles) &&
+        Objects.equals(this.createdAt, invitationRepresentation.createdAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, email, inviterId, organizationId, roles, createdAt, teams);
+    return Objects.hash(id, email, inviterId, organizationId, roles, createdAt);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class InvitationRepresentation {\n");
-
+    
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    inviterId: ").append(toIndentedString(inviterId)).append("\n");
     sb.append("    organizationId: ").append(toIndentedString(organizationId)).append("\n");
     sb.append("    roles: ").append(toIndentedString(roles)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    teams: ").append(toIndentedString(teams)).append("\n");
     sb.append("}");
     return sb.toString();
   }

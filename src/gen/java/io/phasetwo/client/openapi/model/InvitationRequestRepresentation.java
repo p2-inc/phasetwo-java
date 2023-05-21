@@ -12,11 +12,12 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("InvitationRequestRepresentation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2022-10-21T13:51:00.208924Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-05-21T14:48:52.320815Z[Etc/UTC]")
 public class InvitationRequestRepresentation   {
   private String email;
   private Boolean send;
   private String inviterId;
+  private String redirectUri;
   private List<String> roles = null;
 
   /**
@@ -75,6 +76,24 @@ public class InvitationRequestRepresentation   {
 
   /**
    **/
+  public InvitationRequestRepresentation redirectUri(String redirectUri) {
+    this.redirectUri = redirectUri;
+    return this;
+  }
+
+  
+  @JsonProperty("redirectUri")
+  public String getRedirectUri() {
+    return redirectUri;
+  }
+
+  @JsonProperty("redirectUri")
+  public void setRedirectUri(String redirectUri) {
+    this.redirectUri = redirectUri;
+  }
+
+  /**
+   **/
   public InvitationRequestRepresentation roles(List<String> roles) {
     this.roles = roles;
     return this;
@@ -120,12 +139,13 @@ public class InvitationRequestRepresentation   {
     return Objects.equals(this.email, invitationRequestRepresentation.email) &&
         Objects.equals(this.send, invitationRequestRepresentation.send) &&
         Objects.equals(this.inviterId, invitationRequestRepresentation.inviterId) &&
+        Objects.equals(this.redirectUri, invitationRequestRepresentation.redirectUri) &&
         Objects.equals(this.roles, invitationRequestRepresentation.roles);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(email, send, inviterId, roles);
+    return Objects.hash(email, send, inviterId, redirectUri, roles);
   }
 
   @Override
@@ -136,6 +156,7 @@ public class InvitationRequestRepresentation   {
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    send: ").append(toIndentedString(send)).append("\n");
     sb.append("    inviterId: ").append(toIndentedString(inviterId)).append("\n");
+    sb.append("    redirectUri: ").append(toIndentedString(redirectUri)).append("\n");
     sb.append("    roles: ").append(toIndentedString(roles)).append("\n");
     sb.append("}");
     return sb.toString();

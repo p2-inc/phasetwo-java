@@ -27,11 +27,15 @@ public class OrganizationMembershipsResource  {
   }
 
   public List<UserRepresentation> members() {
-    return members(Optional.empty(), Optional.empty());
+    return members(Optional.empty(), Optional.empty(), Optional.empty());
   }
 
-  public List<UserRepresentation> members(Optional<Integer> first, Optional<Integer> max) {
-    return impl.getOrganizationMemberships(realm, orgId, first.orElse(null), max.orElse(null));
+  public List<UserRepresentation> members(Optional<String> search, Optional<Integer> first, Optional<Integer> max) {
+    return impl.getOrganizationMemberships(realm, orgId, search.orElse(null), first.orElse(null), max.orElse(null));
+  }
+
+  public Integer count() {
+    return impl.getOrganizationMembershipsCount(realm, orgId);
   }
 
   public void remove(String userId) {
