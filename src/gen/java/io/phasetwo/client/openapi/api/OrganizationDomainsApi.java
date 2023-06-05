@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @Path("/{realm}/orgs/{orgId}/domains")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-05-21T14:48:52.320815Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-05T12:39:00.868500Z[Etc/UTC]")
 public interface OrganizationDomainsApi {
 
     @GET

@@ -35,7 +35,11 @@ public class OrganizationsResource  {
   }
   
   public List<OrganizationRepresentation> get(Optional<String> search, Optional<Integer> first, Optional<Integer> max) {
-    return impl.getOrganizations(realm, search.orElse(null), first.orElse(null), max.orElse(null));
+    return impl.getOrganizations(realm, search.orElse(null), first.orElse(null), max.orElse(null), null);
+  }
+
+  public List<OrganizationRepresentation> get(Optional<String> search, Optional<String> attrSearch, Optional<Integer> first, Optional<Integer> max) {
+    return impl.getOrganizations(realm, search.orElse(null), first.orElse(null), max.orElse(null), attrSearch.orElse(null));
   }
 
   public Integer count(Optional<String> search) {
