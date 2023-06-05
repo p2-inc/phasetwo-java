@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @JsonTypeName("IdentityProviderRepresentation")
 @JsonIgnoreProperties(ignoreUnknown = true)
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-05-21T14:48:52.320815Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-05T12:39:00.868500Z[Etc/UTC]")
 public class IdentityProviderRepresentation   {
   private Boolean addReadTokenRoleOnCreate;
   private String alias;

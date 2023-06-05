@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("InvitationRepresentation")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-05-21T14:48:52.320815Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-05T12:39:00.868500Z[Etc/UTC]")
 public class InvitationRepresentation   {
   private String id;
   private String email;
@@ -21,6 +21,23 @@ public class InvitationRepresentation   {
   private String organizationId;
   private List<String> roles = new ArrayList<String>();
   private Date createdAt;
+
+  /**
+   **/
+  public InvitationRepresentation createdAt(Date createdAt) {
+    this.createdAt = createdAt;
+    return this;
+  }
+
+  @JsonProperty("createdAt")
+  public Date getCreatedAt() {
+    return createdAt;
+  }
+
+  @JsonProperty("createdAt")
+  public void setCreatedAt(Date createdAt) {
+    this.createdAt = createdAt;
+  }
   
   /**
    **/
@@ -129,23 +146,6 @@ public class InvitationRepresentation   {
     return this;
   }
 
-  /**
-   **/
-  public InvitationRepresentation createdAt(Date createdAt) {
-    this.createdAt = createdAt;
-    return this;
-  }
-
-  @JsonProperty("createdAt")
-  public Date getCreatedAt() {
-    return createdAt;
-  }
-
-  @JsonProperty("createdAt")
-  public void setCreatedAt(Date createdAt) {
-    this.createdAt = createdAt;
-  }
-  
   @Override
   public boolean equals(Object o) {
     if (this == o) {

@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @Path("/{realm}/orgs")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-05-21T14:48:52.320815Z[Etc/UTC]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-05T12:39:00.868500Z[Etc/UTC]")
 public interface OrganizationsApi {
 
     @POST
@@ -43,7 +43,7 @@ public interface OrganizationsApi {
 
     @GET
     @Produces({ "application/json" })
-    List<OrganizationRepresentation> getOrganizations(@PathParam("realm") String realm,@QueryParam("search")   String search,@QueryParam("first")   Integer first,@QueryParam("max")   Integer max);
+    List<OrganizationRepresentation> getOrganizations(@PathParam("realm") String realm,@QueryParam("search")   String search,@QueryParam("first")   Integer first,@QueryParam("max")   Integer max,@QueryParam("q")   String q);
 
     @GET
     @Path("/count")
