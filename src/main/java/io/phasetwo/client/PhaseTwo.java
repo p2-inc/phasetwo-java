@@ -32,6 +32,10 @@ public class PhaseTwo {
     }
   }
 
+  public UsersResource users(String realm) {
+    return new UsersResource(realm, getUsersApi());
+  }
+
   public OrganizationsResource organizations(String realm) {
     return new OrganizationsResource(realm, getOrganizationsApi(), this);
   }
@@ -93,6 +97,10 @@ public class PhaseTwo {
   
   public OrganizationsApi getOrganizationsApi() {
     return keycloak.proxy(OrganizationsApi.class, absoluteUri);
+  }
+
+  public OrganizationGroupsApi getOrganizationGroupsApi() {
+    return keycloak.proxy(OrganizationGroupsApi.class, absoluteUri);
   }
   
   public UsersApi getUsersApi() {

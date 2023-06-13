@@ -42,6 +42,10 @@ public class OrganizationResource  {
     return impl.createPortalLink(realm, orgId, userId.orElse(null));
   }
 
+  public OrganizationGroupsResource groups() {
+    return new OrganizationGroupsResource(orgId, realm, p2.getOrganizationGroupsApi());
+  }
+
   public void delete() {
     impl.deleteOrganization(realm, orgId);
   }

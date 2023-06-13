@@ -21,7 +21,7 @@ public class OrganizationRolesResource  {
   }
 
   public boolean hasRole(String role, String userId) {
-    return (impl.checkUserOrganizationRole(realm, orgId, role, userId).getStatus() == Response.Status.NO_CONTENT.getStatusCode());
+    return Resources.isNoContent(impl.checkUserOrganizationRole(realm, orgId, role, userId));
   }
 
   public String create(OrganizationRoleRepresentation representation) {

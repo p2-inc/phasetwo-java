@@ -321,6 +321,23 @@ components:
       type: object
       additionalProperties:
         type: object
+    OrganizationGroupRepresentation:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        parentId:
+          type: string
+        attributes:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
 security:
   - access_token: []
 externalDocs:
@@ -1275,6 +1292,324 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/OrganizationRoleRepresentation'
+  /{realm}/orgs/{orgId}/groups:
+    parameters:
+      - in: path
+        name: realm
+        description: realm name (not id!)
+        required: true
+        schema:
+          type: string
+        style: simple
+      - in: path
+        name: orgId
+        description: organization id
+        required: true
+        schema:
+          type: string
+        style: simple
+    get:
+      tags:
+        - Organization groups
+      summary: Get groups for the organization
+      operationId: getOrganizationGroups
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrganizationGroupRepresentation'
+    post:
+      tags:
+        - Organization groups
+      summary: Create a new group for the organization
+      operationId: createOrganizationGroup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizationGroupRepresentation'
+        required: true
+      responses:
+        201:
+          description: success
+  /{realm}/orgs/{orgId}/groups/{groupId}:
+    parameters:
+      - in: path
+        name: realm
+        description: realm name (not id!)
+        required: true
+        schema:
+          type: string
+        style: simple
+      - in: path
+        name: orgId
+        description: organization id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - in: path
+        name: groupId
+        required: true
+        schema:
+          type: string
+        style: simple
+    get:
+      tags:
+        - Organization groups
+      summary: Get group by id for the organization
+      operationId: getOrganizationGroup
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationGroupRepresentation'
+    put:
+      tags:
+        - Organization groups
+      summary: Update a group for the organization
+      operationId: updateOrganizationGroup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizationGroupRepresentation'
+        required: true
+      responses:
+        200:
+          description: success
+    delete:
+      tags:
+        - Organization groups
+      summary: Delete a group for the organization
+      operationId: deleteOrganizationGroup
+      responses:
+        204:
+          description: success
+  /{realm}/orgs/{orgId}/groups/{groupId}/children:
+    parameters:
+      - in: path
+        name: realm
+        description: realm name (not id!)
+        required: true
+        schema:
+          type: string
+        style: simple
+      - in: path
+        name: orgId
+        description: organization id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - in: path
+        name: groupId
+        required: true
+        schema:
+          type: string
+        style: simple
+    get:
+      tags:
+        - Organization groups
+      summary: Get children of the organization group by id
+      operationId: getOrganizationGroupChildren
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrganizationGroupRepresentation'
+  /{realm}/orgs/{orgId}/groups/{groupId}/users:
+    parameters:
+      - in: path
+        name: realm
+        description: realm name (not id!)
+        required: true
+        schema:
+          type: string
+        style: simple
+      - in: path
+        name: orgId
+        description: organization id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - in: path
+        name: groupId
+        description: organization group id
+        required: true
+        schema:
+          type: string
+        style: simple
+    get:
+      tags:
+        - Organization Groups
+      summary: Get users from this organization group
+      operationId: getUsersFromOrganizationGroup
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserRepresentation'
+  /{realm}/orgs/{orgId}/groups/{groupId}/users/{userId}:
+    parameters:
+      - in: path
+        name: realm
+        description: realm name (not id!)
+        required: true
+        schema:
+          type: string
+        style: simple
+      - in: path
+        name: orgId
+        description: organization id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - in: path
+        name: groupId
+        description: organization group id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - in: path
+        name: userId
+        description: user id
+        required: true
+        schema:
+          type: string
+        style: simple
+    get:
+      tags:
+        - Organization groups
+      summary: Check if a user is a member of the organization group
+      operationId: isMemberOfOrganizationGroup
+      responses:
+        204:
+          description: success
+    put:
+      tags:
+        - Organization groups
+      summary: Include a user to the organization group
+      operationId: addUserToOrganizationGroup
+      responses:
+        201:
+          description: success
+    delete:
+      tags:
+        - Organization groups
+      summary: Remove a user from the organization group
+      operationId: removeUserFromOrganizationGroup
+      responses:
+        204:
+          description: success
+  /{realm}/orgs/{orgId}/groups/{groupId}/roles:
+    parameters:
+      - in: path
+        name: realm
+        description: realm name (not id!)
+        required: true
+        schema:
+          type: string
+        style: simple
+      - in: path
+        name: orgId
+        description: organization id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - in: path
+        name: groupId
+        description: organization group id
+        required: true
+        schema:
+          type: string
+        style: simple
+    get:
+      tags:
+        - Organization groups
+      summary: Get roles of the specified group from the organization
+      operationId: getOrganizationGroupRoles
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrganizationRoleRepresentation'
+  /{realm}/orgs/{orgId}/groups/{groupId}/roles/{roleName}:
+    parameters:
+      - in: path
+        name: realm
+        description: realm name (not id!)
+        required: true
+        schema:
+          type: string
+        style: simple
+      - in: path
+        name: orgId
+        description: organization id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - in: path
+        name: groupId
+        description: organization group id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - in: path
+        name: roleName
+        description: organization role name
+        required: true
+        schema:
+          type: string
+        style: simple
+    get:
+      tags:
+        - Organization groups
+      summary: Check if a group has an organization role
+      operationId: checkGroupOrganizationRole
+      responses:
+        204:
+          description: success
+    put:
+      tags:
+        - Organization groups
+      summary: Grant a group an organization role
+      operationId: grantGroupOrganizationRole
+      responses:
+        201:
+          description: success
+    delete:
+      tags:
+        - Organization groups
+      summary: Revoke an organization role from the group
+      operationId: revokeGroupOrganizationRole
+      responses:
+        204:
+          description: success
   /{realm}/events:
     parameters:
       - in: path
