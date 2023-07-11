@@ -5,7 +5,7 @@ import io.phasetwo.client.openapi.model.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response;
 
 import static io.phasetwo.client.Resources.getIdFromResponse;
 

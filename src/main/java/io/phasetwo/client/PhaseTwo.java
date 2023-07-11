@@ -4,8 +4,8 @@ import static io.phasetwo.client.openapi.RestResourceRoot.APPLICATION_PATH;
 import io.phasetwo.client.openapi.api.*;
 import java.lang.reflect.Field;
 import java.net.URI;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.WebTarget;
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.WebTarget;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.resource.BearerAuthFilter;
 

@@ -4,8 +4,8 @@ import io.phasetwo.client.openapi.model.IdentityProviderMapperRepresentation;
 import io.phasetwo.client.openapi.model.IdentityProviderRepresentation;
 import java.util.Map;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Response;
 
 
 import java.io.InputStream;
@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @Path("/{realm}/orgs/{orgId}/idps")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-05T12:39:00.868500Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-05T12:39:00.868500Z[Etc/UTC]")
 public interface IdentityProvidersApi {
 
     @POST
@@ -56,6 +56,7 @@ public interface IdentityProvidersApi {
     @POST
     @Path("/import-config")
     @Produces({ "application/json" })
+    @Consumes({ "application/json" })
     Map<String, Object> importIdpJson(@PathParam("realm") String realm,@PathParam("orgId") String orgId, Map<String, Object> requestBody);
 
     @PUT
