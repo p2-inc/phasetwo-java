@@ -15,7 +15,7 @@ import java.util.List;
 public class PhaseTwoTest {
 
   public static final KeycloakContainer container =
-      new KeycloakContainer("quay.io/phasetwo/phasetwo-keycloak:21.1.1.1684512753").withContextPath("/auth").withReuse(true);
+      new KeycloakContainer("quay.io/phasetwo/phasetwo-keycloak:21.1.2.1688664025").withContextPath("/auth").withReuse(true);
 
   @BeforeAll
   public static void beforeAll() {
