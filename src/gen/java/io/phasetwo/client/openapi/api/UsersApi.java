@@ -4,8 +4,8 @@ import io.phasetwo.client.openapi.model.MagicLinkRepresentation;
 import io.phasetwo.client.openapi.model.OrganizationRepresentation;
 import io.phasetwo.client.openapi.model.OrganizationRoleRepresentation;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.Response;
 
 
 import java.io.InputStream;
@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @Path("/{realm}")
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-05T12:39:00.868500Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-05T12:39:00.868500Z[Etc/UTC]")
 public interface UsersApi {
 
     @POST
