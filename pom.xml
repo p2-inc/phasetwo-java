@@ -33,10 +33,11 @@
   </scm>
 
   <properties>
-    <java.version>11</java.version>
+    <java.version>17</java.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <keycloak.version>22.0.1</keycloak.version>
     <jackson-version>2.15.2</jackson-version>
     <junit-version>5.8.2</junit-version>
     <joda-version>2.10.13</joda-version>
@@ -129,7 +130,7 @@
     <dependency>
       <groupId>org.keycloak</groupId>
       <artifactId>keycloak-admin-client</artifactId>
-      <version>22.0.0</version>
+      <version>${keycloak.version}</version>
     </dependency>
     <dependency>
       <groupId>jakarta.annotation</groupId>
@@ -148,6 +149,7 @@
       <version>3.0.2</version>
     </dependency>
 
+    <!-- testing deps -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>

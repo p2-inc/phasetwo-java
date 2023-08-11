@@ -6,6 +6,7 @@ import java.lang.reflect.Field;
 import java.net.URI;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.WebTarget;
+import jakarta.ws.rs.core.UriBuilder;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.resource.BearerAuthFilter;
 
@@ -17,16 +18,14 @@ import org.keycloak.admin.client.resource.BearerAuthFilter;
  * The *Api methods are for direct access to the generated utilities.
  */
 public class PhaseTwo {
-
+  
   private final Keycloak keycloak;
-  private final String serverUrl;
   private final URI absoluteUri;
 
   public PhaseTwo(Keycloak keycloak, String serverUrl) {
     this.keycloak = keycloak;
-    this.serverUrl = serverUrl;
     try {
-      this.absoluteUri = new URI(serverUrl).resolve(APPLICATION_PATH);
+      this.absoluteUri = UriBuilder.fromUri(serverUrl).path(APPLICATION_PATH).build();
     } catch (Exception e) {
       throw new IllegalArgumentException(e);
     }
@@ -52,7 +51,7 @@ public class PhaseTwo {
    * @param accessToken Valid access token for the logged in user
    */
   public EventsResource userEvents(String realm, String accessToken) {
-    return new EventsResource(realm, getEventsApi());
+    return new EventsResource(realm, getEventsApiWithToken(accessToken));
   }
 
   public WebhooksResource webhooks(String realm) {

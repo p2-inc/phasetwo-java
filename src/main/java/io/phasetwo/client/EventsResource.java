@@ -2,8 +2,6 @@ package io.phasetwo.client;
 
 import io.phasetwo.client.openapi.api.*;
 import io.phasetwo.client.openapi.model.*;
-import java.util.List;
-import java.util.Optional;
 
 public class EventsResource  {
 
