@@ -40,6 +40,7 @@ import io.phasetwo.client.PhaseTwo;
 import java.util.Optional;
 
 // Configure the API connection
+// use they Keycloak "authServerUrl" that contains the relative path
 String serverUrl = "https://my-phasetwo-host/auth";
 String realm = "my_realm_name";
 
@@ -69,4 +70,4 @@ phaseTwo.events(realm).send(new EventRepresentation()
 
 ---
 
-All documentation, source code and other files in this repository are Copyright 2022 Phase Two, Inc.
+All documentation, source code and other files in this repository are Copyright 2023 Phase Two, Inc.

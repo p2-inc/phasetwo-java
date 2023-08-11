@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("InvitationRepresentation")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-05T12:39:00.868500Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")
 public class InvitationRepresentation   {
   private String id;
   private String email;
@@ -38,7 +38,7 @@ public class InvitationRepresentation   {
   public void setCreatedAt(Date createdAt) {
     this.createdAt = createdAt;
   }
-  
+
   /**
    **/
   public InvitationRepresentation id(String id) {

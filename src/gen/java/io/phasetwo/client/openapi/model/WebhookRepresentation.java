@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("WebhookRepresentation")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-05T12:39:00.868500Z[Etc/UTC]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")
 public class WebhookRepresentation   {
   private Object attributes;
   private String id;
@@ -122,12 +122,12 @@ public class WebhookRepresentation   {
   }
 
   
-  @JsonProperty("created_by")
+  @JsonProperty("createdBy")
   public String getCreatedBy() {
     return createdBy;
   }
 
-  @JsonProperty("created_by")
+  @JsonProperty("createdBy")
   public void setCreatedBy(String createdBy) {
     this.createdBy = createdBy;
   }
@@ -140,12 +140,12 @@ public class WebhookRepresentation   {
   }
 
   
-  @JsonProperty("created_at")
+  @JsonProperty("createdAt")
   public String getCreatedAt() {
     return createdAt;
   }
 
-  @JsonProperty("created_at")
+  @JsonProperty("createdAt")
   public void setCreatedAt(String createdAt) {
     this.createdAt = createdAt;
   }
@@ -176,12 +176,12 @@ public class WebhookRepresentation   {
   }
 
   
-  @JsonProperty("event_types")
+  @JsonProperty("eventTypes")
   public List<String> getEventTypes() {
     return eventTypes;
   }
 
-  @JsonProperty("event_types")
+  @JsonProperty("eventTypes")
   public void setEventTypes(List<String> eventTypes) {
     this.eventTypes = eventTypes;
   }
