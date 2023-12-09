@@ -6,7 +6,7 @@ The Phase Two Java SDK library provides access to the Phase Two API from applica
 
 ## Documentation
 
-See the [API Reference](https://phasetwo.io/api/) and [Javadoc](https://javadoc.io/doc/io.phasetwo/phasetwo-admin-client)
+See the [API Reference]([https://phasetwo.io/api/](https://phasetwo.io/api/phase-two-admin-rest-api)) and [Javadoc](https://javadoc.io/doc/io.phasetwo/phasetwo-admin-client)
 
 ## Installation
 
