@@ -2,7 +2,9 @@ package io.phasetwo.client.openapi.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -19,9 +21,10 @@ public class InvitationRepresentation   {
   private String email;
   private String inviterId;
   private String organizationId;
-  private List<String> roles = new ArrayList<String>();
+  private List<String> roles = null;
+  private Map<String, List<String>> attributes = null;
   private Date createdAt;
-
+  
   /**
    **/
   public InvitationRepresentation createdAt(Date createdAt) {
@@ -145,6 +148,40 @@ public class InvitationRepresentation   {
 
     return this;
   }
+  /**
+   **/
+  public InvitationRepresentation attributes(Map<String, List<String>> attributes) {
+    this.attributes = attributes;
+    return this;
+  }
+
+  
+  @JsonProperty("attributes")
+  public Map<String, List<String>> getAttributes() {
+    return attributes;
+  }
+
+  @JsonProperty("attributes")
+  public void setAttributes(Map<String, List<String>> attributes) {
+    this.attributes = attributes;
+  }
+
+  public InvitationRepresentation putAttributesItem(String key, List<String> attributesItem) {
+    if (this.attributes == null) {
+      this.attributes = new HashMap<>();
+    }
+
+    this.attributes.put(key, attributesItem);
+    return this;
+  }
+
+  public InvitationRepresentation removeAttributesItem(List<String> attributesItem) {
+    if (attributesItem != null && this.attributes != null) {
+      this.attributes.remove(attributesItem);
+    }
+
+    return this;
+  }
 
   @Override
   public boolean equals(Object o) {
@@ -160,12 +197,13 @@ public class InvitationRepresentation   {
         Objects.equals(this.inviterId, invitationRepresentation.inviterId) &&
         Objects.equals(this.organizationId, invitationRepresentation.organizationId) &&
         Objects.equals(this.roles, invitationRepresentation.roles) &&
-        Objects.equals(this.createdAt, invitationRepresentation.createdAt);
+        Objects.equals(this.createdAt, invitationRepresentation.createdAt) &&
+        Objects.equals(this.attributes, invitationRepresentation.attributes);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, email, inviterId, organizationId, roles, createdAt);
+    return Objects.hash(id, email, inviterId, organizationId, roles, createdAt, attributes);
   }
 
   @Override
@@ -179,6 +217,7 @@ public class InvitationRepresentation   {
     sb.append("    organizationId: ").append(toIndentedString(organizationId)).append("\n");
     sb.append("    roles: ").append(toIndentedString(roles)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+    sb.append("    attributes: ").append(toIndentedString(attributes)).append("\n");
     sb.append("}");
     return sb.toString();
   }

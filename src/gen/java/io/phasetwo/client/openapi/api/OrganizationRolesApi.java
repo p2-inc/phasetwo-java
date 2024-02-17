@@ -1,5 +1,7 @@
 package io.phasetwo.client.openapi.api;
 
+import io.phasetwo.client.openapi.model.BulkResponseItem;
+import java.util.List;
 import io.phasetwo.client.openapi.model.OrganizationRoleRepresentation;
 import io.phasetwo.client.openapi.model.UserRepresentation;
 
@@ -24,9 +26,19 @@ public interface OrganizationRolesApi {
     @Consumes({ "application/json" })
     Response createOrganizationRole(@PathParam("realm") String realm,@PathParam("orgId") String orgId,OrganizationRoleRepresentation organizationRoleRepresentation);
 
+    @PUT
+    @Consumes({ "application/json" })
+    @Produces({ "application/json" })
+    List<BulkResponseItem> createOrganizationRoles(@PathParam("realm") String realm,@PathParam("orgId") String orgId,List<OrganizationRoleRepresentation> organizationRoleRepresentation);
+
     @DELETE
     @Path("/{name}")
     void deleteOrganizationRole(@PathParam("realm") String realm,@PathParam("orgId") String orgId,@PathParam("name") String name);
+
+    @PATCH
+    @Consumes({ "application/json" })
+    @Produces({ "application/json" })
+    List<BulkResponseItem> deleteOrganizationRoles(@PathParam("realm") String realm,@PathParam("orgId") String orgId,List<OrganizationRoleRepresentation> organizationRoleRepresentation);
 
     @GET
     @Path("/{name}")

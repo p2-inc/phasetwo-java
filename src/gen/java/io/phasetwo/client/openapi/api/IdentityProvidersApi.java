@@ -2,6 +2,7 @@ package io.phasetwo.client.openapi.api;
 
 import io.phasetwo.client.openapi.model.IdentityProviderMapperRepresentation;
 import io.phasetwo.client.openapi.model.IdentityProviderRepresentation;
+import io.phasetwo.client.openapi.model.LinkIdentityProviderRepresentation;
 import java.util.Map;
 
 import jakarta.ws.rs.*;
@@ -56,8 +57,12 @@ public interface IdentityProvidersApi {
     @POST
     @Path("/import-config")
     @Produces({ "application/json" })
+    Map<String, Object> importIdpJson(@PathParam("realm") String realm,@PathParam("orgId") String orgId);
+
+    @POST
+    @Path("/link")
     @Consumes({ "application/json" })
-    Map<String, Object> importIdpJson(@PathParam("realm") String realm,@PathParam("orgId") String orgId, Map<String, Object> requestBody);
+    Response linkIdp(@PathParam("realm") String realm,@PathParam("orgId") String orgId,LinkIdentityProviderRepresentation linkIdentityProviderRepresentation);
 
     @PUT
     @Path("/{alias}")

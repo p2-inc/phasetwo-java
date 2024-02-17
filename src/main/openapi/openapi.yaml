@@ -1,7 +1,7 @@
 openapi: 3.0.2
 info:
   description: |
-    This is a REST API reference for the Phase Two Keycloak custom resources. These are extensions to the standard [Keycloak Admin REST API](https://www.keycloak.org/docs-api/17.0/rest-api/index.html).
+    This is a REST API reference for the Phase Two Keycloak custom resources. These are extensions to the standard [Keycloak Admin REST API](https://www.keycloak.org/docs-api/23.0.6/rest-api/index.html).
 
     ### Base URI format
     Paths specified in the documentation are relative to the the base URI.
@@ -34,7 +34,7 @@ info:
     ```
 
     ### SDKs
-    Modern API libraries are available for several common languages. These are available as open source at the links below, or you can choose to generate your own using our [OpenAPI spec file](https://raw.githubusercontent.com/p2-inc/phasetwo-docs/master/openapi.yaml).
+    Modern API libraries are available for several common languages. These are available as open source at the links below, or you can choose to generate your own using our [OpenAPI spec file](https://raw.githubusercontent.com/p2-inc/phasetwo-docs/main/openapi.yaml).
 
     | Language | Library |
     | --- | --- |
@@ -826,6 +826,85 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: Organization Invitations
+    get:
+      description: Get an invitation to an organization by its uuid.
+      operationId: getOrganizationInvitationById
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: invitation id
+        explode: false
+        in: path
+        name: invitationId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvitationRepresentation'
+          description: success
+      summary: Get organization invitation by ID
+      tags:
+      - Organization Invitation
+      x-accepts: application/json
+      x-tags:
+      - tag: Organization Invitation
+  /{realm}/orgs/{orgId}/invitations/{invitationId}/resend-email:
+    put:
+      description: Resend the email for an existing Organization Invitation
+      operationId: resendOrganizationInvitation
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: invitation id
+        explode: false
+        in: path
+        name: invitationId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: success
+      summary: Resend an Organization Invitation
+      tags:
+      - Organization Invitation
+      x-accepts: application/json
+      x-tags:
+      - tag: Organization Invitation
   /{realm}/orgs/{orgId}/roles:
     get:
       operationId: getOrganizationRoles
@@ -861,6 +940,49 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: Organization Roles
+    patch:
+      operationId: deleteOrganizationRoles
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/OrganizationRoleRepresentation'
+              type: array
+        required: true
+      responses:
+        "207":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/BulkResponseItem'
+                type: array
+          description: Multi Status
+      summary: Delete this organization roles
+      tags:
+      - Organization Roles
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Organization Roles
     post:
       operationId: createOrganizationRole
       parameters:
@@ -890,6 +1012,49 @@ paths:
         "201":
           description: success
       summary: Create a new role for this organization
+      tags:
+      - Organization Roles
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Organization Roles
+    put:
+      operationId: createOrganizationRoles
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/OrganizationRoleRepresentation'
+              type: array
+        required: true
+      responses:
+        "207":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/BulkResponseItem'
+                type: array
+          description: Multi Status
+      summary: Create new roles for this organization
       tags:
       - Organization Roles
       x-content-type: application/json
@@ -1293,6 +1458,43 @@ paths:
         "201":
           description: success
       summary: Create a new identity provider for this organization
+      tags:
+      - Identity Providers
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Identity Providers
+  /{realm}/orgs/{orgId}/idps/link:
+    post:
+      operationId: linkIdp
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LinkIdentityProviderRepresentation'
+        description: JSON body
+        required: true
+      responses:
+        "201":
+          description: success
+      summary: Link an existing identity provider to this organization
       tags:
       - Identity Providers
       x-content-type: application/json
@@ -1720,6 +1922,106 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: Users
+    patch:
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: user id
+        explode: false
+        in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/OrganizationRoleRepresentation'
+              type: array
+        required: true
+      responses:
+        "207":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/BulkResponseItem'
+                type: array
+          description: Multi Status
+      summary: Revoke organization roles from a user
+      tags:
+      - Users
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Users
+    put:
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: user id
+        explode: false
+        in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/OrganizationRoleRepresentation'
+              type: array
+        required: true
+      responses:
+        "207":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/BulkResponseItem'
+                type: array
+          description: Multi Status
+      summary: Grant a user organization roles
+      tags:
+      - Users
+      x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Users
   /{realm}/events:
     post:
       operationId: createEvent
@@ -2110,6 +2412,19 @@ paths:
       - tag: Users
 components:
   schemas:
+    BulkResponseItem:
+      example:
+        item: "{}"
+        error: error
+        status: 0
+      properties:
+        status:
+          type: integer
+        error:
+          type: string
+        item:
+          type: object
+      type: object
     MyOrganizationsRepresentation:
       additionalProperties:
         $ref: '#/components/schemas/MyOrganizationRepresentation'
@@ -2194,6 +2509,19 @@ components:
         identityProviderMapper:
           type: string
         name:
+          type: string
+      type: object
+    LinkIdentityProviderRepresentation:
+      example:
+        sync_mode: sync_mode
+        post_broker_flow: post_broker_flow
+        alias: alias
+      properties:
+        alias:
+          type: string
+        post_broker_flow:
+          type: string
+        sync_mode:
           type: string
       type: object
     RealmAttributeRepresentation:
@@ -2301,6 +2629,10 @@ components:
         roles:
         - roles
         - roles
+        attributes:
+          key:
+          - attributes
+          - attributes
         send: true
         email: email
       properties:
@@ -2316,6 +2648,12 @@ components:
           items:
             type: string
           type: array
+        attributes:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          type: object
       type: object
     InvitationRepresentation:
       example:
@@ -2324,6 +2662,10 @@ components:
         roles:
         - roles
         - roles
+        attributes:
+          key:
+          - attributes
+          - attributes
         id: id
         email: email
       properties:
@@ -2339,6 +2681,12 @@ components:
           items:
             type: string
           type: array
+        attributes:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          type: object
       type: object
     UserRepresentation:
       example:
