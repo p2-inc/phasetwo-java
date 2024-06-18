@@ -789,6 +789,41 @@ paths:
       x-accepts: application/json
       x-tags:
       - tag: Organization Invitations
+  /{realm}/orgs/{orgId}/invitations/count:
+    get:
+      description: Get a count of invitations to an organization
+      operationId: getOrganizationInvitationCount
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                format: int32
+                type: integer
+          description: success
+      summary: Get organization invitation count
+      tags:
+      - Organization Invitation
+      x-accepts: application/json
+      x-tags:
+      - tag: Organization Invitation
   /{realm}/orgs/{orgId}/invitations/{invitationId}:
     delete:
       operationId: removeOrganizationInvitation
@@ -1498,6 +1533,43 @@ paths:
       tags:
       - Identity Providers
       x-content-type: application/json
+      x-accepts: application/json
+      x-tags:
+      - tag: Identity Providers
+  /{realm}/orgs/{orgId}/idps/${idpAlias}/unlink:
+    post:
+      operationId: unlinkIdp
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: idp alias
+        explode: false
+        in: path
+        name: idpAlias
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: success
+      summary: Unlink an existing and linked identity provider from this organization
+      tags:
+      - Identity Providers
       x-accepts: application/json
       x-tags:
       - tag: Identity Providers

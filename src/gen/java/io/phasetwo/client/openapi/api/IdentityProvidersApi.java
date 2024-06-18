@@ -64,6 +64,10 @@ public interface IdentityProvidersApi {
     @Consumes({ "application/json" })
     Response linkIdp(@PathParam("realm") String realm,@PathParam("orgId") String orgId,LinkIdentityProviderRepresentation linkIdentityProviderRepresentation);
 
+    @POST
+    @Path("/{alias}/unlink")
+    void unlinkIdp(@PathParam("realm") String realm,@PathParam("orgId") String orgId,@PathParam("alias") String alias);
+
     @PUT
     @Path("/{alias}")
     @Consumes({ "application/json" })
