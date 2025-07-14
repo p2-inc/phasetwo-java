@@ -127,13 +127,14 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/OrganizationRepresentation'
+                  $ref: "#/components/schemas/OrganizationRepresentation"
                 type: array
           description: success
       summary: Get organizations
       tags:
       - Organizations
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Organizations
     post:
@@ -151,7 +152,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/OrganizationRepresentation'
+              $ref: "#/components/schemas/OrganizationRepresentation"
         required: true
       responses:
         "201":
@@ -167,7 +168,8 @@ paths:
       tags:
       - Organizations
       x-content-type: application/json
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Organizations
   /{realm}/orgs/count:
@@ -201,7 +203,8 @@ paths:
       summary: Get organizations count
       tags:
       - Organizations
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Organizations
   /{realm}/orgs/me:
@@ -223,12 +226,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MyOrganizationsRepresentation'
+                $ref: "#/components/schemas/MyOrganizationsRepresentation"
           description: success
       summary: Get orgs and roles for authenticated user
       tags:
       - Organizations
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Organizations
   /{realm}/orgs/{orgId}:
@@ -257,7 +261,8 @@ paths:
       summary: Delete the organization
       tags:
       - Organizations
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Organizations
     get:
@@ -284,12 +289,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrganizationRepresentation'
+                $ref: "#/components/schemas/OrganizationRepresentation"
           description: success
       summary: Get organization by id
       tags:
       - Organizations
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Organizations
     put:
@@ -315,7 +321,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/OrganizationRepresentation'
+              $ref: "#/components/schemas/OrganizationRepresentation"
         required: true
       responses:
         "204":
@@ -324,7 +330,8 @@ paths:
       tags:
       - Organizations
       x-content-type: application/json
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Organizations
   /{realm}/orgs/{orgId}/portal-link:
@@ -355,19 +362,20 @@ paths:
         content:
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/createPortalLink_request'
+              $ref: "#/components/schemas/createPortalLink_request"
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PortalLinkRepresentation'
+                $ref: "#/components/schemas/PortalLinkRepresentation"
           description: success
       summary: Create a link for the organization's admin portal
       tags:
       - Organizations
       x-content-type: application/x-www-form-urlencoded
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Organizations
   /{realm}/orgs/{orgId}/members:
@@ -421,13 +429,14 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/UserRepresentation'
+                  $ref: "#/components/schemas/UserRepresentation"
                 type: array
           description: success
       summary: Get organization memberships
       tags:
       - Organization Memberships
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Organization Memberships
   /{realm}/orgs/{orgId}/members/count:
@@ -462,7 +471,8 @@ paths:
       summary: Get organization members count
       tags:
       - Organization Memberships
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Organization Memberships
   /{realm}/orgs/{orgId}/domains:
@@ -491,13 +501,14 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/OrganizationDomainRepresentation'
+                  $ref: "#/components/schemas/OrganizationDomainRepresentation"
                 type: array
           description: success
       summary: Get details for all domains owned by an organization
       tags:
       - Organization Domains
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Organization Domains
   /{realm}/orgs/{orgId}/domains/{domainName}:
@@ -533,12 +544,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrganizationDomainRepresentation'
+                $ref: "#/components/schemas/OrganizationDomainRepresentation"
           description: success
       summary: Get details for a domain owned by an organization
       tags:
       - Organization Domains
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Organization Domains
   /{realm}/orgs/{orgId}/domains/{domainName}/verify:
@@ -577,7 +589,8 @@ paths:
       summary: Start domain verification
       tags:
       - Organization Domains
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Organization Domains
   /{realm}/orgs/{orgId}/members/{userId}:
@@ -616,7 +629,8 @@ paths:
       summary: Remove an organization member
       tags:
       - Organization Memberships
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Organization Memberships
     get:
@@ -652,7 +666,8 @@ paths:
       summary: Check if a user is a member of an organization
       tags:
       - Organization Memberships
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Organization Memberships
     put:
@@ -689,7 +704,8 @@ paths:
       summary: Add an organization member
       tags:
       - Organization Memberships
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Organization Memberships
   /{realm}/orgs/{orgId}/invitations:
@@ -743,13 +759,14 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/InvitationRepresentation'
+                  $ref: "#/components/schemas/InvitationRepresentation"
                 type: array
           description: success
       summary: Get organization invitations
       tags:
       - Organization Invitations
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Organization Invitations
     post:
@@ -775,7 +792,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/InvitationRequestRepresentation'
+              $ref: "#/components/schemas/InvitationRequestRepresentation"
         required: true
       responses:
         "201":
@@ -786,7 +803,8 @@ paths:
       tags:
       - Organization Invitations
       x-content-type: application/json
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Organization Invitations
   /{realm}/orgs/{orgId}/invitations/count:
@@ -821,7 +839,8 @@ paths:
       summary: Get organization invitation count
       tags:
       - Organization Invitation
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Organization Invitation
   /{realm}/orgs/{orgId}/invitations/{invitationId}:
@@ -858,7 +877,8 @@ paths:
       summary: Remove a pending invitation
       tags:
       - Organization Invitations
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Organization Invitations
     get:
@@ -894,12 +914,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/InvitationRepresentation'
+                $ref: "#/components/schemas/InvitationRepresentation"
           description: success
       summary: Get organization invitation by ID
       tags:
       - Organization Invitation
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Organization Invitation
   /{realm}/orgs/{orgId}/invitations/{invitationId}/resend-email:
@@ -937,7 +958,8 @@ paths:
       summary: Resend an Organization Invitation
       tags:
       - Organization Invitation
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Organization Invitation
   /{realm}/orgs/{orgId}/roles:
@@ -966,13 +988,14 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/OrganizationRoleRepresentation'
+                  $ref: "#/components/schemas/OrganizationRoleRepresentation"
                 type: array
           description: success
       summary: Get roles for this organization
       tags:
       - Organization Roles
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Organization Roles
     patch:
@@ -999,7 +1022,7 @@ paths:
           application/json:
             schema:
               items:
-                $ref: '#/components/schemas/OrganizationRoleRepresentation'
+                $ref: "#/components/schemas/OrganizationRoleRepresentation"
               type: array
         required: true
       responses:
@@ -1008,14 +1031,15 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/BulkResponseItem'
+                  $ref: "#/components/schemas/BulkResponseItem"
                 type: array
           description: Multi Status
       summary: Delete this organization roles
       tags:
       - Organization Roles
       x-content-type: application/json
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Organization Roles
     post:
@@ -1041,7 +1065,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/OrganizationRoleRepresentation'
+              $ref: "#/components/schemas/OrganizationRoleRepresentation"
         required: true
       responses:
         "201":
@@ -1050,7 +1074,8 @@ paths:
       tags:
       - Organization Roles
       x-content-type: application/json
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Organization Roles
     put:
@@ -1077,7 +1102,7 @@ paths:
           application/json:
             schema:
               items:
-                $ref: '#/components/schemas/OrganizationRoleRepresentation'
+                $ref: "#/components/schemas/OrganizationRoleRepresentation"
               type: array
         required: true
       responses:
@@ -1086,14 +1111,15 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/BulkResponseItem'
+                  $ref: "#/components/schemas/BulkResponseItem"
                 type: array
           description: Multi Status
       summary: Create new roles for this organization
       tags:
       - Organization Roles
       x-content-type: application/json
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Organization Roles
   /{realm}/orgs/{orgId}/roles/{name}:
@@ -1130,7 +1156,8 @@ paths:
       summary: Delete this organization role
       tags:
       - Organization Roles
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Organization Roles
     get:
@@ -1165,12 +1192,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrganizationRoleRepresentation'
+                $ref: "#/components/schemas/OrganizationRoleRepresentation"
           description: success
       summary: Get role for this organization by name
       tags:
       - Organization Roles
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Organization Roles
     put:
@@ -1204,7 +1232,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/OrganizationRoleRepresentation'
+              $ref: "#/components/schemas/OrganizationRoleRepresentation"
         required: true
       responses:
         "204":
@@ -1213,7 +1241,8 @@ paths:
       tags:
       - Organization Roles
       x-content-type: application/json
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Organization Roles
   /{realm}/orgs/{orgId}/roles/{name}/users:
@@ -1250,13 +1279,14 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/UserRepresentation'
+                  $ref: "#/components/schemas/UserRepresentation"
                 type: array
           description: success
       summary: Get users with this organization role
       tags:
       - Organization Roles
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Organization Roles
   /{realm}/orgs/{orgId}/roles/{name}/users/{userId}:
@@ -1302,7 +1332,8 @@ paths:
       summary: Revoke an organization role from a user
       tags:
       - Organization Roles
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Organization Roles
     get:
@@ -1346,7 +1377,8 @@ paths:
       summary: Check if a user has an organization role
       tags:
       - Organization Roles
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Organization Roles
     put:
@@ -1391,7 +1423,8 @@ paths:
       summary: Grant a user an organization role
       tags:
       - Organization Roles
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Organization Roles
   /{realm}/orgs/{orgId}/idps/import-config:
@@ -1425,7 +1458,8 @@ paths:
       summary: Import identity provider from uploaded JSON file
       tags:
       - Identity Providers
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Identity Providers
   /{realm}/orgs/{orgId}/idps:
@@ -1454,13 +1488,14 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/IdentityProviderRepresentation'
+                  $ref: "#/components/schemas/IdentityProviderRepresentation"
                 type: array
           description: success
       summary: Get identity providers for this organization
       tags:
       - Identity Providers
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Identity Providers
     post:
@@ -1486,7 +1521,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/IdentityProviderRepresentation'
+              $ref: "#/components/schemas/IdentityProviderRepresentation"
         description: JSON body
         required: true
       responses:
@@ -1496,7 +1531,8 @@ paths:
       tags:
       - Identity Providers
       x-content-type: application/json
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Identity Providers
   /{realm}/orgs/{orgId}/idps/link:
@@ -1523,7 +1559,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/LinkIdentityProviderRepresentation'
+              $ref: "#/components/schemas/LinkIdentityProviderRepresentation"
         description: JSON body
         required: true
       responses:
@@ -1533,7 +1569,8 @@ paths:
       tags:
       - Identity Providers
       x-content-type: application/json
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Identity Providers
   /{realm}/orgs/{orgId}/idps/${idpAlias}/unlink:
@@ -1570,7 +1607,8 @@ paths:
       summary: Unlink an existing and linked identity provider from this organization
       tags:
       - Identity Providers
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Identity Providers
   /{realm}/orgs/{orgId}/idps/{alias}:
@@ -1607,7 +1645,8 @@ paths:
       summary: Delete the identity provider
       tags:
       - Identity Providers
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Identity Providers
     get:
@@ -1642,12 +1681,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/IdentityProviderRepresentation'
+                $ref: "#/components/schemas/IdentityProviderRepresentation"
           description: success
       summary: Get identity provider for this organization by alias
       tags:
       - Identity Providers
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Identity Providers
     put:
@@ -1681,7 +1721,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/IdentityProviderRepresentation'
+              $ref: "#/components/schemas/IdentityProviderRepresentation"
         required: true
       responses:
         "200":
@@ -1690,7 +1730,8 @@ paths:
       tags:
       - Identity Providers
       x-content-type: application/json
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Identity Providers
   /{realm}/orgs/{orgId}/idps/{alias}/mappers:
@@ -1726,13 +1767,14 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/IdentityProviderMapperRepresentation'
+                  $ref: "#/components/schemas/IdentityProviderMapperRepresentation"
                 type: array
           description: success
       summary: Get mappers for identity provider
       tags:
       - Identity Providers
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Identity Providers
     post:
@@ -1765,7 +1807,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/IdentityProviderMapperRepresentation'
+              $ref: "#/components/schemas/IdentityProviderMapperRepresentation"
         required: true
       responses:
         "201":
@@ -1774,7 +1816,8 @@ paths:
       tags:
       - Identity Providers
       x-content-type: application/json
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Identity Providers
   /{realm}/orgs/{orgId}/idps/{alias}/mappers/{id}:
@@ -1818,7 +1861,8 @@ paths:
       summary: Delete a mapper for the identity provider
       tags:
       - Identity Providers
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Identity Providers
     get:
@@ -1860,12 +1904,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/IdentityProviderMapperRepresentation'
+                $ref: "#/components/schemas/IdentityProviderMapperRepresentation"
           description: success
       summary: Get mapper by id for the identity provider
       tags:
       - Identity Providers
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Identity Providers
     put:
@@ -1906,7 +1951,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/IdentityProviderMapperRepresentation'
+              $ref: "#/components/schemas/IdentityProviderMapperRepresentation"
         required: true
       responses:
         "200":
@@ -1915,7 +1960,8 @@ paths:
       tags:
       - Identity Providers
       x-content-type: application/json
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Identity Providers
   /{realm}/users/{userId}/orgs:
@@ -1943,13 +1989,14 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/OrganizationRepresentation'
+                  $ref: "#/components/schemas/OrganizationRepresentation"
                 type: array
           description: success
       summary: List organizations for the given user
       tags:
       - Users
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Users
   /{realm}/users/{userId}/orgs/{orgId}/roles:
@@ -1985,13 +2032,14 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/OrganizationRoleRepresentation'
+                  $ref: "#/components/schemas/OrganizationRoleRepresentation"
                 type: array
           description: success
       summary: List organization roles for the given user and org
       tags:
       - Users
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Users
     patch:
@@ -2025,7 +2073,7 @@ paths:
           application/json:
             schema:
               items:
-                $ref: '#/components/schemas/OrganizationRoleRepresentation'
+                $ref: "#/components/schemas/OrganizationRoleRepresentation"
               type: array
         required: true
       responses:
@@ -2034,14 +2082,15 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/BulkResponseItem'
+                  $ref: "#/components/schemas/BulkResponseItem"
                 type: array
           description: Multi Status
       summary: Revoke organization roles from a user
       tags:
       - Users
       x-content-type: application/json
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Users
     put:
@@ -2075,7 +2124,7 @@ paths:
           application/json:
             schema:
               items:
-                $ref: '#/components/schemas/OrganizationRoleRepresentation'
+                $ref: "#/components/schemas/OrganizationRoleRepresentation"
               type: array
         required: true
       responses:
@@ -2084,14 +2133,15 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/BulkResponseItem'
+                  $ref: "#/components/schemas/BulkResponseItem"
                 type: array
           description: Multi Status
       summary: Grant a user organization roles
       tags:
       - Users
       x-content-type: application/json
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Users
   /{realm}/events:
@@ -2110,7 +2160,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/EventRepresentation'
+              $ref: "#/components/schemas/EventRepresentation"
         description: JSON body
         required: true
       responses:
@@ -2126,7 +2176,8 @@ paths:
       tags:
       - Events
       x-content-type: application/json
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Events
   /{realm}/attributes:
@@ -2148,13 +2199,14 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/KeyedRealmAttributeRepresentation'
+                  $ref: "#/components/schemas/KeyedRealmAttributeRepresentation"
                 type: array
           description: success
       summary: Get realm attributes
       tags:
       - Attributes
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Attributes
     post:
@@ -2172,7 +2224,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RealmAttributeRepresentation'
+              $ref: "#/components/schemas/RealmAttributeRepresentation"
         description: JSON body
         required: true
       responses:
@@ -2184,7 +2236,8 @@ paths:
       tags:
       - Attributes
       x-content-type: application/json
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Attributes
   /{realm}/attributes/{attributeKey}:
@@ -2215,7 +2268,8 @@ paths:
       summary: Delete the realm attribute
       tags:
       - Attributes
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Attributes
     get:
@@ -2242,14 +2296,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RealmAttributeRepresentation'
+                $ref: "#/components/schemas/RealmAttributeRepresentation"
           description: success
         "404":
           description: Realm attribute doesn't exist
       summary: Get realm attribute by key
       tags:
       - Attributes
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Attributes
     put:
@@ -2275,7 +2330,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RealmAttributeRepresentation'
+              $ref: "#/components/schemas/RealmAttributeRepresentation"
         required: true
       responses:
         "204":
@@ -2286,7 +2341,8 @@ paths:
       tags:
       - Attributes
       x-content-type: application/json
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Attributes
   /{realm}/webhooks:
@@ -2308,13 +2364,14 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/WebhookRepresentation'
+                  $ref: "#/components/schemas/WebhookRepresentation"
                 type: array
           description: success
       summary: Get webhooks
       tags:
       - Events
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Events
     post:
@@ -2332,7 +2389,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/WebhookRepresentation'
+              $ref: "#/components/schemas/WebhookRepresentation"
         description: JSON body
         required: true
       responses:
@@ -2344,7 +2401,8 @@ paths:
       tags:
       - Events
       x-content-type: application/json
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Events
   /{realm}/webhooks/{webhookId}:
@@ -2375,7 +2433,8 @@ paths:
       summary: Delete the webhook
       tags:
       - Events
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Events
     get:
@@ -2402,14 +2461,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/WebhookRepresentation'
+                $ref: "#/components/schemas/WebhookRepresentation"
           description: success
         "404":
           description: Webhook doesn't exist
       summary: Get webhook by id
       tags:
       - Events
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Events
     put:
@@ -2435,7 +2495,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/WebhookRepresentation'
+              $ref: "#/components/schemas/WebhookRepresentation"
         required: true
       responses:
         "204":
@@ -2446,7 +2506,8 @@ paths:
       tags:
       - Events
       x-content-type: application/json
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Events
   /{realm}/magic-link:
@@ -2465,7 +2526,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MagicLinkRepresentation'
+              $ref: "#/components/schemas/MagicLinkRepresentation"
         description: JSON body
         required: true
       responses:
@@ -2479,7 +2540,8 @@ paths:
       tags:
       - Users
       x-content-type: application/json
-      x-accepts: application/json
+      x-accepts:
+      - application/json
       x-tags:
       - tag: Users
 components:
@@ -2499,7 +2561,7 @@ components:
       type: object
     MyOrganizationsRepresentation:
       additionalProperties:
-        $ref: '#/components/schemas/MyOrganizationRepresentation'
+        $ref: "#/components/schemas/MyOrganizationRepresentation"
       type: object
     MyOrganizationRepresentation:
       properties:
@@ -2611,7 +2673,7 @@ components:
       type: object
     KeyedRealmAttributeRepresentation:
       additionalProperties:
-        $ref: '#/components/schemas/RealmAttributeRepresentation'
+        $ref: "#/components/schemas/RealmAttributeRepresentation"
       type: object
     OrganizationRepresentation:
       example:
@@ -2866,7 +2928,7 @@ components:
         error:
           type: string
         authDetails:
-          $ref: '#/components/schemas/AuthDetailsRepresentation'
+          $ref: "#/components/schemas/AuthDetailsRepresentation"
         details:
           additionalProperties: true
           type: object

@@ -1,6 +1,7 @@
 package io.phasetwo.client.openapi.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import java.util.Objects;
@@ -12,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("WebhookRepresentation")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.14.0")
 public class WebhookRepresentation   {
   private Object attributes;
   private String id;
@@ -22,7 +23,10 @@ public class WebhookRepresentation   {
   private String createdBy;
   private String createdAt;
   private String realm;
-  private List<String> eventTypes = null;
+  private List<String> eventTypes = new ArrayList<>();
+
+  public WebhookRepresentation() {
+  }
 
   /**
    **/

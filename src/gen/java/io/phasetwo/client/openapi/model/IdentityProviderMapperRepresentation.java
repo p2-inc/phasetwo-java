@@ -12,13 +12,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("IdentityProviderMapperRepresentation")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.14.0")
 public class IdentityProviderMapperRepresentation   {
-  private Map<String, Object> config = null;
+  private Map<String, Object> config = new HashMap<>();
   private String id;
   private String identityProviderAlias;
   private String identityProviderMapper;
   private String name;
+
+  public IdentityProviderMapperRepresentation() {
+  }
 
   /**
    **/
@@ -47,9 +50,9 @@ public class IdentityProviderMapperRepresentation   {
     return this;
   }
 
-  public IdentityProviderMapperRepresentation removeConfigItem(Object configItem) {
-    if (configItem != null && this.config != null) {
-      this.config.remove(configItem);
+  public IdentityProviderMapperRepresentation removeConfigItem(String key) {
+    if (this.config != null) {
+      this.config.remove(key);
     }
 
     return this;

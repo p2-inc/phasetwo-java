@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("EventRepresentation")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.14.0")
 public class EventRepresentation   {
   private String uid;
   private Integer time;
@@ -26,7 +26,10 @@ public class EventRepresentation   {
   private String resourceType;
   private String error;
   private AuthDetailsRepresentation authDetails;
-  private Map<String, Object> details = null;
+  private Map<String, Object> details = new HashMap<>();
+
+  public EventRepresentation() {
+  }
 
   /**
    **/
@@ -253,9 +256,9 @@ public class EventRepresentation   {
     return this;
   }
 
-  public EventRepresentation removeDetailsItem(Object detailsItem) {
-    if (detailsItem != null && this.details != null) {
-      this.details.remove(detailsItem);
+  public EventRepresentation removeDetailsItem(String key) {
+    if (this.details != null) {
+      this.details.remove(key);
     }
 
     return this;

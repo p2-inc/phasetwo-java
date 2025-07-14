@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("MagicLinkRepresentation")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.14.0")
 public class MagicLinkRepresentation   {
   private String email;
   private String clientId;
@@ -18,6 +18,20 @@ public class MagicLinkRepresentation   {
   private Integer expirationSeconds;
   private Boolean forceCreate;
   private Boolean sendEmail;
+
+  public MagicLinkRepresentation() {
+  }
+
+  @JsonCreator
+  public MagicLinkRepresentation(
+    @JsonProperty(required = true, value = "email") String email,
+    @JsonProperty(required = true, value = "client_id") String clientId,
+    @JsonProperty(required = true, value = "redirect_uri") String redirectUri
+  ) {
+    this.email = email;
+    this.clientId = clientId;
+    this.redirectUri = redirectUri;
+  }
 
   /**
    **/
@@ -27,12 +41,12 @@ public class MagicLinkRepresentation   {
   }
 
   
-  @JsonProperty("email")
+  @JsonProperty(required = true, value = "email")
   public String getEmail() {
     return email;
   }
 
-  @JsonProperty("email")
+  @JsonProperty(required = true, value = "email")
   public void setEmail(String email) {
     this.email = email;
   }
@@ -45,12 +59,12 @@ public class MagicLinkRepresentation   {
   }
 
   
-  @JsonProperty("client_id")
+  @JsonProperty(required = true, value = "client_id")
   public String getClientId() {
     return clientId;
   }
 
-  @JsonProperty("client_id")
+  @JsonProperty(required = true, value = "client_id")
   public void setClientId(String clientId) {
     this.clientId = clientId;
   }
@@ -63,12 +77,12 @@ public class MagicLinkRepresentation   {
   }
 
   
-  @JsonProperty("redirect_uri")
+  @JsonProperty(required = true, value = "redirect_uri")
   public String getRedirectUri() {
     return redirectUri;
   }
 
-  @JsonProperty("redirect_uri")
+  @JsonProperty(required = true, value = "redirect_uri")
   public void setRedirectUri(String redirectUri) {
     this.redirectUri = redirectUri;
   }

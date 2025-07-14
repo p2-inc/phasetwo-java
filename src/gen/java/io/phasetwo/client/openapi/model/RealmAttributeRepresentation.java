@@ -10,11 +10,14 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("RealmAttributeRepresentation")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.14.0")
 public class RealmAttributeRepresentation   {
   private String name;
   private String value;
   private String realm;
+
+  public RealmAttributeRepresentation() {
+  }
 
   /**
    **/

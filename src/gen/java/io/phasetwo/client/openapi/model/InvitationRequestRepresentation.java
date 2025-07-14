@@ -1,6 +1,7 @@
 package io.phasetwo.client.openapi.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,14 +15,17 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("InvitationRequestRepresentation")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.14.0")
 public class InvitationRequestRepresentation   {
   private String email;
   private Boolean send;
   private String inviterId;
   private String redirectUri;
-  private List<String> roles = null;
-  private Map<String, List<String>> attributes = null;
+  private List<String> roles = new ArrayList<>();
+  private Map<String, List<String>> attributes = new HashMap<>();
+
+  public InvitationRequestRepresentation() {
+  }
 
   /**
    **/
@@ -156,9 +160,9 @@ public class InvitationRequestRepresentation   {
     return this;
   }
 
-  public InvitationRequestRepresentation removeAttributesItem(List<String> attributesItem) {
-    if (attributesItem != null && this.attributes != null) {
-      this.attributes.remove(attributesItem);
+  public InvitationRequestRepresentation removeAttributesItem(String key) {
+    if (this.attributes != null) {
+      this.attributes.remove(key);
     }
 
     return this;

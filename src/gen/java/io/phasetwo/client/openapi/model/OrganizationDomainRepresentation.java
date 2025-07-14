@@ -10,13 +10,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("OrganizationDomainRepresentation")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.14.0")
 public class OrganizationDomainRepresentation   {
   private String domainName;
   private Boolean verified;
   private String recordKey;
   private String recordValue;
   private String type;
+
+  public OrganizationDomainRepresentation() {
+  }
 
   /**
    **/
