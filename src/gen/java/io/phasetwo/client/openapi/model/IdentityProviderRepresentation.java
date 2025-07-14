@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -13,12 +12,11 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("IdentityProviderRepresentation")
-@JsonIgnoreProperties(ignoreUnknown = true)
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.14.0")
 public class IdentityProviderRepresentation   {
   private Boolean addReadTokenRoleOnCreate;
   private String alias;
-  private Map<String, Object> config = null;
+  private Map<String, Object> config = new HashMap<>();
   private String displayName;
   private Boolean enabled;
   private String firstBrokerLoginFlowAlias;
@@ -28,6 +26,9 @@ public class IdentityProviderRepresentation   {
   private String providerId;
   private Boolean storeToken;
   private Boolean trustEmail;
+
+  public IdentityProviderRepresentation() {
+  }
 
   /**
    **/
@@ -92,9 +93,9 @@ public class IdentityProviderRepresentation   {
     return this;
   }
 
-  public IdentityProviderRepresentation removeConfigItem(Object configItem) {
-    if (configItem != null && this.config != null) {
-      this.config.remove(configItem);
+  public IdentityProviderRepresentation removeConfigItem(String key) {
+    if (this.config != null) {
+      this.config.remove(key);
     }
 
     return this;

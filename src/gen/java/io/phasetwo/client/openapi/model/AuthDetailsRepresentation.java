@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("AuthDetailsRepresentation")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.14.0")
 public class AuthDetailsRepresentation   {
   private String realmId;
   private String clientId;
@@ -18,6 +18,9 @@ public class AuthDetailsRepresentation   {
   private String ipAddress;
   private String username;
   private String sessionId;
+
+  public AuthDetailsRepresentation() {
+  }
 
   /**
    **/

@@ -10,11 +10,14 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("PortalLinkRepresentation")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.14.0")
 public class PortalLinkRepresentation   {
   private String user;
   private String link;
   private String redirect;
+
+  public PortalLinkRepresentation() {
+  }
 
   /**
    **/

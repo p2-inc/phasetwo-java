@@ -1,12 +1,12 @@
 package io.phasetwo.client.openapi.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -15,19 +15,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("UserRepresentation")
-@JsonIgnoreProperties(ignoreUnknown = true)
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.14.0")
 public class UserRepresentation   {
-  private Map<String, Object> attributes = null;
+  private Map<String, Object> attributes = new HashMap<>();
   private Long createdTimestamp;
   private String email;
   private Boolean emailVerified;
   private Boolean enabled;
   private String firstName;
-  private List<String> groups = null;
+  private List<String> groups = new ArrayList<>();
   private String id;
   private String lastName;
   private String username;
+
+  public UserRepresentation() {
+  }
 
   /**
    **/
@@ -56,9 +58,9 @@ public class UserRepresentation   {
     return this;
   }
 
-  public UserRepresentation removeAttributesItem(Object attributesItem) {
-    if (attributesItem != null && this.attributes != null) {
-      this.attributes.remove(attributesItem);
+  public UserRepresentation removeAttributesItem(String key) {
+    if (this.attributes != null) {
+      this.attributes.remove(key);
     }
 
     return this;

@@ -10,11 +10,14 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("BulkResponseItem")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.14.0")
 public class BulkResponseItem   {
   private Integer status;
   private String error;
   private Object item;
+
+  public BulkResponseItem() {
+  }
 
   /**
    **/

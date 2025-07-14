@@ -10,11 +10,14 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("LinkIdentityProviderRepresentation")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.14.0")
 public class LinkIdentityProviderRepresentation   {
   private String alias;
   private String postBrokerFlow;
   private String syncMode;
+
+  public LinkIdentityProviderRepresentation() {
+  }
 
   /**
    **/

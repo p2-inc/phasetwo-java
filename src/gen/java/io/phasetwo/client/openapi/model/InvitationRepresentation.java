@@ -1,7 +1,7 @@
 package io.phasetwo.client.openapi.model;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,31 +15,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("InvitationRepresentation")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.14.0")
 public class InvitationRepresentation   {
   private String id;
   private String email;
   private String inviterId;
   private String organizationId;
-  private List<String> roles = null;
-  private Map<String, List<String>> attributes = null;
-  private Date createdAt;
-  
-  /**
-   **/
-  public InvitationRepresentation createdAt(Date createdAt) {
-    this.createdAt = createdAt;
-    return this;
-  }
+  private List<String> roles = new ArrayList<>();
+  private Map<String, List<String>> attributes = new HashMap<>();
 
-  @JsonProperty("createdAt")
-  public Date getCreatedAt() {
-    return createdAt;
-  }
-
-  @JsonProperty("createdAt")
-  public void setCreatedAt(Date createdAt) {
-    this.createdAt = createdAt;
+  public InvitationRepresentation() {
   }
 
   /**
@@ -175,9 +160,9 @@ public class InvitationRepresentation   {
     return this;
   }
 
-  public InvitationRepresentation removeAttributesItem(List<String> attributesItem) {
-    if (attributesItem != null && this.attributes != null) {
-      this.attributes.remove(attributesItem);
+  public InvitationRepresentation removeAttributesItem(String key) {
+    if (this.attributes != null) {
+      this.attributes.remove(key);
     }
 
     return this;
@@ -197,13 +182,12 @@ public class InvitationRepresentation   {
         Objects.equals(this.inviterId, invitationRepresentation.inviterId) &&
         Objects.equals(this.organizationId, invitationRepresentation.organizationId) &&
         Objects.equals(this.roles, invitationRepresentation.roles) &&
-        Objects.equals(this.createdAt, invitationRepresentation.createdAt) &&
         Objects.equals(this.attributes, invitationRepresentation.attributes);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, email, inviterId, organizationId, roles, createdAt, attributes);
+    return Objects.hash(id, email, inviterId, organizationId, roles, attributes);
   }
 
   @Override

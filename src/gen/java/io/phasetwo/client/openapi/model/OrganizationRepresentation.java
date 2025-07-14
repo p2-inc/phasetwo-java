@@ -1,6 +1,7 @@
 package io.phasetwo.client.openapi.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,15 +15,18 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("OrganizationRepresentation")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.14.0")
 public class OrganizationRepresentation   {
   private String id;
   private String name;
   private String displayName;
   private String url;
   private String realm;
-  private List<String> domains = null;
-  private Map<String, List<String>> attributes = null;
+  private List<String> domains = new ArrayList<>();
+  private Map<String, List<String>> attributes = new HashMap<>();
+
+  public OrganizationRepresentation() {
+  }
 
   /**
    **/
@@ -175,9 +179,9 @@ public class OrganizationRepresentation   {
     return this;
   }
 
-  public OrganizationRepresentation removeAttributesItem(List<String> attributesItem) {
-    if (attributesItem != null && this.attributes != null) {
-      this.attributes.remove(attributesItem);
+  public OrganizationRepresentation removeAttributesItem(String key) {
+    if (this.attributes != null) {
+      this.attributes.remove(key);
     }
 
     return this;
