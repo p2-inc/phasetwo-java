@@ -1,4 +1,4 @@
-name: release version
+name: Prepare Maven Release
 
 on:
   push:
@@ -6,22 +6,29 @@ on:
       - main
 
 jobs:
-  build:
+  prepare-release:
     runs-on: ubuntu-latest
-    if: "!contains(github.event.head_commit.message, '[ci skip]')"
 
     steps:
       - uses: actions/checkout@v3
-
-      - name: Build and Test
-        uses: qcastel/github-actions-maven-cmd@master
         with:
-          maven-args: "clean install -Dmaven.test.skip=true -Ddockerfile.skip -DdockerCompose.skip -Djib.skip"
+          fetch-depth: 0  # Required for tags and release plugin
 
-      - name: Release
+      - name: Setup Git
+        run: |
+          git config user.name "phasetwo-bot"
+          git config user.email "support@phasetwo.io"
+
+      - name: Create release branch
+        run: |
+          export BRANCH_NAME=release-${{ github.run_number }}
+          git checkout -b $BRANCH_NAME
+          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
+
+      - name: Run Maven release
         uses: qcastel/github-actions-maven-release@master
         with:
-          release-branch-name: "main"
+          release-branch-name: ${{ env.BRANCH_NAME }}
           version-patch: true
 
           git-release-bot-name: "phasetwo-bot"
@@ -38,3 +45,15 @@ jobs:
           docker-registry-id: ossrh
           docker-registry-username: ${{ secrets.OSSRH_USERNAME }}
           docker-registry-password: ${{ secrets.OSSRH_PASSWORD }}
+
+      - name: Push release branch
+        run: git push origin ${{ env.BRANCH_NAME }}
+
+      - name: Create Pull Request to main
+        uses: peter-evans/create-pull-request@v5
+        with:
+          title: "Release: ${{ env.BRANCH_NAME }}"
+          branch: ${{ env.BRANCH_NAME }}
+          base: main
+          body: "Automated Maven release PR"
+          author: phasetwo-bot <support@phasetwo.io>
