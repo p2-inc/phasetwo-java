@@ -70,18 +70,18 @@ phaseTwo.events(realm).send(new EventRepresentation()
 
 ## Generating sources from openapi.yaml
 
-1. create an empty directory
+1. create an empty directory `local`
 2. copy the current `openapi.yml` from the `phasetwo-docs` repo to that directory
-3. run the generator
+3. run the generator in the `local` directory
 ```
 docker run --rm --user $(id -u):$(id -g) -v $PWD:/local openapitools/openapi-generator-cli generate -i /local/openapi.yaml -g jaxrs-spec -o /local/java-sdk  --additional-properties=groupId=io.phasetwo,artifactId=phasetwo-admin-client,apiPackage=io.phasetwo.client.openapi.api,modelPackage=io.phasetwo.client.openapi.model,useSwaggerAnnotations=false,useBeanValidation=false,useTags=true,interfaceOnly=true,useJakartaEe=true,hideGenerationTimestamp=true
 ```
 4. copy the relevant files
 ```
-cp java-sdk/src/gen/java/io/phasetwo/client/openapi/*.java phasetwo-java/src/gen/java/io/phasetwo/client/openapi/
-cp java-sdk/src/gen/java/io/phasetwo/client/openapi/api/*.java phasetwo-java/src/gen/java/io/phasetwo/client/openapi/api/
-cp java-sdk/src/gen/java/io/phasetwo/client/openapi/model/*.java phasetwo-java/src/gen/java/io/phasetwo/client/openapi/model/
-cp java-sdk/src/main/openapi/openapi.yaml phasetwo-java/src/main/openapi/openapi.yaml
+cp java-sdk/src/gen/java/io/phasetwo/client/openapi/*.java $PWD/../src/gen/java/io/phasetwo/client/openapi/
+cp java-sdk/src/gen/java/io/phasetwo/client/openapi/api/*.java $PWD/../src/gen/java/io/phasetwo/client/openapi/api/
+cp java-sdk/src/gen/java/io/phasetwo/client/openapi/model/*.java $PWD/../src/gen/java/io/phasetwo/client/openapi/model/
+cp java-sdk/src/main/openapi/openapi.yaml $PWD/../src/main/openapi/openapi.yaml
 ```
 5. resolve all of the `Response` issues in the `*Api` classes. This is because we need the response object in order to get the status code and `Location` header, but openapi and this generator doesn't give us a good way to specify that or do it by default.
 6. push a pr and merge to main. auto releases using `.github/workflows/release.yml`
