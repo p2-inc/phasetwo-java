@@ -37,13 +37,13 @@
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <keycloak.version>25.0.4</keycloak.version>
-    <jackson-version>2.15.2</jackson-version>
+    <keycloak-admin-client.version>26.0.6</keycloak-admin-client.version>
+    <jackson-version>2.19.1</jackson-version>
     <junit-version>5.8.2</junit-version>
     <joda-version>2.10.13</joda-version>
-    <jakarta.xml-bind-api-version>4.0.0</jakarta.xml-bind-api-version>
-    <jakarta.annotation-api-version>2.1.1</jakarta.annotation-api-version>
-    <jakarta.ws.rs-version>3.1.0</jakarta.ws.rs-version>
+    <jakarta.xml-bind-api-version>4.0.2</jakarta.xml-bind-api-version>
+    <jakarta.annotation-api-version>3.0.0</jakarta.annotation-api-version>
+    <jakarta.ws.rs-version>4.0.0</jakarta.ws.rs-version>
     <ossrh.url>https://s01.oss.sonatype.org</ossrh.url>
   </properties>
 
@@ -100,11 +100,11 @@
         </configuration>
       </plugin>
       <plugin>
-	<groupId>org.apache.maven.plugins</groupId>
-	<artifactId>maven-javadoc-plugin</artifactId>
-	<version>3.4.1</version>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.4.1</version>
         <configuration>
-	  <doclint>none</doclint>
+          <doclint>none</doclint>
           <additionalparam>-Xdoclint:none</additionalparam>
         </configuration>
       </plugin>
@@ -125,7 +125,7 @@
     <dependency>
       <groupId>org.keycloak</groupId>
       <artifactId>keycloak-admin-client</artifactId>
-      <version>${keycloak.version}</version>
+      <version>${keycloak-admin-client.version}</version>
     </dependency>
     <dependency>
       <groupId>jakarta.annotation</groupId>
@@ -160,19 +160,19 @@
     <dependency>
       <groupId>com.github.dasniko</groupId>
       <artifactId>testcontainers-keycloak</artifactId>
-      <version>3.4.0</version>
+      <version>3.8.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
-      <version>1.4.5</version>
+      <version>1.5.18</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest</artifactId>
-      <version>2.2</version>
+      <version>3.0</version>
       <scope>test</scope>
     </dependency>
 
