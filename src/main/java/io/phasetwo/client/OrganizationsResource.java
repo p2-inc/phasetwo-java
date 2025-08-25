@@ -42,8 +42,8 @@ public class OrganizationsResource  {
     return impl.getOrganizations(realm, search.orElse(null), first.orElse(null), max.orElse(null), attrSearch.orElse(null));
   }
 
-  public Integer count(Optional<String> search) {
-    return impl.getOrganizationsCount(realm, search.orElse(null));
+  public Integer count(Optional<String> search, String attributes) {
+    return impl.getOrganizationsCount(realm, search.orElse(null), attributes);
   }
 
   public Map<String, MyOrganizationRepresentation> me() {

@@ -31,6 +31,7 @@ public class PhaseTwo {
     }
   }
 
+
   public OrganizationsResource organizations(String realm) {
     return new OrganizationsResource(realm, getOrganizationsApi(), this);
   }

@@ -1,7 +1,7 @@
 package io.phasetwo.client.openapi.api;
 
 import io.phasetwo.client.openapi.model.BulkResponseItem;
-import io.phasetwo.client.openapi.model.MagicLinkRepresentation;
+import io.phasetwo.client.openapi.model.MagicLinkRequest;
 import io.phasetwo.client.openapi.model.OrganizationRepresentation;
 import io.phasetwo.client.openapi.model.OrganizationRoleRepresentation;
 
@@ -9,8 +9,6 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 
 
-import java.io.InputStream;
-import java.util.Map;
 import java.util.List;
 
 
@@ -25,7 +23,7 @@ public interface UsersApi {
      * 
      *
      * @param realm realm name (not id!)
-     * @param magicLinkRepresentation JSON body
+     * @param magicLinkRequest JSON body
      * @return Magic Link created
      * @return Malformed request
      * @return User or Client not found
@@ -33,7 +31,7 @@ public interface UsersApi {
     @POST
     @Path("/magic-link")
     @Consumes({ "application/json" })
-    void createMagicLink(@PathParam("realm") String realm,MagicLinkRepresentation magicLinkRepresentation);
+    Response createMagicLink(@PathParam("realm") String realm, MagicLinkRequest magicLinkRequest);
 
 
     /**

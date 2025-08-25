@@ -1,13 +1,11 @@
 package io.phasetwo.client.openapi.api;
 
-import io.phasetwo.client.openapi.model.UserRepresentation;
+import io.phasetwo.client.openapi.model.UserWithOrgsRepresentation;
 
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 
 
-import java.io.InputStream;
-import java.util.Map;
 import java.util.List;
 
 
@@ -41,7 +39,7 @@ public interface OrganizationMembershipsApi {
      */
     @GET
     @Path("/{userId}")
-    Response checkOrganizationMembership(@PathParam("realm") String realm,@PathParam("orgId") String orgId,@PathParam("userId") String userId);
+    Response checkOrganizationMembership(@PathParam("realm") String realm, @PathParam("orgId") String orgId, @PathParam("userId") String userId);
 
 
     /**
@@ -52,11 +50,13 @@ public interface OrganizationMembershipsApi {
      * @param search 
      * @param first 
      * @param max 
+     * @param excludeAdminAccounts 
+     * @param includeOrgs 
      * @return success
      */
     @GET
     @Produces({ "application/json" })
-    List<UserRepresentation> getOrganizationMemberships(@PathParam("realm") String realm,@PathParam("orgId") String orgId,@QueryParam("search")   String search,@QueryParam("first")   Integer first,@QueryParam("max")   Integer max);
+    List<UserWithOrgsRepresentation> getOrganizationMemberships(@PathParam("realm") String realm,@PathParam("orgId") String orgId,@QueryParam("search")   String search,@QueryParam("first")   Integer first,@QueryParam("max")   Integer max,@QueryParam("excludeAdminAccounts")   Boolean excludeAdminAccounts,@QueryParam("includeOrgs")   Boolean includeOrgs);
 
 
     /**
@@ -64,12 +64,13 @@ public interface OrganizationMembershipsApi {
      *
      * @param realm realm name (not id!)
      * @param orgId organization id
+     * @param excludeAdminAccounts 
      * @return success
      */
     @GET
     @Path("/count")
     @Produces({ "application/json" })
-    Integer getOrganizationMembershipsCount(@PathParam("realm") String realm,@PathParam("orgId") String orgId);
+    Integer getOrganizationMembershipsCount(@PathParam("realm") String realm,@PathParam("orgId") String orgId,@QueryParam("excludeAdminAccounts")   Boolean excludeAdminAccounts);
 
 
     /**

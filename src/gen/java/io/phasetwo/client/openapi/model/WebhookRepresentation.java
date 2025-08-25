@@ -21,7 +21,7 @@ public class WebhookRepresentation   {
   private String url;
   private String secret;
   private String createdBy;
-  private String createdAt;
+  private Long createdAt;
   private String realm;
   private List<String> eventTypes = new ArrayList<>();
 
@@ -138,19 +138,19 @@ public class WebhookRepresentation   {
 
   /**
    **/
-  public WebhookRepresentation createdAt(String createdAt) {
+  public WebhookRepresentation createdAt(Long createdAt) {
     this.createdAt = createdAt;
     return this;
   }
 
   
   @JsonProperty("createdAt")
-  public String getCreatedAt() {
+  public Long getCreatedAt() {
     return createdAt;
   }
 
   @JsonProperty("createdAt")
-  public void setCreatedAt(String createdAt) {
+  public void setCreatedAt(Long createdAt) {
     this.createdAt = createdAt;
   }
 
