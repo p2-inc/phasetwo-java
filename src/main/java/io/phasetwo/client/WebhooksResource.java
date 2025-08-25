@@ -3,6 +3,7 @@ package io.phasetwo.client;
 import io.phasetwo.client.openapi.api.*;
 import io.phasetwo.client.openapi.model.*;
 import java.util.List;
+import java.util.Optional;
 
 import static io.phasetwo.client.Resources.getIdFromResponse;
 
@@ -30,7 +31,11 @@ public class WebhooksResource  {
   }
 
   public List<WebhookRepresentation> get() {
-    return impl.getWebhooks(realm);
+    return impl.getWebhooks(realm,0, Integer.MAX_VALUE);
+  }
+
+  public List<WebhookRepresentation> get(Optional<Integer> first, Optional<Integer> max) {
+    return impl.getWebhooks(realm, first.orElse(null), max.orElse(null));
   }
 
   public void update(String id, WebhookRepresentation webhookRepresentation) {

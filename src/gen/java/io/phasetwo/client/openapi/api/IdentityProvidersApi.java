@@ -9,8 +9,6 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 
 
-import java.io.InputStream;
-import java.util.Map;
 import java.util.List;
 
 
@@ -163,12 +161,12 @@ public interface IdentityProvidersApi {
      *
      * @param realm realm name (not id!)
      * @param orgId organization id
-     * @param idpAlias idp alias
+     * @param alias idp alias
      * @return success
      */
     @POST
-    @Path("/${idpAlias}/unlink")
-    void unlinkIdp(@PathParam("realm") String realm,@PathParam("orgId") String orgId,@PathParam("idpAlias") String idpAlias);
+    @Path("/{alias}/unlink")
+    void unlinkIdp(@PathParam("realm") String realm,@PathParam("orgId") String orgId,@PathParam("alias") String alias);
 
 
     /**

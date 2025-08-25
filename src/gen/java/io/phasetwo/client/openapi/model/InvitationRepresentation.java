@@ -18,8 +18,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.14.0")
 public class InvitationRepresentation   {
   private String id;
+  private String createdAt;
   private String email;
   private String inviterId;
+  private String invitationUrl;
   private String organizationId;
   private List<String> roles = new ArrayList<>();
   private Map<String, List<String>> attributes = new HashMap<>();
@@ -43,6 +45,24 @@ public class InvitationRepresentation   {
   @JsonProperty("id")
   public void setId(String id) {
     this.id = id;
+  }
+
+  /**
+   **/
+  public InvitationRepresentation createdAt(String createdAt) {
+    this.createdAt = createdAt;
+    return this;
+  }
+
+  
+  @JsonProperty("createdAt")
+  public String getCreatedAt() {
+    return createdAt;
+  }
+
+  @JsonProperty("createdAt")
+  public void setCreatedAt(String createdAt) {
+    this.createdAt = createdAt;
   }
 
   /**
@@ -79,6 +99,24 @@ public class InvitationRepresentation   {
   @JsonProperty("inviterId")
   public void setInviterId(String inviterId) {
     this.inviterId = inviterId;
+  }
+
+  /**
+   **/
+  public InvitationRepresentation invitationUrl(String invitationUrl) {
+    this.invitationUrl = invitationUrl;
+    return this;
+  }
+
+  
+  @JsonProperty("invitationUrl")
+  public String getInvitationUrl() {
+    return invitationUrl;
+  }
+
+  @JsonProperty("invitationUrl")
+  public void setInvitationUrl(String invitationUrl) {
+    this.invitationUrl = invitationUrl;
   }
 
   /**
@@ -178,8 +216,10 @@ public class InvitationRepresentation   {
     }
     InvitationRepresentation invitationRepresentation = (InvitationRepresentation) o;
     return Objects.equals(this.id, invitationRepresentation.id) &&
+        Objects.equals(this.createdAt, invitationRepresentation.createdAt) &&
         Objects.equals(this.email, invitationRepresentation.email) &&
         Objects.equals(this.inviterId, invitationRepresentation.inviterId) &&
+        Objects.equals(this.invitationUrl, invitationRepresentation.invitationUrl) &&
         Objects.equals(this.organizationId, invitationRepresentation.organizationId) &&
         Objects.equals(this.roles, invitationRepresentation.roles) &&
         Objects.equals(this.attributes, invitationRepresentation.attributes);
@@ -187,7 +227,7 @@ public class InvitationRepresentation   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, email, inviterId, organizationId, roles, attributes);
+    return Objects.hash(id, createdAt, email, inviterId, invitationUrl, organizationId, roles, attributes);
   }
 
   @Override
@@ -196,8 +236,10 @@ public class InvitationRepresentation   {
     sb.append("class InvitationRepresentation {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    inviterId: ").append(toIndentedString(inviterId)).append("\n");
+    sb.append("    invitationUrl: ").append(toIndentedString(invitationUrl)).append("\n");
     sb.append("    organizationId: ").append(toIndentedString(organizationId)).append("\n");
     sb.append("    roles: ").append(toIndentedString(roles)).append("\n");
     sb.append("    attributes: ").append(toIndentedString(attributes)).append("\n");

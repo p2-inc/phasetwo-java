@@ -15,9 +15,11 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 @JsonTypeName("EventRepresentation")
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.14.0")
 public class EventRepresentation   {
+  private String id;
   private String uid;
   private Integer time;
   private String realmId;
+  private String realmName;
   private String organizationId;
   private String type;
   private String representation;
@@ -29,6 +31,24 @@ public class EventRepresentation   {
   private Map<String, Object> details = new HashMap<>();
 
   public EventRepresentation() {
+  }
+
+  /**
+   **/
+  public EventRepresentation id(String id) {
+    this.id = id;
+    return this;
+  }
+
+  
+  @JsonProperty("id")
+  public String getId() {
+    return id;
+  }
+
+  @JsonProperty("id")
+  public void setId(String id) {
+    this.id = id;
   }
 
   /**
@@ -83,6 +103,24 @@ public class EventRepresentation   {
   @JsonProperty("realmId")
   public void setRealmId(String realmId) {
     this.realmId = realmId;
+  }
+
+  /**
+   **/
+  public EventRepresentation realmName(String realmName) {
+    this.realmName = realmName;
+    return this;
+  }
+
+  
+  @JsonProperty("realmName")
+  public String getRealmName() {
+    return realmName;
+  }
+
+  @JsonProperty("realmName")
+  public void setRealmName(String realmName) {
+    this.realmName = realmName;
   }
 
   /**
@@ -273,9 +311,11 @@ public class EventRepresentation   {
       return false;
     }
     EventRepresentation eventRepresentation = (EventRepresentation) o;
-    return Objects.equals(this.uid, eventRepresentation.uid) &&
+    return Objects.equals(this.id, eventRepresentation.id) &&
+        Objects.equals(this.uid, eventRepresentation.uid) &&
         Objects.equals(this.time, eventRepresentation.time) &&
         Objects.equals(this.realmId, eventRepresentation.realmId) &&
+        Objects.equals(this.realmName, eventRepresentation.realmName) &&
         Objects.equals(this.organizationId, eventRepresentation.organizationId) &&
         Objects.equals(this.type, eventRepresentation.type) &&
         Objects.equals(this.representation, eventRepresentation.representation) &&
@@ -289,7 +329,7 @@ public class EventRepresentation   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(uid, time, realmId, organizationId, type, representation, operationType, resourcePath, resourceType, error, authDetails, details);
+    return Objects.hash(id, uid, time, realmId, realmName, organizationId, type, representation, operationType, resourcePath, resourceType, error, authDetails, details);
   }
 
   @Override
@@ -297,9 +337,11 @@ public class EventRepresentation   {
     StringBuilder sb = new StringBuilder();
     sb.append("class EventRepresentation {\n");
     
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    uid: ").append(toIndentedString(uid)).append("\n");
     sb.append("    time: ").append(toIndentedString(time)).append("\n");
     sb.append("    realmId: ").append(toIndentedString(realmId)).append("\n");
+    sb.append("    realmName: ").append(toIndentedString(realmName)).append("\n");
     sb.append("    organizationId: ").append(toIndentedString(organizationId)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    representation: ").append(toIndentedString(representation)).append("\n");

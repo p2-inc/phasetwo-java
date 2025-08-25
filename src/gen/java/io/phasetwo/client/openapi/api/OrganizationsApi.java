@@ -9,8 +9,6 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 
 
-import java.io.InputStream;
-import java.util.Map;
 import java.util.List;
 
 
@@ -30,7 +28,7 @@ public interface OrganizationsApi {
      */
     @POST
     @Consumes({ "application/json" })
-    Response createOrganization(@PathParam("realm") String realm,OrganizationRepresentation organizationRepresentation);
+    Response createOrganization(@PathParam("realm") String realm, OrganizationRepresentation organizationRepresentation);
 
 
     /**
@@ -92,7 +90,7 @@ public interface OrganizationsApi {
      * @param search search by name
      * @param first 
      * @param max 
-     * @param q search by attributes using the format &#x60;k1:v1,k2:v2&#x60;
+     * @param q search by attributes using the format (space separated) &#x60;k1:v1 k2:v2&#x60;
      * @return success
      */
     @GET
@@ -105,12 +103,13 @@ public interface OrganizationsApi {
      *
      * @param realm realm name (not id!)
      * @param search 
+     * @param q search by attributes using the format (space separated) &#x60;k1:v1 k2:v2&#x60;
      * @return success
      */
     @GET
     @Path("/count")
     @Produces({ "application/json" })
-    Integer getOrganizationsCount(@PathParam("realm") String realm,@QueryParam("search")   String search);
+    Integer getOrganizationsCount(@PathParam("realm") String realm,@QueryParam("search")   String search,@QueryParam("q")   String q);
 
 
     /**

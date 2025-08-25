@@ -26,16 +26,16 @@ public class OrganizationMembershipsResource  {
     return (impl.checkOrganizationMembership(realm, orgId, userId).getStatus() == Response.Status.NO_CONTENT.getStatusCode());
   }
 
-  public List<UserRepresentation> members() {
-    return members(Optional.empty(), Optional.empty(), Optional.empty());
+  public List<UserWithOrgsRepresentation> members() {
+    return members(Optional.empty(), Optional.empty(), Optional.empty(), false, false);
   }
 
-  public List<UserRepresentation> members(Optional<String> search, Optional<Integer> first, Optional<Integer> max) {
-    return impl.getOrganizationMemberships(realm, orgId, search.orElse(null), first.orElse(null), max.orElse(null));
+  public List<UserWithOrgsRepresentation> members(Optional<String> search, Optional<Integer> first, Optional<Integer> max, boolean excludeAccounts, boolean includeOrgs) {
+    return impl.getOrganizationMemberships(realm, orgId, search.orElse(null), first.orElse(null), max.orElse(null), excludeAccounts, includeOrgs);
   }
 
-  public Integer count() {
-    return impl.getOrganizationMembershipsCount(realm, orgId);
+  public Integer count(boolean excludeAdminAccounts) {
+    return impl.getOrganizationMembershipsCount(realm, orgId, excludeAdminAccounts);
   }
 
   public void remove(String userId) {
