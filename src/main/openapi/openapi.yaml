@@ -4420,7 +4420,6 @@ components:
           type: string
       required:
       - client_id
-      - email
       - redirect_uri
       type: object
     MagicLinkResponse:

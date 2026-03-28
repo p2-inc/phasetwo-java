@@ -34,11 +34,9 @@ public class MagicLinkRequest   {
 
   @JsonCreator
   public MagicLinkRequest(
-    @JsonProperty(required = true, value = "email") String email,
     @JsonProperty(required = true, value = "client_id") String clientId,
     @JsonProperty(required = true, value = "redirect_uri") String redirectUri
   ) {
-    this.email = email;
     this.clientId = clientId;
     this.redirectUri = redirectUri;
   }
@@ -51,12 +49,12 @@ public class MagicLinkRequest   {
   }
 
   
-  @JsonProperty(required = true, value = "email")
+  @JsonProperty("email")
   public String getEmail() {
     return email;
   }
 
-  @JsonProperty(required = true, value = "email")
+  @JsonProperty("email")
   public void setEmail(String email) {
     this.email = email;
   }
