@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("OrganizationDomainRepresentation")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.14.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.21.0")
 public class OrganizationDomainRepresentation   {
   private String domainName;
   private Boolean verified;
@@ -21,6 +21,21 @@ public class OrganizationDomainRepresentation   {
   public OrganizationDomainRepresentation() {
   }
 
+  @JsonCreator
+  public OrganizationDomainRepresentation(
+    @JsonProperty(required = true, value = "domain_name") String domainName,
+    @JsonProperty(required = true, value = "verified") Boolean verified,
+    @JsonProperty(required = true, value = "record_key") String recordKey,
+    @JsonProperty(required = true, value = "record_value") String recordValue,
+    @JsonProperty(required = true, value = "type") String type
+  ) {
+    this.domainName = domainName;
+    this.verified = verified;
+    this.recordKey = recordKey;
+    this.recordValue = recordValue;
+    this.type = type;
+  }
+
   /**
    **/
   public OrganizationDomainRepresentation domainName(String domainName) {
@@ -29,12 +44,12 @@ public class OrganizationDomainRepresentation   {
   }
 
   
-  @JsonProperty("domain_name")
+  @JsonProperty(required = true, value = "domain_name")
   public String getDomainName() {
     return domainName;
   }
 
-  @JsonProperty("domain_name")
+  @JsonProperty(required = true, value = "domain_name")
   public void setDomainName(String domainName) {
     this.domainName = domainName;
   }
@@ -47,12 +62,12 @@ public class OrganizationDomainRepresentation   {
   }
 
   
-  @JsonProperty("verified")
+  @JsonProperty(required = true, value = "verified")
   public Boolean getVerified() {
     return verified;
   }
 
-  @JsonProperty("verified")
+  @JsonProperty(required = true, value = "verified")
   public void setVerified(Boolean verified) {
     this.verified = verified;
   }
@@ -65,12 +80,12 @@ public class OrganizationDomainRepresentation   {
   }
 
   
-  @JsonProperty("record_key")
+  @JsonProperty(required = true, value = "record_key")
   public String getRecordKey() {
     return recordKey;
   }
 
-  @JsonProperty("record_key")
+  @JsonProperty(required = true, value = "record_key")
   public void setRecordKey(String recordKey) {
     this.recordKey = recordKey;
   }
@@ -83,12 +98,12 @@ public class OrganizationDomainRepresentation   {
   }
 
   
-  @JsonProperty("record_value")
+  @JsonProperty(required = true, value = "record_value")
   public String getRecordValue() {
     return recordValue;
   }
 
-  @JsonProperty("record_value")
+  @JsonProperty(required = true, value = "record_value")
   public void setRecordValue(String recordValue) {
     this.recordValue = recordValue;
   }
@@ -101,12 +116,12 @@ public class OrganizationDomainRepresentation   {
   }
 
   
-  @JsonProperty("type")
+  @JsonProperty(required = true, value = "type")
   public String getType() {
     return type;
   }
 
-  @JsonProperty("type")
+  @JsonProperty(required = true, value = "type")
   public void setType(String type) {
     this.type = type;
   }
@@ -152,12 +167,8 @@ public class OrganizationDomainRepresentation   {
    * (except the first line).
    */
   private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+    return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
 
 
 }
-

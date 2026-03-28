@@ -1,8 +1,13 @@
 package io.phasetwo.client.openapi.api;
 
+import io.phasetwo.client.openapi.model.InvitationRepresentation;
 import java.util.Map;
 import io.phasetwo.client.openapi.model.MyOrganizationRepresentation;
+import io.phasetwo.client.openapi.model.OrganizationConfigRepresentation;
 import io.phasetwo.client.openapi.model.OrganizationRepresentation;
+import io.phasetwo.client.openapi.model.OrganizationsExportRepresentation;
+import io.phasetwo.client.openapi.model.OrganizationsImportRepresentation;
+import io.phasetwo.client.openapi.model.OrganizationsImportResultRepresentation;
 import io.phasetwo.client.openapi.model.PortalLinkRepresentation;
 
 import jakarta.ws.rs.*;
@@ -16,8 +21,20 @@ import java.util.List;
 * Represents a collection of functions to interact with the API endpoints.
 */
 @Path("/{realm}/orgs")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.14.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.21.0")
 public interface OrganizationsApi {
+
+    /**
+     * Accept invitation for authenticated user.
+     *
+     * @param realm realm name (not id!)
+     * @param invitationId invitation UUID
+     * @return success
+     */
+    @POST
+    @Path("/me/invitations/{invitationId}")
+    Response acceptInvitation(@PathParam("realm") String realm,@PathParam("invitationId") String invitationId);
+
 
     /**
      * 
@@ -32,7 +49,7 @@ public interface OrganizationsApi {
 
 
     /**
-     * Create a link for this organizations admin portal. This link encodes an action token on behalf of the organization's default admin user, or the user that is optionally specified in this request. The user specified must be a member of this organization, and have full organization admin roles.
+     * Create a link for this organization's IdP Wizard. This link encodes an action token on behalf of the organization's default admin user, or the user that is optionally specified in this request. The user specified must be a member of this organization, and have full organization admin roles.
      *
      * @param realm realm name (not id!)
      * @param orgId organization id
@@ -59,6 +76,22 @@ public interface OrganizationsApi {
 
 
     /**
+     * Export all organizations and their configurations from this realm
+     *
+     * @param realm realm name (not id!)
+     * @param includeMembers Include organization members in the export
+     * @param includeRoles Include organization roles in the export
+     * @param includeIdps Include identity providers in the export
+     * @param orgIds Specific organization IDs to export (if not provided, exports all)
+     * @return success
+     */
+    @GET
+    @Path("/export")
+    @Produces({ "application/json", "application/octet-stream" })
+    OrganizationsExportRepresentation exportOrganizations(@PathParam("realm") String realm,@QueryParam("includeMembers") @DefaultValue("false")   Boolean includeMembers,@QueryParam("includeRoles") @DefaultValue("true")   Boolean includeRoles,@QueryParam("includeIdps") @DefaultValue("true")   Boolean includeIdps,@QueryParam("orgIds")   List<String> orgIds);
+
+
+    /**
      * Get a list of all organizations that the user is a member and their roles in those organizations. Similar idea to /userinfo in OIDC.
      *
      * @param realm realm name (not id!)
@@ -81,6 +114,18 @@ public interface OrganizationsApi {
     @Path("/{orgId}")
     @Produces({ "application/json" })
     OrganizationRepresentation getOrganizationById(@PathParam("realm") String realm,@PathParam("orgId") String orgId);
+
+
+    /**
+     * Get the global organization configuration for this realm
+     *
+     * @param realm realm name (not id!)
+     * @return success
+     */
+    @GET
+    @Path("/config")
+    @Produces({ "application/json" })
+    OrganizationConfigRepresentation getOrganizationConfig(@PathParam("realm") String realm);
 
 
     /**
@@ -113,6 +158,48 @@ public interface OrganizationsApi {
 
 
     /**
+     * Import organizations and their configurations into this realm
+     *
+     * @param realm realm name (not id!)
+     * @param organizationsImportRepresentation 
+     * @param skipExisting Skip organizations that already exist instead of updating them
+     * @param importMembers Import organization members (requires existing users in realm)
+     * @return success
+     * @return Invalid import data or format
+     * @return Conflicts with existing organizations
+     */
+    @POST
+    @Path("/import")
+    @Consumes({ "application/json", "multipart/form-data" })
+    @Produces({ "application/json" })
+    OrganizationsImportResultRepresentation importOrganizations(@PathParam("realm") String realm,OrganizationsImportRepresentation organizationsImportRepresentation,@QueryParam("skipExisting") @DefaultValue("false")   Boolean skipExisting,@QueryParam("importMembers") @DefaultValue("false")   Boolean importMembers);
+
+
+    /**
+     * Get a list of all invitations for the user.
+     *
+     * @param realm realm name (not id!)
+     * @return success
+     */
+    @GET
+    @Path("/me/invitations")
+    @Produces({ "application/json" })
+    InvitationRepresentation invitations(@PathParam("realm") String realm);
+
+
+    /**
+     * Reject invitation for authenticated user.
+     *
+     * @param realm realm name (not id!)
+     * @param invitationId invitation UUID
+     * @return success
+     */
+    @DELETE
+    @Path("/me/invitations/{invitationId}")
+    void rejectInvitation(@PathParam("realm") String realm,@PathParam("invitationId") String invitationId);
+
+
+    /**
      * 
      *
      * @param realm realm name (not id!)
@@ -124,5 +211,19 @@ public interface OrganizationsApi {
     @Path("/{orgId}")
     @Consumes({ "application/json" })
     void updateOrganization(@PathParam("realm") String realm,@PathParam("orgId") String orgId,OrganizationRepresentation organizationRepresentation);
+
+
+    /**
+     * Update the global organization configuration for this realm
+     *
+     * @param realm realm name (not id!)
+     * @param organizationConfigRepresentation 
+     * @return success
+     * @return Invalid configuration
+     */
+    @PUT
+    @Path("/config")
+    @Consumes({ "application/json" })
+    Response updateOrganizationConfig(@PathParam("realm") String realm,OrganizationConfigRepresentation organizationConfigRepresentation);
 
 }

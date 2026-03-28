@@ -3,18 +3,19 @@ package io.phasetwo.client;
 import io.phasetwo.client.openapi.api.*;
 import io.phasetwo.client.openapi.model.*;
 import java.util.List;
-import java.util.Optional;
 
 public class OrganizationDomainsResource  {
 
   private final String orgId;
   private final String realm;
-  private final OrganizationDomainsApi impl;
+  private final OrganizationApi impl;
+  private final OrganizationDomainsApi domainsImpl;
   
-  OrganizationDomainsResource(String orgId, String realm, OrganizationDomainsApi impl) {
+  OrganizationDomainsResource(String orgId, String realm, OrganizationApi impl, OrganizationDomainsApi domainsImpl) {
     this.orgId = orgId;
     this.realm = realm;
     this.impl = impl;
+    this.domainsImpl = domainsImpl;
   }
 
   public List<OrganizationDomainRepresentation> get() {
@@ -26,6 +27,6 @@ public class OrganizationDomainsResource  {
   }
 
   public void verify(String domainName) {
-    impl.verifyDomain(realm, orgId, domainName);
+    domainsImpl.verifyDomain(realm, orgId, domainName);
   }
 }

@@ -47,31 +47,17 @@ externalDocs:
   description: Public documentation
   url: https://phasetwo.io/docs
 servers:
-- url: "{protocol}://{host}{port}{relativePath}/realms"
+- url: "{baseUrl}/realms"
   variables:
-    host:
-      default: app.phasetwo.io
-      description: API host
-      enum:
-      - app.phasetwo.io
-      - localhost
-    port:
-      default: ""
-      description: API port
-      enum:
-      - ""
-      - "8081"
-    relativePath:
-      default: ""
-      description: Relative path
-      enum:
-      - ""
-      - /auth
-    protocol:
-      default: https
-      enum:
-      - http
-      - https
+    baseUrl:
+      default: https://app.phasetwo.io
+      description: |
+        API base URL without a trailing slash.
+        Examples:
+        - https://app.phasetwo.io
+        - https://app.phasetwo.io/auth
+        - http://localhost:8081
+        - http://localhost:8081/auth
 security:
 - access_token: []
 paths:
@@ -245,6 +231,223 @@ paths:
       - application/json
       x-tags:
       - tag: Organizations
+  /{realm}/orgs/me/invitations:
+    get:
+      description: Get a list of all invitations for the user.
+      operationId: invitations
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InvitationRepresentation"
+          description: success
+      summary: Get invitations for authenticated user
+      tags:
+      - Organizations
+      x-accepts:
+      - application/json
+      x-tags:
+      - tag: Organizations
+  /{realm}/orgs/me/invitations/{invitationId}:
+    delete:
+      description: Reject invitation for authenticated user.
+      operationId: rejectInvitation
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: invitation UUID
+        explode: false
+        in: path
+        name: invitationId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: success
+      summary: Reject invitation for authenticated user
+      tags:
+      - Organizations
+      x-accepts:
+      - application/json
+      x-tags:
+      - tag: Organizations
+    post:
+      description: Accept invitation for authenticated user.
+      operationId: acceptInvitation
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: invitation UUID
+        explode: false
+        in: path
+        name: invitationId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: success
+      summary: Accept invitation for authenticated user
+      tags:
+      - Organizations
+      x-accepts:
+      - application/json
+      x-tags:
+      - tag: Organizations
+  /{realm}/orgs/export:
+    get:
+      description: Export all organizations and their configurations from this realm
+      operationId: exportOrganizations
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Include organization members in the export
+        explode: true
+        in: query
+        name: includeMembers
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
+      - description: Include organization roles in the export
+        explode: true
+        in: query
+        name: includeRoles
+        required: false
+        schema:
+          default: true
+          type: boolean
+        style: form
+      - description: Include identity providers in the export
+        explode: true
+        in: query
+        name: includeIdps
+        required: false
+        schema:
+          default: true
+          type: boolean
+        style: form
+      - description: "Specific organization IDs to export (if not provided, exports\
+          \ all)"
+        explode: true
+        in: query
+        name: orgIds
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrganizationsExportRepresentation"
+            application/octet-stream:
+              schema:
+                format: binary
+                type: string
+          description: success
+      summary: Export organizations
+      tags:
+      - Organizations
+      x-accepts:
+      - application/json
+      - application/octet-stream
+      x-tags:
+      - tag: Organizations
+  /{realm}/orgs/import:
+    post:
+      description: Import organizations and their configurations into this realm
+      operationId: importOrganizations
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Skip organizations that already exist instead of updating them
+        explode: true
+        in: query
+        name: skipExisting
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
+      - description: Import organization members (requires existing users in realm)
+        explode: true
+        in: query
+        name: importMembers
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrganizationsImportRepresentation"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/importOrganizations_request"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrganizationsImportResultRepresentation"
+          description: success
+        "400":
+          description: Invalid import data or format
+        "409":
+          description: Conflicts with existing organizations
+      summary: Import organizations
+      tags:
+      - Organizations
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+      x-tags:
+      - tag: Organizations
   /{realm}/orgs/{orgId}:
     delete:
       operationId: deleteOrganization
@@ -346,7 +549,7 @@ paths:
       - tag: Organizations
   /{realm}/orgs/{orgId}/portal-link:
     post:
-      description: "Create a link for this organizations admin portal. This link encodes\
+      description: "Create a link for this organization's IdP Wizard. This link encodes\
         \ an action token on behalf of the organization's default admin user, or the\
         \ user that is optionally specified in this request. The user specified must\
         \ be a member of this organization, and have full organization admin roles."
@@ -380,10 +583,68 @@ paths:
               schema:
                 $ref: "#/components/schemas/PortalLinkRepresentation"
           description: success
-      summary: Create a link for the organization's admin portal
+      summary: Create a link for the organization's IdP Wizard
       tags:
       - Organizations
       x-content-type: application/x-www-form-urlencoded
+      x-accepts:
+      - application/json
+      x-tags:
+      - tag: Organizations
+  /{realm}/orgs/config:
+    get:
+      description: Get the global organization configuration for this realm
+      operationId: getOrganizationConfig
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrganizationConfigRepresentation"
+          description: success
+      summary: Get organization configuration
+      tags:
+      - Organizations
+      x-accepts:
+      - application/json
+      x-tags:
+      - tag: Organizations
+    put:
+      description: Update the global organization configuration for this realm
+      operationId: updateOrganizationConfig
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrganizationConfigRepresentation"
+        required: true
+      responses:
+        "204":
+          description: success
+        "400":
+          description: Invalid configuration
+      summary: Update organization configuration
+      tags:
+      - Organizations
+      x-content-type: application/json
       x-accepts:
       - application/json
       x-tags:
@@ -453,7 +714,7 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: "#/components/schemas/UserWithOrgsRepresentation"
+                  $ref: "#/components/schemas/UserWithOrgsBriefRepresentation"
                 type: array
           description: success
       summary: Get organization memberships
@@ -537,10 +798,11 @@ paths:
           description: success
       summary: Get details for all domains owned by an organization
       tags:
-      - Organization Domains
+      - Organization
       x-accepts:
       - application/json
       x-tags:
+      - tag: Organization
       - tag: Organization Domains
   /{realm}/orgs/{orgId}/domains/{domainName}:
     get:
@@ -579,10 +841,11 @@ paths:
           description: success
       summary: Get details for a domain owned by an organization
       tags:
-      - Organization Domains
+      - Organization
       x-accepts:
       - application/json
       x-tags:
+      - tag: Organization
       - tag: Organization Domains
   /{realm}/orgs/{orgId}/domains/{domainName}/verify:
     post:
@@ -701,6 +964,7 @@ paths:
       - application/json
       x-tags:
       - tag: Organization Memberships
+      - tag: Users
     put:
       description: Add the specified user to the specified organization as a member
       operationId: addOrganizationMember
@@ -735,6 +999,115 @@ paths:
       summary: Add an organization member
       tags:
       - Organization Memberships
+      x-accepts:
+      - application/json
+      x-tags:
+      - tag: Organization Memberships
+      - tag: Users
+  /{realm}/orgs/{orgId}/members/{userId}/attributes:
+    get:
+      description: Get attributes for a specific member of an organization
+      operationId: getOrganizationMemberAttributes
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: user id
+        explode: false
+        in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  items:
+                    type: string
+                  type: array
+                type: object
+          description: success
+        "400":
+          description: User is not a member of the organization
+        "404":
+          description: User doesn't exist
+      summary: Get organization member attributes
+      tags:
+      - Organization Memberships
+      x-accepts:
+      - application/json
+      x-tags:
+      - tag: Organization Memberships
+    put:
+      description: Add or update attributes for a specific member of an organization
+      operationId: addOrganizationMemberAttributes
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: user id
+        explode: false
+        in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrganizationMemberAttributeRepresentation"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  items:
+                    type: string
+                  type: array
+                type: object
+          description: success
+        "400":
+          description: User is not a member of the organization
+        "404":
+          description: User doesn't exist
+      summary: Add/update organization member attributes
+      tags:
+      - Organization Memberships
+      x-content-type: application/json
       x-accepts:
       - application/json
       x-tags:
@@ -801,6 +1174,10 @@ paths:
       x-tags:
       - tag: Organization Invitation
     post:
+      description: Create an invitation to join the specified organization. Requires
+        a user to register with the application (if they don't already have an account)
+        before they can accept the invitation. Acceptance happens during login via
+        a required action.
       operationId: addOrganizationInvitation
       parameters:
       - description: realm name (not id!)
@@ -1758,7 +2135,7 @@ paths:
               $ref: "#/components/schemas/IdentityProviderRepresentation"
         required: true
       responses:
-        "200":
+        "204":
           description: success
       summary: Update identity provider for this organization by alias
       tags:
@@ -2181,6 +2558,71 @@ paths:
       x-tags:
       - tag: Users
       - tag: Organization Roles
+  /{realm}/users/switch-organization:
+    put:
+      description: Switch the active organization context for the authenticated user
+      operationId: switchActiveOrganization
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SwitchOrganizationRepresentation"
+        required: true
+      responses:
+        "204":
+          description: Active organization switched successfully
+        "400":
+          description: Invalid organization or user is not a member
+        "404":
+          description: Organization not found
+        "403":
+          description: User does not have access to the organization
+      summary: Switch active organization for authenticated user
+      tags:
+      - Users
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+      x-tags:
+      - tag: Users
+  /{realm}/users/active-organization:
+    get:
+      description: Get the currently active organization for the authenticated user
+      operationId: getActiveOrganization
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ActiveOrganizationRepresentation"
+          description: success
+        "204":
+          description: No active organization set
+      summary: Get active organization for authenticated user
+      tags:
+      - Users
+      x-accepts:
+      - application/json
+      x-tags:
+      - tag: Users
   /{realm}/events:
     post:
       operationId: createEvent
@@ -2870,6 +3312,10 @@ paths:
         required: true
       responses:
         "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MagicLinkResponse"
           description: Magic Link created
         "400":
           description: Malformed request
@@ -3050,6 +3496,469 @@ components:
             type: array
           type: object
       type: object
+    OrganizationConfigRepresentation:
+      example:
+        defaultSyncMode: defaultSyncMode
+        sharedIdps: true
+        eventsEnabled: true
+        createAdminUser: true
+        defaultPostBrokerFlow: defaultPostBrokerFlow
+        attributes:
+          key:
+          - attributes
+          - attributes
+        adminEventsEnabled: true
+      properties:
+        createAdminUser:
+          description: Whether to create a default admin user for new organizations
+          type: boolean
+        sharedIdps:
+          description: Whether identity providers can be shared across organizations
+          type: boolean
+        adminEventsEnabled:
+          description: Whether admin events are enabled for organization operations
+          type: boolean
+        eventsEnabled:
+          description: Whether user events are enabled for organization operations
+          type: boolean
+        defaultPostBrokerFlow:
+          description: Default post broker login flow for organization identity providers
+          type: string
+        defaultSyncMode:
+          description: Default sync mode for organization identity providers
+          type: string
+        attributes:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          description: Additional configuration attributes
+          type: object
+      type: object
+    OrganizationsExportRepresentation:
+      example:
+        organizations:
+        - identityProviders:
+          - firstBrokerLoginFlowAlias: firstBrokerLoginFlowAlias
+            internalId: internalId
+            addReadTokenRoleOnCreate: true
+            displayName: displayName
+            providerId: providerId
+            postBrokerLoginFlowAlias: postBrokerLoginFlowAlias
+            alias: alias
+            trustEmail: true
+            config:
+              key: ""
+            linkOnly: true
+            enabled: true
+            storeToken: true
+          - firstBrokerLoginFlowAlias: firstBrokerLoginFlowAlias
+            internalId: internalId
+            addReadTokenRoleOnCreate: true
+            displayName: displayName
+            providerId: providerId
+            postBrokerLoginFlowAlias: postBrokerLoginFlowAlias
+            alias: alias
+            trustEmail: true
+            config:
+              key: ""
+            linkOnly: true
+            enabled: true
+            storeToken: true
+          displayName: displayName
+          roles:
+          - name: name
+            description: description
+            id: id
+          - name: name
+            description: description
+            id: id
+          members:
+          - roles:
+            - roles
+            - roles
+            userId: userId
+            email: email
+          - roles:
+            - roles
+            - roles
+            userId: userId
+            email: email
+          name: name
+          domains:
+          - domains
+          - domains
+          realm: realm
+          attributes:
+            key:
+            - attributes
+            - attributes
+          id: id
+          url: url
+        - identityProviders:
+          - firstBrokerLoginFlowAlias: firstBrokerLoginFlowAlias
+            internalId: internalId
+            addReadTokenRoleOnCreate: true
+            displayName: displayName
+            providerId: providerId
+            postBrokerLoginFlowAlias: postBrokerLoginFlowAlias
+            alias: alias
+            trustEmail: true
+            config:
+              key: ""
+            linkOnly: true
+            enabled: true
+            storeToken: true
+          - firstBrokerLoginFlowAlias: firstBrokerLoginFlowAlias
+            internalId: internalId
+            addReadTokenRoleOnCreate: true
+            displayName: displayName
+            providerId: providerId
+            postBrokerLoginFlowAlias: postBrokerLoginFlowAlias
+            alias: alias
+            trustEmail: true
+            config:
+              key: ""
+            linkOnly: true
+            enabled: true
+            storeToken: true
+          displayName: displayName
+          roles:
+          - name: name
+            description: description
+            id: id
+          - name: name
+            description: description
+            id: id
+          members:
+          - roles:
+            - roles
+            - roles
+            userId: userId
+            email: email
+          - roles:
+            - roles
+            - roles
+            userId: userId
+            email: email
+          name: name
+          domains:
+          - domains
+          - domains
+          realm: realm
+          attributes:
+            key:
+            - attributes
+            - attributes
+          id: id
+          url: url
+        exportedAt: 2000-01-23T04:56:07.000+00:00
+        realm: realm
+        version: version
+        config:
+          createAdminUserEnabled: true
+          sharedIdpsEnabled: true
+      properties:
+        version:
+          description: Export format version
+          type: string
+        realm:
+          description: Source realm name
+          type: string
+        exportedAt:
+          description: Export timestamp
+          format: date-time
+          type: string
+        organizations:
+          items:
+            $ref: "#/components/schemas/OrganizationExportRepresentation"
+          type: array
+        config:
+          $ref: "#/components/schemas/OrganizationsConfigRepresentation"
+      type: object
+    OrganizationExportRepresentation:
+      allOf:
+      - $ref: "#/components/schemas/OrganizationRepresentation"
+      - properties:
+          roles:
+            items:
+              $ref: "#/components/schemas/OrganizationRoleRepresentation"
+            type: array
+          identityProviders:
+            items:
+              $ref: "#/components/schemas/IdentityProviderRepresentation"
+            type: array
+          members:
+            items:
+              $ref: "#/components/schemas/OrganizationExportRepresentation_allOf_members"
+            type: array
+        type: object
+      example:
+        identityProviders:
+        - firstBrokerLoginFlowAlias: firstBrokerLoginFlowAlias
+          internalId: internalId
+          addReadTokenRoleOnCreate: true
+          displayName: displayName
+          providerId: providerId
+          postBrokerLoginFlowAlias: postBrokerLoginFlowAlias
+          alias: alias
+          trustEmail: true
+          config:
+            key: ""
+          linkOnly: true
+          enabled: true
+          storeToken: true
+        - firstBrokerLoginFlowAlias: firstBrokerLoginFlowAlias
+          internalId: internalId
+          addReadTokenRoleOnCreate: true
+          displayName: displayName
+          providerId: providerId
+          postBrokerLoginFlowAlias: postBrokerLoginFlowAlias
+          alias: alias
+          trustEmail: true
+          config:
+            key: ""
+          linkOnly: true
+          enabled: true
+          storeToken: true
+        displayName: displayName
+        roles:
+        - name: name
+          description: description
+          id: id
+        - name: name
+          description: description
+          id: id
+        members:
+        - roles:
+          - roles
+          - roles
+          userId: userId
+          email: email
+        - roles:
+          - roles
+          - roles
+          userId: userId
+          email: email
+        name: name
+        domains:
+        - domains
+        - domains
+        realm: realm
+        attributes:
+          key:
+          - attributes
+          - attributes
+        id: id
+        url: url
+    OrganizationsImportRepresentation:
+      example:
+        organizations:
+        - identityProviders:
+          - firstBrokerLoginFlowAlias: firstBrokerLoginFlowAlias
+            internalId: internalId
+            addReadTokenRoleOnCreate: true
+            displayName: displayName
+            providerId: providerId
+            postBrokerLoginFlowAlias: postBrokerLoginFlowAlias
+            alias: alias
+            trustEmail: true
+            config:
+              key: ""
+            linkOnly: true
+            enabled: true
+            storeToken: true
+          - firstBrokerLoginFlowAlias: firstBrokerLoginFlowAlias
+            internalId: internalId
+            addReadTokenRoleOnCreate: true
+            displayName: displayName
+            providerId: providerId
+            postBrokerLoginFlowAlias: postBrokerLoginFlowAlias
+            alias: alias
+            trustEmail: true
+            config:
+              key: ""
+            linkOnly: true
+            enabled: true
+            storeToken: true
+          displayName: displayName
+          roles:
+          - name: name
+            description: description
+            id: id
+          - name: name
+            description: description
+            id: id
+          members:
+          - roles:
+            - roles
+            - roles
+            userId: userId
+            email: email
+          - roles:
+            - roles
+            - roles
+            userId: userId
+            email: email
+          name: name
+          domains:
+          - domains
+          - domains
+          realm: realm
+          attributes:
+            key:
+            - attributes
+            - attributes
+          id: id
+          url: url
+        - identityProviders:
+          - firstBrokerLoginFlowAlias: firstBrokerLoginFlowAlias
+            internalId: internalId
+            addReadTokenRoleOnCreate: true
+            displayName: displayName
+            providerId: providerId
+            postBrokerLoginFlowAlias: postBrokerLoginFlowAlias
+            alias: alias
+            trustEmail: true
+            config:
+              key: ""
+            linkOnly: true
+            enabled: true
+            storeToken: true
+          - firstBrokerLoginFlowAlias: firstBrokerLoginFlowAlias
+            internalId: internalId
+            addReadTokenRoleOnCreate: true
+            displayName: displayName
+            providerId: providerId
+            postBrokerLoginFlowAlias: postBrokerLoginFlowAlias
+            alias: alias
+            trustEmail: true
+            config:
+              key: ""
+            linkOnly: true
+            enabled: true
+            storeToken: true
+          displayName: displayName
+          roles:
+          - name: name
+            description: description
+            id: id
+          - name: name
+            description: description
+            id: id
+          members:
+          - roles:
+            - roles
+            - roles
+            userId: userId
+            email: email
+          - roles:
+            - roles
+            - roles
+            userId: userId
+            email: email
+          name: name
+          domains:
+          - domains
+          - domains
+          realm: realm
+          attributes:
+            key:
+            - attributes
+            - attributes
+          id: id
+          url: url
+        version: version
+        config:
+          createAdminUserEnabled: true
+          sharedIdpsEnabled: true
+      properties:
+        version:
+          description: Import format version
+          type: string
+        organizations:
+          items:
+            $ref: "#/components/schemas/OrganizationExportRepresentation"
+          type: array
+        config:
+          $ref: "#/components/schemas/OrganizationsConfigRepresentation"
+      type: object
+    OrganizationsImportResultRepresentation:
+      example:
+        imported: 0
+        updated: 6
+        errors:
+        - organizationName: organizationName
+          error: error
+        - organizationName: organizationName
+          error: error
+        skipped: 1
+      properties:
+        imported:
+          description: Number of organizations successfully imported
+          type: integer
+        updated:
+          description: Number of organizations updated
+          type: integer
+        skipped:
+          description: Number of organizations skipped
+          type: integer
+        errors:
+          items:
+            $ref: "#/components/schemas/OrganizationsImportResultRepresentation_errors_inner"
+          type: array
+      type: object
+    OrganizationsConfigRepresentation:
+      example:
+        createAdminUserEnabled: true
+        sharedIdpsEnabled: true
+      properties:
+        createAdminUserEnabled:
+          description: Whether to create a default admin user for new organizations
+          type: boolean
+        sharedIdpsEnabled:
+          description: Whether identity providers can be shared across organizations
+          type: boolean
+      type: object
+    SwitchOrganizationRepresentation:
+      example:
+        id: id
+      properties:
+        id:
+          description: The ID of the organization to switch to
+          type: string
+      required:
+      - organizationId
+      type: object
+    ActiveOrganizationRepresentation:
+      example:
+        organizationId: organizationId
+        switchedAt: 2000-01-23T04:56:07.000+00:00
+        organizationName: organizationName
+        displayName: displayName
+        roles:
+        - roles
+        - roles
+      properties:
+        organizationId:
+          description: The ID of the active organization
+          type: string
+        organizationName:
+          description: The name of the active organization
+          type: string
+        displayName:
+          description: The display name of the active organization
+          type: string
+        roles:
+          description: User's roles in the active organization
+          items:
+            type: string
+          type: array
+        switchedAt:
+          description: When the organization was last switched to
+          format: date-time
+          type: string
+      type: object
     OrganizationDomainRepresentation:
       example:
         domain_name: domain_name
@@ -3068,6 +3977,12 @@ components:
           type: string
         type:
           type: string
+      required:
+      - domain_name
+      - record_key
+      - record_value
+      - type
+      - verified
       type: object
     OrganizationRoleRepresentation:
       example:
@@ -3087,6 +4002,20 @@ components:
         items:
           $ref: "#/components/schemas/OrganizationRoleRepresentation"
         type: array
+      type: object
+    OrganizationMemberAttributeRepresentation:
+      example:
+        attributes:
+          key:
+          - attributes
+          - attributes
+      properties:
+        attributes:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          type: object
       type: object
     PortalLinkRepresentation:
       example:
@@ -3214,33 +4143,8 @@ components:
         username:
           type: string
       type: object
-    UserWithOrgsRepresentation:
-      example:
-        emailVerified: true
-        firstName: firstName
-        lastName: lastName
-        createdTimestamp: 0
-        organizations:
-          key:
-          - name: name
-            description: description
-            id: id
-          - name: name
-            description: description
-            id: id
-        groups:
-        - groups
-        - groups
-        attributes:
-          key: ""
-        id: id
-        email: email
-        enabled: true
-        username: username
+    UserBriefRepresentation:
       properties:
-        attributes:
-          additionalProperties: true
-          type: object
         createdTimestamp:
           format: int64
           type: integer
@@ -3262,13 +4166,34 @@ components:
           type: string
         username:
           type: string
-        organizations:
-          additionalProperties:
-            items:
-              $ref: "#/components/schemas/OrganizationRoleRepresentation"
-            type: array
-          type: object
       type: object
+    UserWithOrgsRepresentation:
+      allOf:
+      - $ref: "#/components/schemas/UserRepresentation"
+      - properties:
+          organizations:
+            $ref: "#/components/schemas/OrganizationRoleMapRepresentation"
+        type: object
+    UserWithOrgsBriefRepresentation:
+      allOf:
+      - $ref: "#/components/schemas/UserBriefRepresentation"
+      - properties:
+          organizations:
+            $ref: "#/components/schemas/OrganizationRoleMapRepresentation"
+        type: object
+      example:
+        emailVerified: true
+        firstName: firstName
+        lastName: lastName
+        createdTimestamp: 0
+        organizations: null
+        groups:
+        - groups
+        - groups
+        id: id
+        email: email
+        enabled: true
+        username: username
     AuthDetailsRepresentation:
       example:
         realmId: realmId
@@ -3447,13 +4372,16 @@ components:
         nonce: nonce
         client_id: client_id
         reusable: true
+        response_mode: response_mode
         update_profile: true
         scope: scope
         force_create: true
         redirect_uri: redirect_uri
+        state: state
         remember_me: true
         email: email
         code_challenge: code_challenge
+        username: username
         expiration_seconds: 0
       properties:
         email:
@@ -3461,6 +4389,8 @@ components:
         client_id:
           type: string
         redirect_uri:
+          type: string
+        username:
           type: string
         expiration_seconds:
           type: integer
@@ -3476,6 +4406,8 @@ components:
           type: string
         nonce:
           type: string
+        state:
+          type: string
         code_challenge:
           type: string
         code_challenge_method:
@@ -3484,14 +4416,63 @@ components:
           type: boolean
         reusable:
           type: boolean
+        response_mode:
+          type: string
       required:
       - client_id
       - email
       - redirect_uri
       type: object
+    MagicLinkResponse:
+      example:
+        user_id: user_id
+        link: link
+        sent: true
+      properties:
+        user_id:
+          type: string
+        link:
+          type: string
+        sent:
+          type: boolean
+      type: object
+    importOrganizations_request:
+      properties:
+        file:
+          description: JSON file containing organizations export
+          format: binary
+          type: string
+      type: object
     createPortalLink_request:
       properties:
         userId:
+          type: string
+      type: object
+    OrganizationExportRepresentation_allOf_members:
+      example:
+        roles:
+        - roles
+        - roles
+        userId: userId
+        email: email
+      properties:
+        userId:
+          type: string
+        email:
+          type: string
+        roles:
+          items:
+            type: string
+          type: array
+      type: object
+    OrganizationsImportResultRepresentation_errors_inner:
+      example:
+        organizationName: organizationName
+        error: error
+      properties:
+        organizationName:
+          type: string
+        error:
           type: string
       type: object
   securitySchemes:

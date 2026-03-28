@@ -15,7 +15,7 @@ import java.util.List;
 * Represents a collection of functions to interact with the API endpoints.
 */
 @Path("/{realm}/orgs/{orgId}/roles")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.14.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.21.0")
 public interface OrganizationRolesApi {
 
     /**
