@@ -14,11 +14,11 @@ import java.util.List;
 * Represents a collection of functions to interact with the API endpoints.
 */
 @Path("/{realm}/orgs/{orgId}/invitations")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.14.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.21.0")
 public interface OrganizationInvitationApi {
 
     /**
-     * 
+     * Create an invitation to join the specified organization. Requires a user to register with the application (if they don't already have an account) before they can accept the invitation. Acceptance happens during login via a required action.
      *
      * @param realm realm name (not id!)
      * @param orgId organization id

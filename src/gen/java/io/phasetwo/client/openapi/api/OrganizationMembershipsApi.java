@@ -1,6 +1,8 @@
 package io.phasetwo.client.openapi.api;
 
-import io.phasetwo.client.openapi.model.UserWithOrgsRepresentation;
+import java.util.Map;
+import io.phasetwo.client.openapi.model.OrganizationMemberAttributeRepresentation;
+import io.phasetwo.client.openapi.model.UserWithOrgsBriefRepresentation;
 
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
@@ -13,7 +15,7 @@ import java.util.List;
 * Represents a collection of functions to interact with the API endpoints.
 */
 @Path("/{realm}/orgs/{orgId}/members")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.14.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.21.0")
 public interface OrganizationMembershipsApi {
 
     /**
@@ -30,6 +32,24 @@ public interface OrganizationMembershipsApi {
 
 
     /**
+     * Add or update attributes for a specific member of an organization
+     *
+     * @param realm realm name (not id!)
+     * @param orgId organization id
+     * @param userId user id
+     * @param organizationMemberAttributeRepresentation 
+     * @return success
+     * @return User is not a member of the organization
+     * @return User doesn't exist
+     */
+    @PUT
+    @Path("/{userId}/attributes")
+    @Consumes({ "application/json" })
+    @Produces({ "application/json" })
+    Map<String, List<String>> addOrganizationMemberAttributes(@PathParam("realm") String realm,@PathParam("orgId") String orgId,@PathParam("userId") String userId,OrganizationMemberAttributeRepresentation organizationMemberAttributeRepresentation);
+
+
+    /**
      * 
      *
      * @param realm realm name (not id!)
@@ -40,6 +60,22 @@ public interface OrganizationMembershipsApi {
     @GET
     @Path("/{userId}")
     Response checkOrganizationMembership(@PathParam("realm") String realm, @PathParam("orgId") String orgId, @PathParam("userId") String userId);
+
+
+    /**
+     * Get attributes for a specific member of an organization
+     *
+     * @param realm realm name (not id!)
+     * @param orgId organization id
+     * @param userId user id
+     * @return success
+     * @return User is not a member of the organization
+     * @return User doesn't exist
+     */
+    @GET
+    @Path("/{userId}/attributes")
+    @Produces({ "application/json" })
+    Map<String, List<String>> getOrganizationMemberAttributes(@PathParam("realm") String realm,@PathParam("orgId") String orgId,@PathParam("userId") String userId);
 
 
     /**
@@ -56,7 +92,7 @@ public interface OrganizationMembershipsApi {
      */
     @GET
     @Produces({ "application/json" })
-    List<UserWithOrgsRepresentation> getOrganizationMemberships(@PathParam("realm") String realm,@PathParam("orgId") String orgId,@QueryParam("search")   String search,@QueryParam("first")   Integer first,@QueryParam("max")   Integer max,@QueryParam("excludeAdminAccounts")   Boolean excludeAdminAccounts,@QueryParam("includeOrgs")   Boolean includeOrgs);
+    List<UserWithOrgsBriefRepresentation> getOrganizationMemberships(@PathParam("realm") String realm,@PathParam("orgId") String orgId,@QueryParam("search")   String search,@QueryParam("first")   Integer first,@QueryParam("max")   Integer max,@QueryParam("excludeAdminAccounts")   Boolean excludeAdminAccounts,@QueryParam("includeOrgs")   Boolean includeOrgs);
 
 
     /**

@@ -15,7 +15,7 @@ import java.util.List;
 * Represents a collection of functions to interact with the API endpoints.
 */
 @Path("/{realm}")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.14.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.21.0")
 public interface EventsApi {
 
     /**
@@ -159,7 +159,7 @@ public interface EventsApi {
     @GET
     @Path("/webhooks")
     @Produces({ "application/json" })
-    List<WebhookRepresentation> getWebhooks(@PathParam("realm") String realm, @QueryParam("first")   Integer first,@QueryParam("max")   Integer max);
+    List<WebhookRepresentation> getWebhooks(@PathParam("realm") String realm,@QueryParam("first")   Integer first,@QueryParam("max")   Integer max);
 
 
     /**

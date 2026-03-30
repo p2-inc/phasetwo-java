@@ -1,9 +1,12 @@
 package io.phasetwo.client.openapi.api;
 
+import io.phasetwo.client.openapi.model.ActiveOrganizationRepresentation;
 import io.phasetwo.client.openapi.model.BulkResponseItem;
 import io.phasetwo.client.openapi.model.MagicLinkRequest;
+import io.phasetwo.client.openapi.model.MagicLinkResponse;
 import io.phasetwo.client.openapi.model.OrganizationRepresentation;
 import io.phasetwo.client.openapi.model.OrganizationRoleRepresentation;
+import io.phasetwo.client.openapi.model.SwitchOrganizationRepresentation;
 
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
@@ -16,7 +19,7 @@ import java.util.List;
 * Represents a collection of functions to interact with the API endpoints.
 */
 @Path("/{realm}")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.14.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.21.0")
 public interface UsersApi {
 
     /**
@@ -31,7 +34,21 @@ public interface UsersApi {
     @POST
     @Path("/magic-link")
     @Consumes({ "application/json" })
-    Response createMagicLink(@PathParam("realm") String realm, MagicLinkRequest magicLinkRequest);
+    @Produces({ "application/json" })
+    MagicLinkResponse createMagicLink(@PathParam("realm") String realm,MagicLinkRequest magicLinkRequest);
+
+
+    /**
+     * Get the currently active organization for the authenticated user
+     *
+     * @param realm realm name (not id!)
+     * @return success
+     * @return No active organization set
+     */
+    @GET
+    @Path("/users/active-organization")
+    @Produces({ "application/json" })
+    ActiveOrganizationRepresentation getActiveOrganization(@PathParam("realm") String realm);
 
 
     /**
@@ -91,5 +108,21 @@ public interface UsersApi {
     @Consumes({ "application/json" })
     @Produces({ "application/json" })
     List<BulkResponseItem> realmUsersUserIdOrgsOrgIdRolesPut(@PathParam("realm") String realm,@PathParam("userId") String userId,@PathParam("orgId") String orgId,List<OrganizationRoleRepresentation> organizationRoleRepresentation);
+
+
+    /**
+     * Switch the active organization context for the authenticated user
+     *
+     * @param realm realm name (not id!)
+     * @param switchOrganizationRepresentation 
+     * @return Active organization switched successfully
+     * @return Invalid organization or user is not a member
+     * @return Organization not found
+     * @return User does not have access to the organization
+     */
+    @PUT
+    @Path("/users/switch-organization")
+    @Consumes({ "application/json" })
+    Response switchActiveOrganization(@PathParam("realm") String realm,SwitchOrganizationRepresentation switchOrganizationRepresentation);
 
 }

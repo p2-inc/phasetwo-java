@@ -26,11 +26,11 @@ public class OrganizationMembershipsResource  {
     return (impl.checkOrganizationMembership(realm, orgId, userId).getStatus() == Response.Status.NO_CONTENT.getStatusCode());
   }
 
-  public List<UserWithOrgsRepresentation> members() {
+  public List<UserWithOrgsBriefRepresentation> members() {
     return members(Optional.empty(), Optional.empty(), Optional.empty(), false, false);
   }
 
-  public List<UserWithOrgsRepresentation> members(Optional<String> search, Optional<Integer> first, Optional<Integer> max, boolean excludeAccounts, boolean includeOrgs) {
+  public List<UserWithOrgsBriefRepresentation> members(Optional<String> search, Optional<Integer> first, Optional<Integer> max, boolean excludeAccounts, boolean includeOrgs) {
     return impl.getOrganizationMemberships(realm, orgId, search.orElse(null), first.orElse(null), max.orElse(null), excludeAccounts, includeOrgs);
   }
 

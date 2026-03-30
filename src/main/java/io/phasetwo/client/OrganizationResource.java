@@ -23,7 +23,7 @@ public class OrganizationResource  {
   }
 
   public OrganizationDomainsResource domains() {
-    return new OrganizationDomainsResource(orgId, realm, p2.getOrganizationDomainsApi());
+    return new OrganizationDomainsResource(orgId, realm, p2.getOrganizationApi() ,p2.getOrganizationDomainsApi());
   }
 
   public OrganizationInvitationsResource invitations() {

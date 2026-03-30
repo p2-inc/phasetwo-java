@@ -1,23 +1,19 @@
 package io.phasetwo.client.openapi.model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 
-@JsonTypeName("UserRepresentation")
+@JsonTypeName("UserWithOrgsBriefRepresentation")
 @jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.21.0")
-public class UserRepresentation   {
-  private Map<String, Object> attributes = new HashMap<>();
+public class UserWithOrgsBriefRepresentation   {
   private Long createdTimestamp;
   private String email;
   private Boolean emailVerified;
@@ -27,47 +23,14 @@ public class UserRepresentation   {
   private String id;
   private String lastName;
   private String username;
+  private Map<String, List<OrganizationRoleRepresentation>> organizations = new HashMap<>();
 
-  public UserRepresentation() {
+  public UserWithOrgsBriefRepresentation() {
   }
 
   /**
    **/
-  public UserRepresentation attributes(Map<String, Object> attributes) {
-    this.attributes = attributes;
-    return this;
-  }
-
-  
-  @JsonProperty("attributes")
-  public Map<String, Object> getAttributes() {
-    return attributes;
-  }
-
-  @JsonProperty("attributes")
-  public void setAttributes(Map<String, Object> attributes) {
-    this.attributes = attributes;
-  }
-
-  public UserRepresentation putAttributesItem(String key, Object attributesItem) {
-    if (this.attributes == null) {
-      this.attributes = new HashMap<>();
-    }
-
-    this.attributes.put(key, attributesItem);
-    return this;
-  }
-
-  public UserRepresentation removeAttributesItem(String key) {
-    if (this.attributes != null) {
-      this.attributes.remove(key);
-    }
-
-    return this;
-  }
-  /**
-   **/
-  public UserRepresentation createdTimestamp(Long createdTimestamp) {
+  public UserWithOrgsBriefRepresentation createdTimestamp(Long createdTimestamp) {
     this.createdTimestamp = createdTimestamp;
     return this;
   }
@@ -85,7 +48,7 @@ public class UserRepresentation   {
 
   /**
    **/
-  public UserRepresentation email(String email) {
+  public UserWithOrgsBriefRepresentation email(String email) {
     this.email = email;
     return this;
   }
@@ -103,7 +66,7 @@ public class UserRepresentation   {
 
   /**
    **/
-  public UserRepresentation emailVerified(Boolean emailVerified) {
+  public UserWithOrgsBriefRepresentation emailVerified(Boolean emailVerified) {
     this.emailVerified = emailVerified;
     return this;
   }
@@ -121,7 +84,7 @@ public class UserRepresentation   {
 
   /**
    **/
-  public UserRepresentation enabled(Boolean enabled) {
+  public UserWithOrgsBriefRepresentation enabled(Boolean enabled) {
     this.enabled = enabled;
     return this;
   }
@@ -139,7 +102,7 @@ public class UserRepresentation   {
 
   /**
    **/
-  public UserRepresentation firstName(String firstName) {
+  public UserWithOrgsBriefRepresentation firstName(String firstName) {
     this.firstName = firstName;
     return this;
   }
@@ -157,7 +120,7 @@ public class UserRepresentation   {
 
   /**
    **/
-  public UserRepresentation groups(List<String> groups) {
+  public UserWithOrgsBriefRepresentation groups(List<String> groups) {
     this.groups = groups;
     return this;
   }
@@ -173,7 +136,7 @@ public class UserRepresentation   {
     this.groups = groups;
   }
 
-  public UserRepresentation addGroupsItem(String groupsItem) {
+  public UserWithOrgsBriefRepresentation addGroupsItem(String groupsItem) {
     if (this.groups == null) {
       this.groups = new ArrayList<>();
     }
@@ -182,7 +145,7 @@ public class UserRepresentation   {
     return this;
   }
 
-  public UserRepresentation removeGroupsItem(String groupsItem) {
+  public UserWithOrgsBriefRepresentation removeGroupsItem(String groupsItem) {
     if (groupsItem != null && this.groups != null) {
       this.groups.remove(groupsItem);
     }
@@ -191,7 +154,7 @@ public class UserRepresentation   {
   }
   /**
    **/
-  public UserRepresentation id(String id) {
+  public UserWithOrgsBriefRepresentation id(String id) {
     this.id = id;
     return this;
   }
@@ -209,7 +172,7 @@ public class UserRepresentation   {
 
   /**
    **/
-  public UserRepresentation lastName(String lastName) {
+  public UserWithOrgsBriefRepresentation lastName(String lastName) {
     this.lastName = lastName;
     return this;
   }
@@ -227,7 +190,7 @@ public class UserRepresentation   {
 
   /**
    **/
-  public UserRepresentation username(String username) {
+  public UserWithOrgsBriefRepresentation username(String username) {
     this.username = username;
     return this;
   }
@@ -243,6 +206,40 @@ public class UserRepresentation   {
     this.username = username;
   }
 
+  /**
+   **/
+  public UserWithOrgsBriefRepresentation organizations(Map<String, List<OrganizationRoleRepresentation>> organizations) {
+    this.organizations = organizations;
+    return this;
+  }
+
+  
+  @JsonProperty("organizations")
+  public Map<String, List<OrganizationRoleRepresentation>> getOrganizations() {
+    return organizations;
+  }
+
+  @JsonProperty("organizations")
+  public void setOrganizations(Map<String, List<OrganizationRoleRepresentation>> organizations) {
+    this.organizations = organizations;
+  }
+
+  public UserWithOrgsBriefRepresentation putOrganizationsItem(String key, List<OrganizationRoleRepresentation> organizationsItem) {
+    if (this.organizations == null) {
+      this.organizations = new HashMap<>();
+    }
+
+    this.organizations.put(key, organizationsItem);
+    return this;
+  }
+
+  public UserWithOrgsBriefRepresentation removeOrganizationsItem(String key) {
+    if (this.organizations != null) {
+      this.organizations.remove(key);
+    }
+
+    return this;
+  }
 
   @Override
   public boolean equals(Object o) {
@@ -252,30 +249,29 @@ public class UserRepresentation   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    UserRepresentation userRepresentation = (UserRepresentation) o;
-    return Objects.equals(this.attributes, userRepresentation.attributes) &&
-        Objects.equals(this.createdTimestamp, userRepresentation.createdTimestamp) &&
-        Objects.equals(this.email, userRepresentation.email) &&
-        Objects.equals(this.emailVerified, userRepresentation.emailVerified) &&
-        Objects.equals(this.enabled, userRepresentation.enabled) &&
-        Objects.equals(this.firstName, userRepresentation.firstName) &&
-        Objects.equals(this.groups, userRepresentation.groups) &&
-        Objects.equals(this.id, userRepresentation.id) &&
-        Objects.equals(this.lastName, userRepresentation.lastName) &&
-        Objects.equals(this.username, userRepresentation.username);
+    UserWithOrgsBriefRepresentation userWithOrgsBriefRepresentation = (UserWithOrgsBriefRepresentation) o;
+    return Objects.equals(this.createdTimestamp, userWithOrgsBriefRepresentation.createdTimestamp) &&
+        Objects.equals(this.email, userWithOrgsBriefRepresentation.email) &&
+        Objects.equals(this.emailVerified, userWithOrgsBriefRepresentation.emailVerified) &&
+        Objects.equals(this.enabled, userWithOrgsBriefRepresentation.enabled) &&
+        Objects.equals(this.firstName, userWithOrgsBriefRepresentation.firstName) &&
+        Objects.equals(this.groups, userWithOrgsBriefRepresentation.groups) &&
+        Objects.equals(this.id, userWithOrgsBriefRepresentation.id) &&
+        Objects.equals(this.lastName, userWithOrgsBriefRepresentation.lastName) &&
+        Objects.equals(this.username, userWithOrgsBriefRepresentation.username) &&
+        Objects.equals(this.organizations, userWithOrgsBriefRepresentation.organizations);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(attributes, createdTimestamp, email, emailVerified, enabled, firstName, groups, id, lastName, username);
+    return Objects.hash(createdTimestamp, email, emailVerified, enabled, firstName, groups, id, lastName, username, organizations);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class UserRepresentation {\n");
+    sb.append("class UserWithOrgsBriefRepresentation {\n");
     
-    sb.append("    attributes: ").append(toIndentedString(attributes)).append("\n");
     sb.append("    createdTimestamp: ").append(toIndentedString(createdTimestamp)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    emailVerified: ").append(toIndentedString(emailVerified)).append("\n");
@@ -285,6 +281,7 @@ public class UserRepresentation   {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
     sb.append("    username: ").append(toIndentedString(username)).append("\n");
+    sb.append("    organizations: ").append(toIndentedString(organizations)).append("\n");
     sb.append("}");
     return sb.toString();
   }

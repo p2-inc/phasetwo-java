@@ -9,11 +9,12 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("MagicLinkRequest")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.14.0")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.21.0")
 public class MagicLinkRequest   {
   private String email;
   private String clientId;
   private String redirectUri;
+  private String username;
   private Integer expirationSeconds;
   private Boolean forceCreate;
   private Boolean sendEmail;
@@ -21,21 +22,21 @@ public class MagicLinkRequest   {
   private Boolean updatePassword;
   private String scope;
   private String nonce;
+  private String state;
   private String codeChallenge;
   private String codeChallengeMethod;
   private Boolean rememberMe;
   private Boolean reusable;
+  private String responseMode;
 
   public MagicLinkRequest() {
   }
 
   @JsonCreator
   public MagicLinkRequest(
-    @JsonProperty(required = true, value = "email") String email,
     @JsonProperty(required = true, value = "client_id") String clientId,
     @JsonProperty(required = true, value = "redirect_uri") String redirectUri
   ) {
-    this.email = email;
     this.clientId = clientId;
     this.redirectUri = redirectUri;
   }
@@ -48,12 +49,12 @@ public class MagicLinkRequest   {
   }
 
   
-  @JsonProperty(required = true, value = "email")
+  @JsonProperty("email")
   public String getEmail() {
     return email;
   }
 
-  @JsonProperty(required = true, value = "email")
+  @JsonProperty("email")
   public void setEmail(String email) {
     this.email = email;
   }
@@ -92,6 +93,24 @@ public class MagicLinkRequest   {
   @JsonProperty(required = true, value = "redirect_uri")
   public void setRedirectUri(String redirectUri) {
     this.redirectUri = redirectUri;
+  }
+
+  /**
+   **/
+  public MagicLinkRequest username(String username) {
+    this.username = username;
+    return this;
+  }
+
+  
+  @JsonProperty("username")
+  public String getUsername() {
+    return username;
+  }
+
+  @JsonProperty("username")
+  public void setUsername(String username) {
+    this.username = username;
   }
 
   /**
@@ -222,6 +241,24 @@ public class MagicLinkRequest   {
 
   /**
    **/
+  public MagicLinkRequest state(String state) {
+    this.state = state;
+    return this;
+  }
+
+  
+  @JsonProperty("state")
+  public String getState() {
+    return state;
+  }
+
+  @JsonProperty("state")
+  public void setState(String state) {
+    this.state = state;
+  }
+
+  /**
+   **/
   public MagicLinkRequest codeChallenge(String codeChallenge) {
     this.codeChallenge = codeChallenge;
     return this;
@@ -292,6 +329,24 @@ public class MagicLinkRequest   {
     this.reusable = reusable;
   }
 
+  /**
+   **/
+  public MagicLinkRequest responseMode(String responseMode) {
+    this.responseMode = responseMode;
+    return this;
+  }
+
+  
+  @JsonProperty("response_mode")
+  public String getResponseMode() {
+    return responseMode;
+  }
+
+  @JsonProperty("response_mode")
+  public void setResponseMode(String responseMode) {
+    this.responseMode = responseMode;
+  }
+
 
   @Override
   public boolean equals(Object o) {
@@ -305,6 +360,7 @@ public class MagicLinkRequest   {
     return Objects.equals(this.email, magicLinkRequest.email) &&
         Objects.equals(this.clientId, magicLinkRequest.clientId) &&
         Objects.equals(this.redirectUri, magicLinkRequest.redirectUri) &&
+        Objects.equals(this.username, magicLinkRequest.username) &&
         Objects.equals(this.expirationSeconds, magicLinkRequest.expirationSeconds) &&
         Objects.equals(this.forceCreate, magicLinkRequest.forceCreate) &&
         Objects.equals(this.sendEmail, magicLinkRequest.sendEmail) &&
@@ -312,15 +368,17 @@ public class MagicLinkRequest   {
         Objects.equals(this.updatePassword, magicLinkRequest.updatePassword) &&
         Objects.equals(this.scope, magicLinkRequest.scope) &&
         Objects.equals(this.nonce, magicLinkRequest.nonce) &&
+        Objects.equals(this.state, magicLinkRequest.state) &&
         Objects.equals(this.codeChallenge, magicLinkRequest.codeChallenge) &&
         Objects.equals(this.codeChallengeMethod, magicLinkRequest.codeChallengeMethod) &&
         Objects.equals(this.rememberMe, magicLinkRequest.rememberMe) &&
-        Objects.equals(this.reusable, magicLinkRequest.reusable);
+        Objects.equals(this.reusable, magicLinkRequest.reusable) &&
+        Objects.equals(this.responseMode, magicLinkRequest.responseMode);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(email, clientId, redirectUri, expirationSeconds, forceCreate, sendEmail, updateProfile, updatePassword, scope, nonce, codeChallenge, codeChallengeMethod, rememberMe, reusable);
+    return Objects.hash(email, clientId, redirectUri, username, expirationSeconds, forceCreate, sendEmail, updateProfile, updatePassword, scope, nonce, state, codeChallenge, codeChallengeMethod, rememberMe, reusable, responseMode);
   }
 
   @Override
@@ -331,6 +389,7 @@ public class MagicLinkRequest   {
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    clientId: ").append(toIndentedString(clientId)).append("\n");
     sb.append("    redirectUri: ").append(toIndentedString(redirectUri)).append("\n");
+    sb.append("    username: ").append(toIndentedString(username)).append("\n");
     sb.append("    expirationSeconds: ").append(toIndentedString(expirationSeconds)).append("\n");
     sb.append("    forceCreate: ").append(toIndentedString(forceCreate)).append("\n");
     sb.append("    sendEmail: ").append(toIndentedString(sendEmail)).append("\n");
@@ -338,10 +397,12 @@ public class MagicLinkRequest   {
     sb.append("    updatePassword: ").append(toIndentedString(updatePassword)).append("\n");
     sb.append("    scope: ").append(toIndentedString(scope)).append("\n");
     sb.append("    nonce: ").append(toIndentedString(nonce)).append("\n");
+    sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("    codeChallenge: ").append(toIndentedString(codeChallenge)).append("\n");
     sb.append("    codeChallengeMethod: ").append(toIndentedString(codeChallengeMethod)).append("\n");
     sb.append("    rememberMe: ").append(toIndentedString(rememberMe)).append("\n");
     sb.append("    reusable: ").append(toIndentedString(reusable)).append("\n");
+    sb.append("    responseMode: ").append(toIndentedString(responseMode)).append("\n");
     sb.append("}");
     return sb.toString();
   }
@@ -351,12 +412,8 @@ public class MagicLinkRequest   {
    * (except the first line).
    */
   private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
+    return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
 
 
 }
-

@@ -79,8 +79,8 @@ public class PhaseTwo {
     return keycloak.proxy(OrganizationDomainsApi.class, absoluteUri);
   }
   
-  public OrganizationInvitationsApi getOrganizationInvitationsApi() {
-    return keycloak.proxy(OrganizationInvitationsApi.class, absoluteUri);
+  public OrganizationInvitationApi getOrganizationInvitationsApi() {
+    return keycloak.proxy(OrganizationInvitationApi.class, absoluteUri);
   }
   
   public OrganizationMembershipsApi getOrganizationMembershipsApi() {
@@ -91,6 +91,10 @@ public class PhaseTwo {
     return keycloak.proxy(OrganizationRolesApi.class, absoluteUri);
   }
   
+  public OrganizationApi getOrganizationApi() {
+    return keycloak.proxy(OrganizationApi.class, absoluteUri);
+  }
+
   public OrganizationsApi getOrganizationsApi() {
     return keycloak.proxy(OrganizationsApi.class, absoluteUri);
   }
