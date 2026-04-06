@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 
 
@@ -16,7 +17,6 @@ public class OrganizationDomainRepresentation   {
   private Boolean verified;
   private String recordKey;
   private String recordValue;
-  private String type;
 
   public OrganizationDomainRepresentation() {
   }
@@ -26,14 +26,12 @@ public class OrganizationDomainRepresentation   {
     @JsonProperty(required = true, value = "domain_name") String domainName,
     @JsonProperty(required = true, value = "verified") Boolean verified,
     @JsonProperty(required = true, value = "record_key") String recordKey,
-    @JsonProperty(required = true, value = "record_value") String recordValue,
-    @JsonProperty(required = true, value = "type") String type
+    @JsonProperty(required = true, value = "record_value") String recordValue
   ) {
     this.domainName = domainName;
     this.verified = verified;
     this.recordKey = recordKey;
     this.recordValue = recordValue;
-    this.type = type;
   }
 
   /**
@@ -108,24 +106,6 @@ public class OrganizationDomainRepresentation   {
     this.recordValue = recordValue;
   }
 
-  /**
-   **/
-  public OrganizationDomainRepresentation type(String type) {
-    this.type = type;
-    return this;
-  }
-
-  
-  @JsonProperty(required = true, value = "type")
-  public String getType() {
-    return type;
-  }
-
-  @JsonProperty(required = true, value = "type")
-  public void setType(String type) {
-    this.type = type;
-  }
-
 
   @Override
   public boolean equals(Object o) {
@@ -139,13 +119,12 @@ public class OrganizationDomainRepresentation   {
     return Objects.equals(this.domainName, organizationDomainRepresentation.domainName) &&
         Objects.equals(this.verified, organizationDomainRepresentation.verified) &&
         Objects.equals(this.recordKey, organizationDomainRepresentation.recordKey) &&
-        Objects.equals(this.recordValue, organizationDomainRepresentation.recordValue) &&
-        Objects.equals(this.type, organizationDomainRepresentation.type);
+        Objects.equals(this.recordValue, organizationDomainRepresentation.recordValue);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(domainName, verified, recordKey, recordValue, type);
+    return Objects.hash(domainName, verified, recordKey, recordValue);
   }
 
   @Override
@@ -157,7 +136,6 @@ public class OrganizationDomainRepresentation   {
     sb.append("    verified: ").append(toIndentedString(verified)).append("\n");
     sb.append("    recordKey: ").append(toIndentedString(recordKey)).append("\n");
     sb.append("    recordValue: ").append(toIndentedString(recordValue)).append("\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("}");
     return sb.toString();
   }

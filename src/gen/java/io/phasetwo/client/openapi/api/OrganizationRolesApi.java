@@ -8,6 +8,8 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 
 
+import java.io.InputStream;
+import java.util.Map;
 import java.util.List;
 
 
@@ -42,7 +44,7 @@ public interface OrganizationRolesApi {
      */
     @POST
     @Consumes({ "application/json" })
-    Response createOrganizationRole(@PathParam("realm") String realm, @PathParam("orgId") String orgId, OrganizationRoleRepresentation organizationRoleRepresentation);
+    Response createOrganizationRole(@PathParam("realm") String realm,@PathParam("orgId") String orgId,OrganizationRoleRepresentation organizationRoleRepresentation);
 
 
     /**

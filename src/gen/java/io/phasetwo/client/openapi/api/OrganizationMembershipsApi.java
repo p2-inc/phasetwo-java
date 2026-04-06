@@ -8,6 +8,8 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 
 
+import java.io.InputStream;
+import java.util.Map;
 import java.util.List;
 
 
@@ -59,7 +61,7 @@ public interface OrganizationMembershipsApi {
      */
     @GET
     @Path("/{userId}")
-    Response checkOrganizationMembership(@PathParam("realm") String realm, @PathParam("orgId") String orgId, @PathParam("userId") String userId);
+    Response checkOrganizationMembership(@PathParam("realm") String realm,@PathParam("orgId") String orgId,@PathParam("userId") String userId);
 
 
     /**

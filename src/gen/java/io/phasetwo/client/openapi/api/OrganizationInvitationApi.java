@@ -7,6 +7,8 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 
 
+import java.io.InputStream;
+import java.util.Map;
 import java.util.List;
 
 
@@ -28,7 +30,7 @@ public interface OrganizationInvitationApi {
      */
     @POST
     @Consumes({ "application/json" })
-    Response addOrganizationInvitation(@PathParam("realm") String realm, @PathParam("orgId") String orgId, InvitationRequestRepresentation invitationRequestRepresentation);
+    Response addOrganizationInvitation(@PathParam("realm") String realm,@PathParam("orgId") String orgId,InvitationRequestRepresentation invitationRequestRepresentation);
 
 
     /**

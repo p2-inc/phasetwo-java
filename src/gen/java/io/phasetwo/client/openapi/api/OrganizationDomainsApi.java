@@ -5,6 +5,11 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 
 
+import java.io.InputStream;
+import java.util.Map;
+import java.util.List;
+
+
 /**
 * Represents a collection of functions to interact with the API endpoints.
 */
