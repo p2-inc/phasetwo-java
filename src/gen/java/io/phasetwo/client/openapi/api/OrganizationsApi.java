@@ -1,5 +1,6 @@
 package io.phasetwo.client.openapi.api;
 
+import java.io.File;
 import io.phasetwo.client.openapi.model.InvitationRepresentation;
 import java.util.Map;
 import io.phasetwo.client.openapi.model.MyOrganizationRepresentation;
@@ -14,6 +15,8 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
 
 
+import java.io.InputStream;
+import java.util.Map;
 import java.util.List;
 
 
@@ -45,7 +48,7 @@ public interface OrganizationsApi {
      */
     @POST
     @Consumes({ "application/json" })
-    Response createOrganization(@PathParam("realm") String realm, OrganizationRepresentation organizationRepresentation);
+    Response createOrganization(@PathParam("realm") String realm,OrganizationRepresentation organizationRepresentation);
 
 
     /**

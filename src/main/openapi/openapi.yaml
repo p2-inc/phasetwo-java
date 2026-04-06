@@ -3965,7 +3965,6 @@ components:
         record_key: record_key
         record_value: record_value
         verified: true
-        type: type
       properties:
         domain_name:
           type: string
@@ -3975,13 +3974,10 @@ components:
           type: string
         record_value:
           type: string
-        type:
-          type: string
       required:
       - domain_name
       - record_key
       - record_value
-      - type
       - verified
       type: object
     OrganizationRoleRepresentation:

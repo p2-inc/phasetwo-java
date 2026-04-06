@@ -1,12 +1,18 @@
 package io.phasetwo.client.openapi.model;
 
+import io.phasetwo.client.openapi.model.OrganizationExportRepresentation;
+import io.phasetwo.client.openapi.model.OrganizationsConfigRepresentation;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 
 
