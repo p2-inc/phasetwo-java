@@ -1,34 +1,28 @@
 package io.phasetwo.client.openapi.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import org.openapitools.jackson.nullable.JsonNullable;
-
-
 
 @JsonTypeName("OrganizationMemberAttributeRepresentation")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.21.0")
-public class OrganizationMemberAttributeRepresentation   {
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen",
+    comments = "Generator version: 7.27.0")
+public class OrganizationMemberAttributeRepresentation {
   private Map<String, List<String>> attributes = new HashMap<>();
 
-  public OrganizationMemberAttributeRepresentation() {
-  }
+  public OrganizationMemberAttributeRepresentation() {}
 
-  /**
-   **/
-  public OrganizationMemberAttributeRepresentation attributes(Map<String, List<String>> attributes) {
+  /** */
+  public OrganizationMemberAttributeRepresentation attributes(
+      Map<String, List<String>> attributes) {
     this.attributes = attributes;
     return this;
   }
 
-  
   @JsonProperty("attributes")
   public Map<String, List<String>> getAttributes() {
     return attributes;
@@ -39,7 +33,8 @@ public class OrganizationMemberAttributeRepresentation   {
     this.attributes = attributes;
   }
 
-  public OrganizationMemberAttributeRepresentation putAttributesItem(String key, List<String> attributesItem) {
+  public OrganizationMemberAttributeRepresentation putAttributesItem(
+      String key, List<String> attributesItem) {
     if (this.attributes == null) {
       this.attributes = new HashMap<>();
     }
@@ -64,7 +59,8 @@ public class OrganizationMemberAttributeRepresentation   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    OrganizationMemberAttributeRepresentation organizationMemberAttributeRepresentation = (OrganizationMemberAttributeRepresentation) o;
+    OrganizationMemberAttributeRepresentation organizationMemberAttributeRepresentation =
+        (OrganizationMemberAttributeRepresentation) o;
     return Objects.equals(this.attributes, organizationMemberAttributeRepresentation.attributes);
   }
 
@@ -77,19 +73,16 @@ public class OrganizationMemberAttributeRepresentation   {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class OrganizationMemberAttributeRepresentation {\n");
-    
+
     sb.append("    attributes: ").append(toIndentedString(attributes)).append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
-
-
 }

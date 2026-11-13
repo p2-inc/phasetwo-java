@@ -1,36 +1,37 @@
 openapi: 3.0.2
 info:
   description: |
-    This is a REST API reference for the Phase Two Keycloak custom resources. These are extensions to the standard [Keycloak Admin REST API](https://www.keycloak.org/docs-api/latest/rest-api/index.html).
+    This is a REST API reference for the Phase Two Keycloak extensions. These are extensions to the standard [Keycloak Admin REST API](https://www.keycloak.org/docs-api/latest/rest-api/index.html), and run on your cluster alongside it.
 
     ### Base URI format
-    Paths specified in the documentation are relative to the the base URI.
-    - Format: `https://<host>:<port>/auth/realms`
-    - Example: `https://app.phasetwo.io/auth/realms`
+    Paths specified in the documentation are relative to the base URI.
+    - Format: `https://<your-cluster-host>/auth/realms`
+    - Example: `https://auth.example.com/auth/realms`
+
+    `<your-cluster-host>` is your cluster's hostname from the Phase Two Dashboard, or a custom domain attached to it.
 
     ### Authentication
-    Authentication is achieved by using the `Authentication: Bearer <token>` header in all requests. This is either the access token received from a normal authentication, or by a request directly to the OpenID Connect token endpoint.
+    Send an access token in the `Authorization: Bearer <token>` header of every request. We recommend getting the token for a [service account](https://phasetwo.io/docs/api/service-accounts) with the client credentials grant, using a confidential client you create for API access.
 
-    It is recommended that you use a Keycloak Admin Client, such as [this one for Javascript](https://github.com/keycloak/keycloak/tree/main/js/libs/keycloak-admin-client), as they take care of authentication, getting an access token, and refreshing it when it expires.
+    A Keycloak admin client library, such as the [Keycloak Admin Client for JavaScript](https://github.com/keycloak/keycloak/tree/main/js/libs/keycloak-admin-client), can take care of getting an access token and refreshing it when it expires.
 
     #### Client credentials grant example
     ```
-    POST /auth/realms/test-realm/protocol/openid-connect/token
-    Host: app.phasetwo.io
+    POST /auth/realms/my-realm/protocol/openid-connect/token
+    Host: auth.example.com
     Accept: application/json
-    Content-type: application/x-www-form-urlencoded
+    Content-Type: application/x-www-form-urlencoded
 
-    grant_type=client_credentials&client_id=admin-cli&client_secret=fd649804-3a74-4d69-acaa-8f065c6b7da1
+    grant_type=client_credentials&client_id=api-client&client_secret=<client-secret>
     ```
 
-    #### Password grant example
-    ```
-    POST /auth/realms/test-realm/protocol/openid-connect/token
-    Host: app.phasetwo.io
-    Accept: application/json
-    Content-type: application/x-www-form-urlencoded
-
-    grant_type=password&username=uname@foo.com&password=pwd123AZY&client_id=admin-cli
+    The response contains the access token, its type, and its lifetime in seconds:
+    ```json
+    {
+      "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...",
+      "token_type": "Bearer",
+      "expires_in": 300
+    }
     ```
 
     ### SDKs
@@ -60,6 +61,30 @@ servers:
         - http://localhost:8081/auth
 security:
 - access_token: []
+tags:
+- description: "Create, read, update and delete organizations; the caller's organizations\
+    \ and invitations; portal links; import and export."
+  name: Organizations
+- description: "Add, list, count and remove organization members, and member attributes."
+  name: Organization Memberships
+- description: Claim and verify email domains for an organization.
+  name: Organization Domains
+- description: "Invite users to an organization, and list, resend and remove invitations."
+  name: Organization Invitations
+- description: Define roles within an organization and grant them to members.
+  name: Organization Roles
+- description: "Per-organization identity providers, mappers, config import and IdP-initiated\
+    \ clients."
+  name: Identity Providers
+- description: Directory sync (SCIM) configuration per organization.
+  name: Organization SCIM
+- description: "User-centric views across organizations, the active organization,\
+    \ and magic links."
+  name: Users
+- description: "Event storage, webhooks and delivery inspection."
+  name: Events
+- description: Realm attribute management.
+  name: Attributes
 paths:
   /{realm}/orgs:
     get:
@@ -104,6 +129,14 @@ paths:
         explode: true
         in: query
         name: q
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: search parameter exact match
+        explode: true
+        in: query
+        name: exact
         required: false
         schema:
           type: string
@@ -154,6 +187,7 @@ paths:
       summary: Create a new organization
       tags:
       - Organizations
+      x-p2-return-response: true
       x-content-type: application/json
       x-accepts:
       - application/json
@@ -184,6 +218,14 @@ paths:
         explode: true
         in: query
         name: q
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: exact search
+        explode: true
+        in: query
+        name: exact
         required: false
         schema:
           type: string
@@ -315,6 +357,7 @@ paths:
       summary: Accept invitation for authenticated user
       tags:
       - Organizations
+      x-p2-return-response: true
       x-accepts:
       - application/json
       x-tags:
@@ -425,9 +468,6 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/OrganizationsImportRepresentation"
-          multipart/form-data:
-            schema:
-              $ref: "#/components/schemas/importOrganizations_request"
         required: true
       responses:
         "200":
@@ -644,6 +684,7 @@ paths:
       summary: Update organization configuration
       tags:
       - Organizations
+      x-p2-return-response: true
       x-content-type: application/json
       x-accepts:
       - application/json
@@ -798,11 +839,10 @@ paths:
           description: success
       summary: Get details for all domains owned by an organization
       tags:
-      - Organization
+      - Organization Domains
       x-accepts:
       - application/json
       x-tags:
-      - tag: Organization
       - tag: Organization Domains
   /{realm}/orgs/{orgId}/domains/{domainName}:
     get:
@@ -841,11 +881,10 @@ paths:
           description: success
       summary: Get details for a domain owned by an organization
       tags:
-      - Organization
+      - Organization Domains
       x-accepts:
       - application/json
       x-tags:
-      - tag: Organization
       - tag: Organization Domains
   /{realm}/orgs/{orgId}/domains/{domainName}/verify:
     post:
@@ -883,6 +922,7 @@ paths:
       summary: Start domain verification
       tags:
       - Organization Domains
+      x-p2-return-response: true
       x-accepts:
       - application/json
       x-tags:
@@ -960,11 +1000,11 @@ paths:
       summary: Check if a user is a member of an organization
       tags:
       - Organization Memberships
+      x-p2-return-response: true
       x-accepts:
       - application/json
       x-tags:
       - tag: Organization Memberships
-      - tag: Users
     put:
       description: Add the specified user to the specified organization as a member
       operationId: addOrganizationMember
@@ -1003,7 +1043,6 @@ paths:
       - application/json
       x-tags:
       - tag: Organization Memberships
-      - tag: Users
   /{realm}/orgs/{orgId}/members/{userId}/attributes:
     get:
       description: Get attributes for a specific member of an organization
@@ -1168,11 +1207,11 @@ paths:
           description: success
       summary: Get organization invitations
       tags:
-      - Organization Invitation
+      - Organization Invitations
       x-accepts:
       - application/json
       x-tags:
-      - tag: Organization Invitation
+      - tag: Organization Invitations
     post:
       description: Create an invitation to join the specified organization. Requires
         a user to register with the application (if they don't already have an account)
@@ -1209,12 +1248,13 @@ paths:
           description: invitation already exists
       summary: Create an invitation to an organization
       tags:
-      - Organization Invitation
+      - Organization Invitations
+      x-p2-return-response: true
       x-content-type: application/json
       x-accepts:
       - application/json
       x-tags:
-      - tag: Organization Invitation
+      - tag: Organization Invitations
   /{realm}/orgs/{orgId}/invitations/count:
     get:
       description: Get a count of invitations to an organization
@@ -1246,11 +1286,11 @@ paths:
           description: success
       summary: Get organization invitation count
       tags:
-      - Organization Invitation
+      - Organization Invitations
       x-accepts:
       - application/json
       x-tags:
-      - tag: Organization Invitation
+      - tag: Organization Invitations
   /{realm}/orgs/{orgId}/invitations/{invitationId}:
     delete:
       operationId: removeOrganizationInvitation
@@ -1284,11 +1324,11 @@ paths:
           description: success
       summary: Remove a pending invitation
       tags:
-      - Organization Invitation
+      - Organization Invitations
       x-accepts:
       - application/json
       x-tags:
-      - tag: Organization Invitation
+      - tag: Organization Invitations
     get:
       description: Get an invitation to an organization by its uuid.
       operationId: getOrganizationInvitationById
@@ -1326,11 +1366,11 @@ paths:
           description: success
       summary: Get organization invitation by ID
       tags:
-      - Organization Invitation
+      - Organization Invitations
       x-accepts:
       - application/json
       x-tags:
-      - tag: Organization Invitation
+      - tag: Organization Invitations
   /{realm}/orgs/{orgId}/invitations/{invitationId}/resend-email:
     put:
       description: Resend the email for an existing Organization Invitation
@@ -1365,11 +1405,11 @@ paths:
           description: success
       summary: Resend an Organization Invitation
       tags:
-      - Organization Invitation
+      - Organization Invitations
       x-accepts:
       - application/json
       x-tags:
-      - tag: Organization Invitation
+      - tag: Organization Invitations
   /{realm}/orgs/{orgId}/roles:
     get:
       operationId: getOrganizationRoles
@@ -1481,6 +1521,7 @@ paths:
       summary: Create a new role for this organization
       tags:
       - Organization Roles
+      x-p2-return-response: true
       x-content-type: application/json
       x-accepts:
       - application/json
@@ -1744,7 +1785,6 @@ paths:
       - application/json
       x-tags:
       - tag: Organization Roles
-      - tag: Users
     get:
       operationId: checkUserOrganizationRole
       parameters:
@@ -1786,11 +1826,11 @@ paths:
       summary: Check if a user has an organization role
       tags:
       - Organization Roles
+      x-p2-return-response: true
       x-accepts:
       - application/json
       x-tags:
       - tag: Organization Roles
-      - tag: Users
     put:
       description: Grant the specified user to the specified organization role
       operationId: grantUserOrganizationRole
@@ -1837,7 +1877,6 @@ paths:
       - application/json
       x-tags:
       - tag: Organization Roles
-      - tag: Users
   /{realm}/orgs/{orgId}/idps/import-config:
     post:
       operationId: importIdpJson
@@ -1941,6 +1980,62 @@ paths:
       summary: Create a new identity provider for this organization
       tags:
       - Identity Providers
+      x-p2-return-response: true
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+      x-tags:
+      - tag: Identity Providers
+  /{realm}/orgs/{orgId}/idps/clients:
+    post:
+      description: Creates a SAML client that accepts IdP-initiated logins brokered
+        through an identity provider of this organization. Create the client before
+        the identity provider it is paired with.
+      operationId: createIdpInitiatedClient
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/IdpInitiatedClientRepresentation"
+        description: JSON body
+        required: true
+      responses:
+        "201":
+          description: success
+          headers:
+            Location:
+              description: URL of the created client
+              explode: false
+              schema:
+                type: string
+              style: simple
+        "400":
+          description: invalid client representation
+        "401":
+          description: not authorized to manage identity providers for this organization
+        "409":
+          description: a client with the same clientId already exists
+      summary: Create the client for IdP-initiated login through this organization's
+        identity provider
+      tags:
+      - Identity Providers
       x-content-type: application/json
       x-accepts:
       - application/json
@@ -1979,6 +2074,7 @@ paths:
       summary: Link an existing identity provider to this organization
       tags:
       - Identity Providers
+      x-p2-return-response: true
       x-content-type: application/json
       x-accepts:
       - application/json
@@ -2226,6 +2322,7 @@ paths:
       summary: Add a mapper to identity provider
       tags:
       - Identity Providers
+      x-p2-return-response: true
       x-content-type: application/json
       x-accepts:
       - application/json
@@ -2375,8 +2472,197 @@ paths:
       - application/json
       x-tags:
       - tag: Identity Providers
+  /{realm}/orgs/{orgId}/scim:
+    delete:
+      description: |
+        Removes the SCIM 2.0 service-provider configuration for the
+        organization. Requires `manage-organizations` or
+        `manage-identity-providers` on the organization.
+      operationId: deleteOrganizationScimConfig
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: SCIM configuration deleted
+        "401":
+          description: Insufficient permission
+        "404":
+          description: "SCIM disabled at realm level, or no configuration exists for\
+            \ this organization"
+      summary: Delete the SCIM configuration for an organization
+      tags:
+      - Organization SCIM
+      x-accepts:
+      - application/json
+      x-tags:
+      - tag: Organization SCIM
+    get:
+      description: |
+        Returns the SCIM 2.0 service-provider configuration for the
+        organization. Requires `view-organizations` or
+        `view-identity-providers` on the organization. Returns 404 if
+        the realm-level SCIM flag (`scimEnabled` in the orgs config) is
+        off, or if no configuration exists for the organization yet.
+      operationId: getOrganizationScimConfig
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrganizationScimRepresentation"
+          description: success
+        "401":
+          description: Insufficient permission
+        "404":
+          description: "SCIM disabled at realm level, or no configuration exists for\
+            \ this organization"
+      summary: Get the SCIM configuration for an organization
+      tags:
+      - Organization SCIM
+      x-accepts:
+      - application/json
+      x-tags:
+      - tag: Organization SCIM
+    post:
+      description: |
+        Creates the SCIM 2.0 service-provider configuration for the
+        organization. Requires `manage-organizations` or
+        `manage-identity-providers` on the organization. Returns 404 if
+        the realm-level SCIM flag is off, and 409 if a configuration
+        already exists for the organization. Cleartext secrets and basic
+        passwords submitted here are hashed with Argon2id before
+        persistence.
+      operationId: createOrganizationScimConfig
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrganizationScimRepresentation"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrganizationScimRepresentation"
+          description: SCIM configuration created
+        "401":
+          description: Insufficient permission
+        "404":
+          description: SCIM disabled at realm level
+        "409":
+          description: SCIM configuration already exists for this organization
+      summary: Create the SCIM configuration for an organization
+      tags:
+      - Organization SCIM
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+      x-tags:
+      - tag: Organization SCIM
+    put:
+      description: |
+        Updates the SCIM 2.0 service-provider configuration for the
+        organization. Requires `manage-organizations` or
+        `manage-identity-providers` on the organization. Omit
+        secret/password fields on `auth` to preserve the existing stored
+        credential; supply a new value to rotate.
+      operationId: updateOrganizationScimConfig
+      parameters:
+      - description: realm name (not id!)
+        explode: false
+        in: path
+        name: realm
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: organization id
+        explode: false
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrganizationScimRepresentation"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrganizationScimRepresentation"
+          description: success
+        "401":
+          description: Insufficient permission
+        "404":
+          description: "SCIM disabled at realm level, or no configuration exists for\
+            \ this organization"
+      summary: Update the SCIM configuration for an organization
+      tags:
+      - Organization SCIM
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+      x-tags:
+      - tag: Organization SCIM
   /{realm}/users/{userId}/orgs:
     get:
+      operationId: listUserOrganizations
       parameters:
       - description: realm name (not id!)
         explode: false
@@ -2412,6 +2698,7 @@ paths:
       - tag: Users
   /{realm}/users/{userId}/orgs/{orgId}/roles:
     get:
+      operationId: listUserRolesInOrganization
       parameters:
       - description: realm name (not id!)
         explode: false
@@ -2453,8 +2740,8 @@ paths:
       - application/json
       x-tags:
       - tag: Users
-      - tag: Organization Roles
     patch:
+      operationId: revokeUserRolesInOrganization
       parameters:
       - description: realm name (not id!)
         explode: false
@@ -2505,8 +2792,8 @@ paths:
       - application/json
       x-tags:
       - tag: Users
-      - tag: Organization Roles
     put:
+      operationId: grantUserRolesInOrganization
       parameters:
       - description: realm name (not id!)
         explode: false
@@ -2557,7 +2844,6 @@ paths:
       - application/json
       x-tags:
       - tag: Users
-      - tag: Organization Roles
   /{realm}/users/switch-organization:
     put:
       description: Switch the active organization context for the authenticated user
@@ -2578,17 +2864,24 @@ paths:
               $ref: "#/components/schemas/SwitchOrganizationRepresentation"
         required: true
       responses:
-        "204":
-          description: Active organization switched successfully
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccessTokenResponse"
+          description: Active organization switched successfully. Returns a new token
+            set reflecting the updated active organization; clients should replace
+            their stored tokens with these.
         "400":
-          description: Invalid organization or user is not a member
+          description: Malformed request body
+        "401":
+          description: User is not a member of this organization
         "404":
           description: Organization not found
-        "403":
-          description: User does not have access to the organization
       summary: Switch active organization for authenticated user
       tags:
       - Users
+      x-p2-return-response: true
       x-content-type: application/json
       x-accepts:
       - application/json
@@ -2612,7 +2905,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ActiveOrganizationRepresentation"
+                $ref: "#/components/schemas/OrganizationRepresentation"
           description: success
         "204":
           description: No active organization set
@@ -2654,6 +2947,7 @@ paths:
       summary: Create a new audit log event
       tags:
       - Events
+      x-p2-return-response: true
       x-content-type: application/json
       x-accepts:
       - application/json
@@ -2895,6 +3189,7 @@ paths:
       summary: Create a new webhook
       tags:
       - Events
+      x-p2-return-response: true
       x-content-type: application/json
       x-accepts:
       - application/json
@@ -3333,9 +3628,9 @@ components:
   schemas:
     BulkResponseItem:
       example:
-        item: "{}"
-        error: error
         status: 0
+        error: error
+        item: {}
       properties:
         status:
           type: integer
@@ -3369,19 +3664,19 @@ components:
       type: object
     IdentityProviderRepresentation:
       example:
-        firstBrokerLoginFlowAlias: firstBrokerLoginFlowAlias
-        internalId: internalId
         addReadTokenRoleOnCreate: true
-        displayName: displayName
-        providerId: providerId
-        postBrokerLoginFlowAlias: postBrokerLoginFlowAlias
         alias: alias
-        trustEmail: true
         config:
           key: ""
-        linkOnly: true
+        displayName: displayName
         enabled: true
+        firstBrokerLoginFlowAlias: firstBrokerLoginFlowAlias
+        internalId: internalId
+        linkOnly: true
+        postBrokerLoginFlowAlias: postBrokerLoginFlowAlias
+        providerId: providerId
         storeToken: true
+        trustEmail: true
       properties:
         addReadTokenRoleOnCreate:
           type: boolean
@@ -3411,12 +3706,12 @@ components:
       type: object
     IdentityProviderMapperRepresentation:
       example:
-        identityProviderAlias: identityProviderAlias
-        name: name
-        id: id
         config:
           key: ""
+        id: id
+        identityProviderAlias: identityProviderAlias
         identityProviderMapper: identityProviderMapper
+        name: name
       properties:
         config:
           additionalProperties: true
@@ -3432,9 +3727,9 @@ components:
       type: object
     LinkIdentityProviderRepresentation:
       example:
-        sync_mode: sync_mode
-        post_broker_flow: post_broker_flow
         alias: alias
+        post_broker_flow: post_broker_flow
+        sync_mode: sync_mode
       properties:
         alias:
           type: string
@@ -3443,11 +3738,47 @@ components:
         sync_mode:
           type: string
       type: object
+    IdpInitiatedClientRepresentation:
+      description: SAML client that receives IdP-initiated logins brokered through
+        an identity provider of this organization and sends the user on to the target
+        application.
+      example:
+        protocol: saml
+        clientId: idp-initiated-generic-saml-a1b2c3
+        name: name
+        description: description
+        attributes:
+          saml_idp_initiated_sso_url_name: saml_idp_initiated_sso_url_name
+          saml_idp_initiated_sso_relay_state: saml_idp_initiated_sso_relay_state
+          saml.force.post.binding: "true"
+          saml_assertion_consumer_url_redirect: saml_assertion_consumer_url_redirect
+          saml_assertion_consumer_url_post: saml_assertion_consumer_url_post
+          phasetwo.idp-initiated.alias: phasetwo.idp-initiated.alias
+      properties:
+        protocol:
+          enum:
+          - saml
+          type: string
+        clientId:
+          description: "Must start with `idp-initiated-`. By convention `idp-initiated-{alias}`,\
+            \ where `{alias}` is the identity provider alias."
+          example: idp-initiated-generic-saml-a1b2c3
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        attributes:
+          $ref: "#/components/schemas/IdpInitiatedClientRepresentation_attributes"
+      required:
+      - clientId
+      - protocol
+      type: object
     RealmAttributeRepresentation:
       example:
         name: name
-        realm: realm
         value: value
+        realm: realm
       properties:
         name:
           type: string
@@ -3459,21 +3790,26 @@ components:
     KeyedRealmAttributeRepresentation:
       additionalProperties:
         $ref: "#/components/schemas/RealmAttributeRepresentation"
+      example:
+        key:
+          name: name
+          value: value
+          realm: realm
       type: object
     OrganizationRepresentation:
       example:
-        displayName: displayName
+        id: id
         name: name
+        displayName: displayName
+        url: url
+        realm: realm
         domains:
         - domains
         - domains
-        realm: realm
         attributes:
           key:
           - attributes
           - attributes
-        id: id
-        url: url
       properties:
         id:
           type: string
@@ -3498,16 +3834,17 @@ components:
       type: object
     OrganizationConfigRepresentation:
       example:
-        defaultSyncMode: defaultSyncMode
-        sharedIdps: true
-        eventsEnabled: true
         createAdminUser: true
+        sharedIdps: true
+        adminEventsEnabled: true
+        eventsEnabled: true
         defaultPostBrokerFlow: defaultPostBrokerFlow
+        defaultSyncMode: defaultSyncMode
         attributes:
           key:
           - attributes
           - attributes
-        adminEventsEnabled: true
+        scimEnabled: true
       properties:
         createAdminUser:
           description: Whether to create a default admin user for new organizations
@@ -3534,127 +3871,134 @@ components:
             type: array
           description: Additional configuration attributes
           type: object
+        scimEnabled:
+          description: |
+            Realm-level feature flag that turns on per-organization SCIM 2.0
+            provisioning. When false (the default) the organization SCIM
+            configuration endpoints under `/{realm}/orgs/{orgId}/scim`
+            return 404 and the SCIM tab is hidden in the Admin UI.
+          type: boolean
       type: object
     OrganizationsExportRepresentation:
       example:
-        organizations:
-        - identityProviders:
-          - firstBrokerLoginFlowAlias: firstBrokerLoginFlowAlias
-            internalId: internalId
-            addReadTokenRoleOnCreate: true
-            displayName: displayName
-            providerId: providerId
-            postBrokerLoginFlowAlias: postBrokerLoginFlowAlias
-            alias: alias
-            trustEmail: true
-            config:
-              key: ""
-            linkOnly: true
-            enabled: true
-            storeToken: true
-          - firstBrokerLoginFlowAlias: firstBrokerLoginFlowAlias
-            internalId: internalId
-            addReadTokenRoleOnCreate: true
-            displayName: displayName
-            providerId: providerId
-            postBrokerLoginFlowAlias: postBrokerLoginFlowAlias
-            alias: alias
-            trustEmail: true
-            config:
-              key: ""
-            linkOnly: true
-            enabled: true
-            storeToken: true
-          displayName: displayName
-          roles:
-          - name: name
-            description: description
-            id: id
-          - name: name
-            description: description
-            id: id
-          members:
-          - roles:
-            - roles
-            - roles
-            userId: userId
-            email: email
-          - roles:
-            - roles
-            - roles
-            userId: userId
-            email: email
-          name: name
-          domains:
-          - domains
-          - domains
-          realm: realm
-          attributes:
-            key:
-            - attributes
-            - attributes
-          id: id
-          url: url
-        - identityProviders:
-          - firstBrokerLoginFlowAlias: firstBrokerLoginFlowAlias
-            internalId: internalId
-            addReadTokenRoleOnCreate: true
-            displayName: displayName
-            providerId: providerId
-            postBrokerLoginFlowAlias: postBrokerLoginFlowAlias
-            alias: alias
-            trustEmail: true
-            config:
-              key: ""
-            linkOnly: true
-            enabled: true
-            storeToken: true
-          - firstBrokerLoginFlowAlias: firstBrokerLoginFlowAlias
-            internalId: internalId
-            addReadTokenRoleOnCreate: true
-            displayName: displayName
-            providerId: providerId
-            postBrokerLoginFlowAlias: postBrokerLoginFlowAlias
-            alias: alias
-            trustEmail: true
-            config:
-              key: ""
-            linkOnly: true
-            enabled: true
-            storeToken: true
-          displayName: displayName
-          roles:
-          - name: name
-            description: description
-            id: id
-          - name: name
-            description: description
-            id: id
-          members:
-          - roles:
-            - roles
-            - roles
-            userId: userId
-            email: email
-          - roles:
-            - roles
-            - roles
-            userId: userId
-            email: email
-          name: name
-          domains:
-          - domains
-          - domains
-          realm: realm
-          attributes:
-            key:
-            - attributes
-            - attributes
-          id: id
-          url: url
-        exportedAt: 2000-01-23T04:56:07.000+00:00
-        realm: realm
         version: version
+        realm: realm
+        exportedAt: 2000-01-23T04:56:07.000+00:00
+        organizations:
+        - id: id
+          name: name
+          displayName: displayName
+          url: url
+          realm: realm
+          domains:
+          - domains
+          - domains
+          attributes:
+            key:
+            - attributes
+            - attributes
+          roles:
+          - id: id
+            name: name
+            description: description
+          - id: id
+            name: name
+            description: description
+          identityProviders:
+          - addReadTokenRoleOnCreate: true
+            alias: alias
+            config:
+              key: ""
+            displayName: displayName
+            enabled: true
+            firstBrokerLoginFlowAlias: firstBrokerLoginFlowAlias
+            internalId: internalId
+            linkOnly: true
+            postBrokerLoginFlowAlias: postBrokerLoginFlowAlias
+            providerId: providerId
+            storeToken: true
+            trustEmail: true
+          - addReadTokenRoleOnCreate: true
+            alias: alias
+            config:
+              key: ""
+            displayName: displayName
+            enabled: true
+            firstBrokerLoginFlowAlias: firstBrokerLoginFlowAlias
+            internalId: internalId
+            linkOnly: true
+            postBrokerLoginFlowAlias: postBrokerLoginFlowAlias
+            providerId: providerId
+            storeToken: true
+            trustEmail: true
+          members:
+          - userId: userId
+            email: email
+            roles:
+            - roles
+            - roles
+          - userId: userId
+            email: email
+            roles:
+            - roles
+            - roles
+        - id: id
+          name: name
+          displayName: displayName
+          url: url
+          realm: realm
+          domains:
+          - domains
+          - domains
+          attributes:
+            key:
+            - attributes
+            - attributes
+          roles:
+          - id: id
+            name: name
+            description: description
+          - id: id
+            name: name
+            description: description
+          identityProviders:
+          - addReadTokenRoleOnCreate: true
+            alias: alias
+            config:
+              key: ""
+            displayName: displayName
+            enabled: true
+            firstBrokerLoginFlowAlias: firstBrokerLoginFlowAlias
+            internalId: internalId
+            linkOnly: true
+            postBrokerLoginFlowAlias: postBrokerLoginFlowAlias
+            providerId: providerId
+            storeToken: true
+            trustEmail: true
+          - addReadTokenRoleOnCreate: true
+            alias: alias
+            config:
+              key: ""
+            displayName: displayName
+            enabled: true
+            firstBrokerLoginFlowAlias: firstBrokerLoginFlowAlias
+            internalId: internalId
+            linkOnly: true
+            postBrokerLoginFlowAlias: postBrokerLoginFlowAlias
+            providerId: providerId
+            storeToken: true
+            trustEmail: true
+          members:
+          - userId: userId
+            email: email
+            roles:
+            - roles
+            - roles
+          - userId: userId
+            email: email
+            roles:
+            - roles
+            - roles
         config:
           createAdminUserEnabled: true
           sharedIdpsEnabled: true
@@ -3694,181 +4038,181 @@ components:
             type: array
         type: object
       example:
-        identityProviders:
-        - firstBrokerLoginFlowAlias: firstBrokerLoginFlowAlias
-          internalId: internalId
-          addReadTokenRoleOnCreate: true
-          displayName: displayName
-          providerId: providerId
-          postBrokerLoginFlowAlias: postBrokerLoginFlowAlias
-          alias: alias
-          trustEmail: true
-          config:
-            key: ""
-          linkOnly: true
-          enabled: true
-          storeToken: true
-        - firstBrokerLoginFlowAlias: firstBrokerLoginFlowAlias
-          internalId: internalId
-          addReadTokenRoleOnCreate: true
-          displayName: displayName
-          providerId: providerId
-          postBrokerLoginFlowAlias: postBrokerLoginFlowAlias
-          alias: alias
-          trustEmail: true
-          config:
-            key: ""
-          linkOnly: true
-          enabled: true
-          storeToken: true
-        displayName: displayName
-        roles:
-        - name: name
-          description: description
-          id: id
-        - name: name
-          description: description
-          id: id
-        members:
-        - roles:
-          - roles
-          - roles
-          userId: userId
-          email: email
-        - roles:
-          - roles
-          - roles
-          userId: userId
-          email: email
+        id: id
         name: name
+        displayName: displayName
+        url: url
+        realm: realm
         domains:
         - domains
         - domains
-        realm: realm
         attributes:
           key:
           - attributes
           - attributes
-        id: id
-        url: url
+        roles:
+        - id: id
+          name: name
+          description: description
+        - id: id
+          name: name
+          description: description
+        identityProviders:
+        - addReadTokenRoleOnCreate: true
+          alias: alias
+          config:
+            key: ""
+          displayName: displayName
+          enabled: true
+          firstBrokerLoginFlowAlias: firstBrokerLoginFlowAlias
+          internalId: internalId
+          linkOnly: true
+          postBrokerLoginFlowAlias: postBrokerLoginFlowAlias
+          providerId: providerId
+          storeToken: true
+          trustEmail: true
+        - addReadTokenRoleOnCreate: true
+          alias: alias
+          config:
+            key: ""
+          displayName: displayName
+          enabled: true
+          firstBrokerLoginFlowAlias: firstBrokerLoginFlowAlias
+          internalId: internalId
+          linkOnly: true
+          postBrokerLoginFlowAlias: postBrokerLoginFlowAlias
+          providerId: providerId
+          storeToken: true
+          trustEmail: true
+        members:
+        - userId: userId
+          email: email
+          roles:
+          - roles
+          - roles
+        - userId: userId
+          email: email
+          roles:
+          - roles
+          - roles
     OrganizationsImportRepresentation:
       example:
-        organizations:
-        - identityProviders:
-          - firstBrokerLoginFlowAlias: firstBrokerLoginFlowAlias
-            internalId: internalId
-            addReadTokenRoleOnCreate: true
-            displayName: displayName
-            providerId: providerId
-            postBrokerLoginFlowAlias: postBrokerLoginFlowAlias
-            alias: alias
-            trustEmail: true
-            config:
-              key: ""
-            linkOnly: true
-            enabled: true
-            storeToken: true
-          - firstBrokerLoginFlowAlias: firstBrokerLoginFlowAlias
-            internalId: internalId
-            addReadTokenRoleOnCreate: true
-            displayName: displayName
-            providerId: providerId
-            postBrokerLoginFlowAlias: postBrokerLoginFlowAlias
-            alias: alias
-            trustEmail: true
-            config:
-              key: ""
-            linkOnly: true
-            enabled: true
-            storeToken: true
-          displayName: displayName
-          roles:
-          - name: name
-            description: description
-            id: id
-          - name: name
-            description: description
-            id: id
-          members:
-          - roles:
-            - roles
-            - roles
-            userId: userId
-            email: email
-          - roles:
-            - roles
-            - roles
-            userId: userId
-            email: email
-          name: name
-          domains:
-          - domains
-          - domains
-          realm: realm
-          attributes:
-            key:
-            - attributes
-            - attributes
-          id: id
-          url: url
-        - identityProviders:
-          - firstBrokerLoginFlowAlias: firstBrokerLoginFlowAlias
-            internalId: internalId
-            addReadTokenRoleOnCreate: true
-            displayName: displayName
-            providerId: providerId
-            postBrokerLoginFlowAlias: postBrokerLoginFlowAlias
-            alias: alias
-            trustEmail: true
-            config:
-              key: ""
-            linkOnly: true
-            enabled: true
-            storeToken: true
-          - firstBrokerLoginFlowAlias: firstBrokerLoginFlowAlias
-            internalId: internalId
-            addReadTokenRoleOnCreate: true
-            displayName: displayName
-            providerId: providerId
-            postBrokerLoginFlowAlias: postBrokerLoginFlowAlias
-            alias: alias
-            trustEmail: true
-            config:
-              key: ""
-            linkOnly: true
-            enabled: true
-            storeToken: true
-          displayName: displayName
-          roles:
-          - name: name
-            description: description
-            id: id
-          - name: name
-            description: description
-            id: id
-          members:
-          - roles:
-            - roles
-            - roles
-            userId: userId
-            email: email
-          - roles:
-            - roles
-            - roles
-            userId: userId
-            email: email
-          name: name
-          domains:
-          - domains
-          - domains
-          realm: realm
-          attributes:
-            key:
-            - attributes
-            - attributes
-          id: id
-          url: url
         version: version
+        organizations:
+        - id: id
+          name: name
+          displayName: displayName
+          url: url
+          realm: realm
+          domains:
+          - domains
+          - domains
+          attributes:
+            key:
+            - attributes
+            - attributes
+          roles:
+          - id: id
+            name: name
+            description: description
+          - id: id
+            name: name
+            description: description
+          identityProviders:
+          - addReadTokenRoleOnCreate: true
+            alias: alias
+            config:
+              key: ""
+            displayName: displayName
+            enabled: true
+            firstBrokerLoginFlowAlias: firstBrokerLoginFlowAlias
+            internalId: internalId
+            linkOnly: true
+            postBrokerLoginFlowAlias: postBrokerLoginFlowAlias
+            providerId: providerId
+            storeToken: true
+            trustEmail: true
+          - addReadTokenRoleOnCreate: true
+            alias: alias
+            config:
+              key: ""
+            displayName: displayName
+            enabled: true
+            firstBrokerLoginFlowAlias: firstBrokerLoginFlowAlias
+            internalId: internalId
+            linkOnly: true
+            postBrokerLoginFlowAlias: postBrokerLoginFlowAlias
+            providerId: providerId
+            storeToken: true
+            trustEmail: true
+          members:
+          - userId: userId
+            email: email
+            roles:
+            - roles
+            - roles
+          - userId: userId
+            email: email
+            roles:
+            - roles
+            - roles
+        - id: id
+          name: name
+          displayName: displayName
+          url: url
+          realm: realm
+          domains:
+          - domains
+          - domains
+          attributes:
+            key:
+            - attributes
+            - attributes
+          roles:
+          - id: id
+            name: name
+            description: description
+          - id: id
+            name: name
+            description: description
+          identityProviders:
+          - addReadTokenRoleOnCreate: true
+            alias: alias
+            config:
+              key: ""
+            displayName: displayName
+            enabled: true
+            firstBrokerLoginFlowAlias: firstBrokerLoginFlowAlias
+            internalId: internalId
+            linkOnly: true
+            postBrokerLoginFlowAlias: postBrokerLoginFlowAlias
+            providerId: providerId
+            storeToken: true
+            trustEmail: true
+          - addReadTokenRoleOnCreate: true
+            alias: alias
+            config:
+              key: ""
+            displayName: displayName
+            enabled: true
+            firstBrokerLoginFlowAlias: firstBrokerLoginFlowAlias
+            internalId: internalId
+            linkOnly: true
+            postBrokerLoginFlowAlias: postBrokerLoginFlowAlias
+            providerId: providerId
+            storeToken: true
+            trustEmail: true
+          members:
+          - userId: userId
+            email: email
+            roles:
+            - roles
+            - roles
+          - userId: userId
+            email: email
+            roles:
+            - roles
+            - roles
         config:
           createAdminUserEnabled: true
           sharedIdpsEnabled: true
@@ -3887,12 +4231,12 @@ components:
       example:
         imported: 0
         updated: 6
+        skipped: 1
         errors:
         - organizationName: organizationName
           error: error
         - organizationName: organizationName
           error: error
-        skipped: 1
       properties:
         imported:
           description: Number of organizations successfully imported
@@ -3928,43 +4272,51 @@ components:
           description: The ID of the organization to switch to
           type: string
       required:
-      - organizationId
+      - id
       type: object
-    ActiveOrganizationRepresentation:
+    AccessTokenResponse:
+      description: "A freshly issued OIDC token set, reflecting the user's new active\
+        \ organization. The `refresh_token` is only present when the client is configured\
+        \ to use refresh tokens, and `id_token` only for OIDC requests."
       example:
-        organizationId: organizationId
-        switchedAt: 2000-01-23T04:56:07.000+00:00
-        organizationName: organizationName
-        displayName: displayName
-        roles:
-        - roles
-        - roles
+        access_token: access_token
+        expires_in: 0
+        refresh_expires_in: 6
+        refresh_token: refresh_token
+        token_type: token_type
+        id_token: id_token
+        not-before-policy: 1
+        session_state: session_state
+        scope: scope
       properties:
-        organizationId:
-          description: The ID of the active organization
+        access_token:
           type: string
-        organizationName:
-          description: The name of the active organization
+        expires_in:
+          format: int64
+          type: integer
+        refresh_expires_in:
+          format: int64
+          type: integer
+        refresh_token:
           type: string
-        displayName:
-          description: The display name of the active organization
+        token_type:
           type: string
-        roles:
-          description: User's roles in the active organization
-          items:
-            type: string
-          type: array
-        switchedAt:
-          description: When the organization was last switched to
-          format: date-time
+        id_token:
+          type: string
+        not-before-policy:
+          format: int64
+          type: integer
+        session_state:
+          type: string
+        scope:
           type: string
       type: object
     OrganizationDomainRepresentation:
       example:
         domain_name: domain_name
+        verified: true
         record_key: record_key
         record_value: record_value
-        verified: true
       properties:
         domain_name:
           type: string
@@ -3982,9 +4334,9 @@ components:
       type: object
     OrganizationRoleRepresentation:
       example:
+        id: id
         name: name
         description: description
-        id: id
       properties:
         id:
           type: string
@@ -3998,6 +4350,14 @@ components:
         items:
           $ref: "#/components/schemas/OrganizationRoleRepresentation"
         type: array
+      example:
+        key:
+        - id: id
+          name: name
+          description: description
+        - id: id
+          name: name
+          description: description
       type: object
     OrganizationMemberAttributeRepresentation:
       example:
@@ -4015,9 +4375,9 @@ components:
       type: object
     PortalLinkRepresentation:
       example:
-        redirect: redirect
-        link: link
         user: user
+        link: link
+        redirect: redirect
       properties:
         user:
           type: string
@@ -4028,8 +4388,10 @@ components:
       type: object
     InvitationRequestRepresentation:
       example:
-        redirectUri: redirectUri
+        email: email
+        send: true
         inviterId: inviterId
+        redirectUri: redirectUri
         roles:
         - roles
         - roles
@@ -4037,8 +4399,6 @@ components:
           key:
           - attributes
           - attributes
-        send: true
-        email: email
       properties:
         email:
           type: string
@@ -4061,10 +4421,12 @@ components:
       type: object
     InvitationRepresentation:
       example:
-        organizationId: organizationId
+        id: id
         createdAt: createdAt
+        email: email
         inviterId: inviterId
         invitationUrl: invitationUrl
+        organizationId: organizationId
         roles:
         - roles
         - roles
@@ -4072,8 +4434,6 @@ components:
           key:
           - attributes
           - attributes
-        id: id
-        email: email
       properties:
         id:
           type: string
@@ -4100,18 +4460,18 @@ components:
       type: object
     UserRepresentation:
       example:
-        emailVerified: true
-        firstName: firstName
-        lastName: lastName
+        attributes:
+          key: ""
         createdTimestamp: 0
+        email: email
+        emailVerified: true
+        enabled: true
+        firstName: firstName
         groups:
         - groups
         - groups
-        attributes:
-          key: ""
         id: id
-        email: email
-        enabled: true
+        lastName: lastName
         username: username
       properties:
         attributes:
@@ -4178,26 +4538,33 @@ components:
             $ref: "#/components/schemas/OrganizationRoleMapRepresentation"
         type: object
       example:
-        emailVerified: true
-        firstName: firstName
-        lastName: lastName
         createdTimestamp: 0
-        organizations: null
+        email: email
+        emailVerified: true
+        enabled: true
+        firstName: firstName
         groups:
         - groups
         - groups
         id: id
-        email: email
-        enabled: true
+        lastName: lastName
         username: username
+        organizations:
+          key:
+          - id: id
+            name: name
+            description: description
+          - id: id
+            name: name
+            description: description
     AuthDetailsRepresentation:
       example:
         realmId: realmId
         clientId: clientId
-        ipAddress: ipAddress
-        sessionId: sessionId
         userId: userId
+        ipAddress: ipAddress
         username: username
+        sessionId: sessionId
       properties:
         realmId:
           type: string
@@ -4214,33 +4581,34 @@ components:
       type: object
     EventRepresentation:
       example:
+        id: id
+        uid: uid
+        time: 0
         realmId: realmId
         realmName: realmName
-        resourcePath: resourcePath
-        type: type
-        error: error
-        representation: representation
         organizationId: organizationId
-        uid: uid
+        type: type
+        representation: representation
         operationType: operationType
-        details:
-          key: ""
-        id: id
-        time: 0
+        resourcePath: resourcePath
+        resourceType: resourceType
+        error: error
         authDetails:
           realmId: realmId
           clientId: clientId
-          ipAddress: ipAddress
-          sessionId: sessionId
           userId: userId
+          ipAddress: ipAddress
           username: username
-        resourceType: resourceType
+          sessionId: sessionId
+        details:
+          key: ""
       properties:
         id:
           type: string
         uid:
           type: string
         time:
+          format: int64
           type: integer
         realmId:
           type: string
@@ -4278,17 +4646,17 @@ components:
       type: object
     WebhookRepresentation:
       example:
-        createdAt: 0
-        createdBy: createdBy
-        attributes: "{}"
-        realm: realm
+        attributes: {}
         id: id
+        enabled: true
+        url: url
         secret: secret
+        createdBy: createdBy
+        createdAt: 0
+        realm: realm
         eventTypes:
         - eventTypes
         - eventTypes
-        enabled: true
-        url: url
       properties:
         attributes:
           type: object
@@ -4314,28 +4682,28 @@ components:
       type: object
     WebhookSendRepresentation:
       example:
+        id: id
+        type: type
+        status: 0
         status_message: status_message
         retried: 6
         sent_at: sent_at
         event_id: event_id
+        keycloak_event_type: keycloak_event_type
+        keycloak_event_id: keycloak_event_id
         webhook:
-          createdAt: 0
-          createdBy: createdBy
-          attributes: "{}"
-          realm: realm
+          attributes: {}
           id: id
+          enabled: true
+          url: url
           secret: secret
+          createdBy: createdBy
+          createdAt: 0
+          realm: realm
           eventTypes:
           - eventTypes
           - eventTypes
-          enabled: true
-          url: url
         payload: payload
-        keycloak_event_id: keycloak_event_id
-        id: id
-        type: type
-        keycloak_event_type: keycloak_event_type
-        status: 0
       properties:
         id:
           type: string
@@ -4360,25 +4728,164 @@ components:
         payload:
           type: string
       type: object
+    OrganizationScimRepresentation:
+      description: |
+        Per-organization SCIM 2.0 service-provider configuration. One of these
+        backs the SCIM endpoint at
+        `{authServerUrl}/realms/{realm}/scim/v2/organizations/{orgId}/`.
+      example:
+        enabled: true
+        email_as_username: true
+        link_idp: true
+        auth:
+          type: KEYCLOAK
+      properties:
+        enabled:
+          description: |
+            Whether the organization's SCIM endpoint accepts inbound traffic.
+            Turn this off to pause provisioning without losing the
+            configuration.
+          type: boolean
+        email_as_username:
+          description: |
+            When true, the provisioned user's `username` mirrors their
+            `email`, and subsequent SCIM update operations do not change
+            the username.
+          type: boolean
+        link_idp:
+          description: |
+            When true, provisioned users are federated with the
+            organization's configured identity provider so they can sign in
+            via the org's SSO immediately after provisioning.
+          type: boolean
+        auth:
+          $ref: "#/components/schemas/OrganizationScimAuth"
+      type: object
+    OrganizationScimAuth:
+      description: |
+        Polymorphic authentication configuration for the inbound SCIM
+        endpoint. The `type` field discriminates the variant; the remaining
+        fields depend on the variant chosen.
+      discriminator:
+        mapping:
+          KEYCLOAK: "#/components/schemas/KeycloakScimAuth"
+          EXTERNAL_JWT: "#/components/schemas/ExternalJwtScimAuth"
+          EXTERNAL_SECRET: "#/components/schemas/ExternalSecretScimAuth"
+          EXTERNAL_BASIC: "#/components/schemas/ExternalBasicScimAuth"
+        propertyName: type
+      example:
+        type: KEYCLOAK
+      oneOf:
+      - $ref: "#/components/schemas/KeycloakScimAuth"
+      - $ref: "#/components/schemas/ExternalJwtScimAuth"
+      - $ref: "#/components/schemas/ExternalSecretScimAuth"
+      - $ref: "#/components/schemas/ExternalBasicScimAuth"
+      properties:
+        type:
+          description: Authentication mode selector.
+          enum:
+          - KEYCLOAK
+          - EXTERNAL_JWT
+          - EXTERNAL_SECRET
+          - EXTERNAL_BASIC
+          type: string
+      required:
+      - type
+      type: object
+    KeycloakScimAuth:
+      description: |
+        Authenticates inbound SCIM calls with a Keycloak-issued access
+        token (Bearer). The caller must hold the realm-management roles
+        required to manage members of the organization.
+      properties:
+        type:
+          enum:
+          - KEYCLOAK
+          type: string
+      required:
+      - type
+      type: object
+    ExternalJwtScimAuth:
+      description: |
+        Validates an inbound JWT issued by an external IdP. The token's
+        issuer and audience must match the configured values, and the
+        signature is verified against keys fetched from the configured
+        JWKS URI.
+      properties:
+        type:
+          enum:
+          - EXTERNAL_JWT
+          type: string
+        issuer:
+          description: Expected `iss` claim. Must exactly match the upstream IdP's
+            issuer URL.
+          type: string
+        audience:
+          description: Expected `aud` claim.
+          type: string
+        jwks_uri:
+          description: URL the server fetches to validate the JWT signature.
+          type: string
+      required:
+      - type
+      type: object
+    ExternalSecretScimAuth:
+      description: |
+        Bearer-style shared secret. The client sends
+        `Authorization: Bearer <secret>`; the server compares the value
+        against a stored Argon2id hash.
+      properties:
+        type:
+          enum:
+          - EXTERNAL_SECRET
+          type: string
+        shared_secret:
+          description: |
+            Random opaque value. Cleartext on submit; hashed at rest. Omit
+            on update to keep the existing secret.
+          type: string
+      required:
+      - type
+      type: object
+    ExternalBasicScimAuth:
+      description: |
+        HTTP Basic auth. The password is hashed with Argon2id before
+        storage.
+      properties:
+        type:
+          enum:
+          - EXTERNAL_BASIC
+          type: string
+        username:
+          description: Username for HTTP Basic auth. Stored in cleartext.
+          type: string
+        password:
+          description: |
+            Password for HTTP Basic auth. Cleartext on submit; hashed at
+            rest. Omit on update to keep the existing password.
+          type: string
+      required:
+      - type
+      type: object
     MagicLinkRequest:
       example:
-        update_password: true
-        send_email: true
-        code_challenge_method: code_challenge_method
-        nonce: nonce
-        client_id: client_id
-        reusable: true
-        response_mode: response_mode
-        update_profile: true
-        scope: scope
-        force_create: true
-        redirect_uri: redirect_uri
-        state: state
-        remember_me: true
         email: email
-        code_challenge: code_challenge
+        client_id: client_id
+        redirect_uri: redirect_uri
         username: username
         expiration_seconds: 0
+        force_create: true
+        send_email: true
+        update_profile: true
+        update_password: true
+        scope: scope
+        nonce: nonce
+        state: state
+        code_challenge: code_challenge
+        code_challenge_method: code_challenge_method
+        remember_me: true
+        reusable: true
+        response_mode: response_mode
       properties:
         email:
           type: string
@@ -4431,25 +4938,52 @@ components:
         sent:
           type: boolean
       type: object
-    importOrganizations_request:
-      properties:
-        file:
-          description: JSON file containing organizations export
-          format: binary
-          type: string
-      type: object
     createPortalLink_request:
       properties:
         userId:
           type: string
       type: object
+    IdpInitiatedClientRepresentation_attributes:
+      description: "String values only, including booleans (\"true\"/\"false\")."
+      example:
+        saml_idp_initiated_sso_url_name: saml_idp_initiated_sso_url_name
+        saml_idp_initiated_sso_relay_state: saml_idp_initiated_sso_relay_state
+        saml.force.post.binding: "true"
+        saml_assertion_consumer_url_redirect: saml_assertion_consumer_url_redirect
+        saml_assertion_consumer_url_post: saml_assertion_consumer_url_post
+        phasetwo.idp-initiated.alias: phasetwo.idp-initiated.alias
+      properties:
+        saml_idp_initiated_sso_url_name:
+          description: "Must equal `clientId`. The identity provider posts to `/realms/{realm}/broker/{alias}/endpoint/clients/{value}`."
+          type: string
+        saml_idp_initiated_sso_relay_state:
+          description: RelayState sent to the target application.
+          type: string
+        saml.force.post.binding:
+          description: Send the response to the target application with the POST binding.
+          enum:
+          - "true"
+          - "false"
+          type: string
+        saml_assertion_consumer_url_redirect:
+          description: "Where to send the user after login. For an OIDC application,\
+            \ its home page; for a SAML application using the Redirect binding, its\
+            \ ACS URL."
+          type: string
+        saml_assertion_consumer_url_post:
+          description: ACS URL of a SAML application using the POST binding.
+          type: string
+        phasetwo.idp-initiated.alias:
+          description: Alias of the identity provider this client is paired with.
+          type: string
+      type: object
     OrganizationExportRepresentation_allOf_members:
       example:
+        userId: userId
+        email: email
         roles:
         - roles
         - roles
-        userId: userId
-        email: email
       properties:
         userId:
           type: string

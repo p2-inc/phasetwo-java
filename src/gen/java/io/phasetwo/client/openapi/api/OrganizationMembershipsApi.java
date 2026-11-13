@@ -1,126 +1,137 @@
 package io.phasetwo.client.openapi.api;
 
-import java.util.Map;
 import io.phasetwo.client.openapi.model.OrganizationMemberAttributeRepresentation;
 import io.phasetwo.client.openapi.model.UserWithOrgsBriefRepresentation;
-
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
-
-
-import java.io.InputStream;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
 
-
-/**
-* Represents a collection of functions to interact with the API endpoints.
-*/
+/** Represents a collection of functions to interact with the API endpoints. */
 @Path("/{realm}/orgs/{orgId}/members")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.21.0")
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen",
+    comments = "Generator version: 7.27.0")
 public interface OrganizationMembershipsApi {
 
-    /**
-     * Add the specified user to the specified organization as a member
-     *
-     * @param realm realm name (not id!)
-     * @param orgId organization id
-     * @param userId user id
-     * @return success
-     */
-    @PUT
-    @Path("/{userId}")
-    void addOrganizationMember(@PathParam("realm") String realm,@PathParam("orgId") String orgId,@PathParam("userId") String userId);
+  /**
+   * Add the specified user to the specified organization as a member
+   *
+   * @param realm realm name (not id!)
+   * @param orgId organization id
+   * @param userId user id
+   * @return success
+   */
+  @PUT
+  @Path("/{userId}")
+  void addOrganizationMember(
+      @PathParam("realm") String realm,
+      @PathParam("orgId") String orgId,
+      @PathParam("userId") String userId);
 
+  /**
+   * Add or update attributes for a specific member of an organization
+   *
+   * @param realm realm name (not id!)
+   * @param orgId organization id
+   * @param userId user id
+   * @param organizationMemberAttributeRepresentation
+   * @return success
+   * @return User is not a member of the organization
+   * @return User doesn't exist
+   */
+  @PUT
+  @Path("/{userId}/attributes")
+  @Consumes({"application/json"})
+  @Produces({"application/json"})
+  Map<String, List<String>> addOrganizationMemberAttributes(
+      @PathParam("realm") String realm,
+      @PathParam("orgId") String orgId,
+      @PathParam("userId") String userId,
+      OrganizationMemberAttributeRepresentation organizationMemberAttributeRepresentation);
 
-    /**
-     * Add or update attributes for a specific member of an organization
-     *
-     * @param realm realm name (not id!)
-     * @param orgId organization id
-     * @param userId user id
-     * @param organizationMemberAttributeRepresentation 
-     * @return success
-     * @return User is not a member of the organization
-     * @return User doesn't exist
-     */
-    @PUT
-    @Path("/{userId}/attributes")
-    @Consumes({ "application/json" })
-    @Produces({ "application/json" })
-    Map<String, List<String>> addOrganizationMemberAttributes(@PathParam("realm") String realm,@PathParam("orgId") String orgId,@PathParam("userId") String userId,OrganizationMemberAttributeRepresentation organizationMemberAttributeRepresentation);
+  /**
+   * @param realm realm name (not id!)
+   * @param orgId organization id
+   * @param userId user id
+   * @return success
+   */
+  @GET
+  @Path("/{userId}")
+  Response checkOrganizationMembership(
+      @PathParam("realm") String realm,
+      @PathParam("orgId") String orgId,
+      @PathParam("userId") String userId);
 
+  /**
+   * Get attributes for a specific member of an organization
+   *
+   * @param realm realm name (not id!)
+   * @param orgId organization id
+   * @param userId user id
+   * @return success
+   * @return User is not a member of the organization
+   * @return User doesn't exist
+   */
+  @GET
+  @Path("/{userId}/attributes")
+  @Produces({"application/json"})
+  Map<String, List<String>> getOrganizationMemberAttributes(
+      @PathParam("realm") String realm,
+      @PathParam("orgId") String orgId,
+      @PathParam("userId") String userId);
 
-    /**
-     * 
-     *
-     * @param realm realm name (not id!)
-     * @param orgId organization id
-     * @param userId user id
-     * @return success
-     */
-    @GET
-    @Path("/{userId}")
-    Response checkOrganizationMembership(@PathParam("realm") String realm,@PathParam("orgId") String orgId,@PathParam("userId") String userId);
+  /**
+   * Get a paginated list of users who are a member of the specified organization.
+   *
+   * @param realm realm name (not id!)
+   * @param orgId organization id
+   * @param search
+   * @param first
+   * @param max
+   * @param excludeAdminAccounts
+   * @param includeOrgs
+   * @return success
+   */
+  @GET
+  @Produces({"application/json"})
+  List<UserWithOrgsBriefRepresentation> getOrganizationMemberships(
+      @PathParam("realm") String realm,
+      @PathParam("orgId") String orgId,
+      @QueryParam("search") String search,
+      @QueryParam("first") Integer first,
+      @QueryParam("max") Integer max,
+      @QueryParam("excludeAdminAccounts") Boolean excludeAdminAccounts,
+      @QueryParam("includeOrgs") Boolean includeOrgs);
 
+  /**
+   * Get total number of members of a given organization
+   *
+   * @param realm realm name (not id!)
+   * @param orgId organization id
+   * @param excludeAdminAccounts
+   * @return success
+   */
+  @GET
+  @Path("/count")
+  @Produces({"application/json"})
+  Integer getOrganizationMembershipsCount(
+      @PathParam("realm") String realm,
+      @PathParam("orgId") String orgId,
+      @QueryParam("excludeAdminAccounts") Boolean excludeAdminAccounts);
 
-    /**
-     * Get attributes for a specific member of an organization
-     *
-     * @param realm realm name (not id!)
-     * @param orgId organization id
-     * @param userId user id
-     * @return success
-     * @return User is not a member of the organization
-     * @return User doesn't exist
-     */
-    @GET
-    @Path("/{userId}/attributes")
-    @Produces({ "application/json" })
-    Map<String, List<String>> getOrganizationMemberAttributes(@PathParam("realm") String realm,@PathParam("orgId") String orgId,@PathParam("userId") String userId);
-
-
-    /**
-     * Get a paginated list of users who are a member of the specified organization.
-     *
-     * @param realm realm name (not id!)
-     * @param orgId organization id
-     * @param search 
-     * @param first 
-     * @param max 
-     * @param excludeAdminAccounts 
-     * @param includeOrgs 
-     * @return success
-     */
-    @GET
-    @Produces({ "application/json" })
-    List<UserWithOrgsBriefRepresentation> getOrganizationMemberships(@PathParam("realm") String realm,@PathParam("orgId") String orgId,@QueryParam("search")   String search,@QueryParam("first")   Integer first,@QueryParam("max")   Integer max,@QueryParam("excludeAdminAccounts")   Boolean excludeAdminAccounts,@QueryParam("includeOrgs")   Boolean includeOrgs);
-
-
-    /**
-     * Get total number of members of a given organization
-     *
-     * @param realm realm name (not id!)
-     * @param orgId organization id
-     * @param excludeAdminAccounts 
-     * @return success
-     */
-    @GET
-    @Path("/count")
-    @Produces({ "application/json" })
-    Integer getOrganizationMembershipsCount(@PathParam("realm") String realm,@PathParam("orgId") String orgId,@QueryParam("excludeAdminAccounts")   Boolean excludeAdminAccounts);
-
-
-    /**
-     * Remove the specified user from the specified organization as a member
-     *
-     * @param realm realm name (not id!)
-     * @param orgId organization id
-     * @param userId user id
-     * @return success
-     */
-    @DELETE
-    @Path("/{userId}")
-    void removeOrganizationMember(@PathParam("realm") String realm,@PathParam("orgId") String orgId,@PathParam("userId") String userId);
-
+  /**
+   * Remove the specified user from the specified organization as a member
+   *
+   * @param realm realm name (not id!)
+   * @param orgId organization id
+   * @param userId user id
+   * @return success
+   */
+  @DELETE
+  @Path("/{userId}")
+  void removeOrganizationMember(
+      @PathParam("realm") String realm,
+      @PathParam("orgId") String orgId,
+      @PathParam("userId") String userId);
 }

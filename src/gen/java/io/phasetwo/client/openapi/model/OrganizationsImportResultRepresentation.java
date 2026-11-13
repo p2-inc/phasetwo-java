@@ -1,39 +1,29 @@
 package io.phasetwo.client.openapi.model;
 
-import io.phasetwo.client.openapi.model.OrganizationsImportResultRepresentationErrorsInner;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import org.openapitools.jackson.nullable.JsonNullable;
-
-
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @JsonTypeName("OrganizationsImportResultRepresentation")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.21.0")
-public class OrganizationsImportResultRepresentation   {
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen",
+    comments = "Generator version: 7.27.0")
+public class OrganizationsImportResultRepresentation {
   private Integer imported;
   private Integer updated;
   private Integer skipped;
   private List<OrganizationsImportResultRepresentationErrorsInner> errors = new ArrayList<>();
 
-  public OrganizationsImportResultRepresentation() {
-  }
+  public OrganizationsImportResultRepresentation() {}
 
-  /**
-   * Number of organizations successfully imported
-   **/
+  /** Number of organizations successfully imported */
   public OrganizationsImportResultRepresentation imported(Integer imported) {
     this.imported = imported;
     return this;
   }
 
-  
   @JsonProperty("imported")
   public Integer getImported() {
     return imported;
@@ -44,15 +34,12 @@ public class OrganizationsImportResultRepresentation   {
     this.imported = imported;
   }
 
-  /**
-   * Number of organizations updated
-   **/
+  /** Number of organizations updated */
   public OrganizationsImportResultRepresentation updated(Integer updated) {
     this.updated = updated;
     return this;
   }
 
-  
   @JsonProperty("updated")
   public Integer getUpdated() {
     return updated;
@@ -63,15 +50,12 @@ public class OrganizationsImportResultRepresentation   {
     this.updated = updated;
   }
 
-  /**
-   * Number of organizations skipped
-   **/
+  /** Number of organizations skipped */
   public OrganizationsImportResultRepresentation skipped(Integer skipped) {
     this.skipped = skipped;
     return this;
   }
 
-  
   @JsonProperty("skipped")
   public Integer getSkipped() {
     return skipped;
@@ -82,14 +66,13 @@ public class OrganizationsImportResultRepresentation   {
     this.skipped = skipped;
   }
 
-  /**
-   **/
-  public OrganizationsImportResultRepresentation errors(List<OrganizationsImportResultRepresentationErrorsInner> errors) {
+  /** */
+  public OrganizationsImportResultRepresentation errors(
+      List<OrganizationsImportResultRepresentationErrorsInner> errors) {
     this.errors = errors;
     return this;
   }
 
-  
   @JsonProperty("errors")
   public List<OrganizationsImportResultRepresentationErrorsInner> getErrors() {
     return errors;
@@ -100,7 +83,8 @@ public class OrganizationsImportResultRepresentation   {
     this.errors = errors;
   }
 
-  public OrganizationsImportResultRepresentation addErrorsItem(OrganizationsImportResultRepresentationErrorsInner errorsItem) {
+  public OrganizationsImportResultRepresentation addErrorsItem(
+      OrganizationsImportResultRepresentationErrorsInner errorsItem) {
     if (this.errors == null) {
       this.errors = new ArrayList<>();
     }
@@ -109,7 +93,8 @@ public class OrganizationsImportResultRepresentation   {
     return this;
   }
 
-  public OrganizationsImportResultRepresentation removeErrorsItem(OrganizationsImportResultRepresentationErrorsInner errorsItem) {
+  public OrganizationsImportResultRepresentation removeErrorsItem(
+      OrganizationsImportResultRepresentationErrorsInner errorsItem) {
     if (errorsItem != null && this.errors != null) {
       this.errors.remove(errorsItem);
     }
@@ -125,11 +110,12 @@ public class OrganizationsImportResultRepresentation   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    OrganizationsImportResultRepresentation organizationsImportResultRepresentation = (OrganizationsImportResultRepresentation) o;
-    return Objects.equals(this.imported, organizationsImportResultRepresentation.imported) &&
-        Objects.equals(this.updated, organizationsImportResultRepresentation.updated) &&
-        Objects.equals(this.skipped, organizationsImportResultRepresentation.skipped) &&
-        Objects.equals(this.errors, organizationsImportResultRepresentation.errors);
+    OrganizationsImportResultRepresentation organizationsImportResultRepresentation =
+        (OrganizationsImportResultRepresentation) o;
+    return Objects.equals(this.imported, organizationsImportResultRepresentation.imported)
+        && Objects.equals(this.updated, organizationsImportResultRepresentation.updated)
+        && Objects.equals(this.skipped, organizationsImportResultRepresentation.skipped)
+        && Objects.equals(this.errors, organizationsImportResultRepresentation.errors);
   }
 
   @Override
@@ -141,7 +127,7 @@ public class OrganizationsImportResultRepresentation   {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class OrganizationsImportResultRepresentation {\n");
-    
+
     sb.append("    imported: ").append(toIndentedString(imported)).append("\n");
     sb.append("    updated: ").append(toIndentedString(updated)).append("\n");
     sb.append("    skipped: ").append(toIndentedString(skipped)).append("\n");
@@ -151,12 +137,9 @@ public class OrganizationsImportResultRepresentation   {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
-
-
 }

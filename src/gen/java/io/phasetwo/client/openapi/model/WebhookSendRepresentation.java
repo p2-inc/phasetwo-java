@@ -1,19 +1,14 @@
 package io.phasetwo.client.openapi.model;
 
-import io.phasetwo.client.openapi.model.WebhookRepresentation;
-
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import org.openapitools.jackson.nullable.JsonNullable;
-
-
+import java.util.Objects;
 
 @JsonTypeName("WebhookSendRepresentation")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.21.0")
-public class WebhookSendRepresentation   {
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen",
+    comments = "Generator version: 7.27.0")
+public class WebhookSendRepresentation {
   private String id;
   private String type;
   private Integer status;
@@ -26,17 +21,14 @@ public class WebhookSendRepresentation   {
   private WebhookRepresentation webhook;
   private String payload;
 
-  public WebhookSendRepresentation() {
-  }
+  public WebhookSendRepresentation() {}
 
-  /**
-   **/
+  /** */
   public WebhookSendRepresentation id(String id) {
     this.id = id;
     return this;
   }
 
-  
   @JsonProperty("id")
   public String getId() {
     return id;
@@ -47,14 +39,12 @@ public class WebhookSendRepresentation   {
     this.id = id;
   }
 
-  /**
-   **/
+  /** */
   public WebhookSendRepresentation type(String type) {
     this.type = type;
     return this;
   }
 
-  
   @JsonProperty("type")
   public String getType() {
     return type;
@@ -65,14 +55,12 @@ public class WebhookSendRepresentation   {
     this.type = type;
   }
 
-  /**
-   **/
+  /** */
   public WebhookSendRepresentation status(Integer status) {
     this.status = status;
     return this;
   }
 
-  
   @JsonProperty("status")
   public Integer getStatus() {
     return status;
@@ -83,14 +71,12 @@ public class WebhookSendRepresentation   {
     this.status = status;
   }
 
-  /**
-   **/
+  /** */
   public WebhookSendRepresentation statusMessage(String statusMessage) {
     this.statusMessage = statusMessage;
     return this;
   }
 
-  
   @JsonProperty("status_message")
   public String getStatusMessage() {
     return statusMessage;
@@ -101,14 +87,12 @@ public class WebhookSendRepresentation   {
     this.statusMessage = statusMessage;
   }
 
-  /**
-   **/
+  /** */
   public WebhookSendRepresentation retried(Integer retried) {
     this.retried = retried;
     return this;
   }
 
-  
   @JsonProperty("retried")
   public Integer getRetried() {
     return retried;
@@ -119,14 +103,12 @@ public class WebhookSendRepresentation   {
     this.retried = retried;
   }
 
-  /**
-   **/
+  /** */
   public WebhookSendRepresentation sentAt(String sentAt) {
     this.sentAt = sentAt;
     return this;
   }
 
-  
   @JsonProperty("sent_at")
   public String getSentAt() {
     return sentAt;
@@ -137,14 +119,12 @@ public class WebhookSendRepresentation   {
     this.sentAt = sentAt;
   }
 
-  /**
-   **/
+  /** */
   public WebhookSendRepresentation eventId(String eventId) {
     this.eventId = eventId;
     return this;
   }
 
-  
   @JsonProperty("event_id")
   public String getEventId() {
     return eventId;
@@ -155,14 +135,12 @@ public class WebhookSendRepresentation   {
     this.eventId = eventId;
   }
 
-  /**
-   **/
+  /** */
   public WebhookSendRepresentation keycloakEventType(String keycloakEventType) {
     this.keycloakEventType = keycloakEventType;
     return this;
   }
 
-  
   @JsonProperty("keycloak_event_type")
   public String getKeycloakEventType() {
     return keycloakEventType;
@@ -173,14 +151,12 @@ public class WebhookSendRepresentation   {
     this.keycloakEventType = keycloakEventType;
   }
 
-  /**
-   **/
+  /** */
   public WebhookSendRepresentation keycloakEventId(String keycloakEventId) {
     this.keycloakEventId = keycloakEventId;
     return this;
   }
 
-  
   @JsonProperty("keycloak_event_id")
   public String getKeycloakEventId() {
     return keycloakEventId;
@@ -191,14 +167,12 @@ public class WebhookSendRepresentation   {
     this.keycloakEventId = keycloakEventId;
   }
 
-  /**
-   **/
+  /** */
   public WebhookSendRepresentation webhook(WebhookRepresentation webhook) {
     this.webhook = webhook;
     return this;
   }
 
-  
   @JsonProperty("webhook")
   public WebhookRepresentation getWebhook() {
     return webhook;
@@ -209,14 +183,12 @@ public class WebhookSendRepresentation   {
     this.webhook = webhook;
   }
 
-  /**
-   **/
+  /** */
   public WebhookSendRepresentation payload(String payload) {
     this.payload = payload;
     return this;
   }
 
-  
   @JsonProperty("payload")
   public String getPayload() {
     return payload;
@@ -227,7 +199,6 @@ public class WebhookSendRepresentation   {
     this.payload = payload;
   }
 
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -237,29 +208,40 @@ public class WebhookSendRepresentation   {
       return false;
     }
     WebhookSendRepresentation webhookSendRepresentation = (WebhookSendRepresentation) o;
-    return Objects.equals(this.id, webhookSendRepresentation.id) &&
-        Objects.equals(this.type, webhookSendRepresentation.type) &&
-        Objects.equals(this.status, webhookSendRepresentation.status) &&
-        Objects.equals(this.statusMessage, webhookSendRepresentation.statusMessage) &&
-        Objects.equals(this.retried, webhookSendRepresentation.retried) &&
-        Objects.equals(this.sentAt, webhookSendRepresentation.sentAt) &&
-        Objects.equals(this.eventId, webhookSendRepresentation.eventId) &&
-        Objects.equals(this.keycloakEventType, webhookSendRepresentation.keycloakEventType) &&
-        Objects.equals(this.keycloakEventId, webhookSendRepresentation.keycloakEventId) &&
-        Objects.equals(this.webhook, webhookSendRepresentation.webhook) &&
-        Objects.equals(this.payload, webhookSendRepresentation.payload);
+    return Objects.equals(this.id, webhookSendRepresentation.id)
+        && Objects.equals(this.type, webhookSendRepresentation.type)
+        && Objects.equals(this.status, webhookSendRepresentation.status)
+        && Objects.equals(this.statusMessage, webhookSendRepresentation.statusMessage)
+        && Objects.equals(this.retried, webhookSendRepresentation.retried)
+        && Objects.equals(this.sentAt, webhookSendRepresentation.sentAt)
+        && Objects.equals(this.eventId, webhookSendRepresentation.eventId)
+        && Objects.equals(this.keycloakEventType, webhookSendRepresentation.keycloakEventType)
+        && Objects.equals(this.keycloakEventId, webhookSendRepresentation.keycloakEventId)
+        && Objects.equals(this.webhook, webhookSendRepresentation.webhook)
+        && Objects.equals(this.payload, webhookSendRepresentation.payload);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, type, status, statusMessage, retried, sentAt, eventId, keycloakEventType, keycloakEventId, webhook, payload);
+    return Objects.hash(
+        id,
+        type,
+        status,
+        statusMessage,
+        retried,
+        sentAt,
+        eventId,
+        keycloakEventType,
+        keycloakEventId,
+        webhook,
+        payload);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class WebhookSendRepresentation {\n");
-    
+
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
@@ -276,12 +258,9 @@ public class WebhookSendRepresentation   {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
-
-
 }

@@ -4,204 +4,188 @@ import io.phasetwo.client.openapi.model.CredentialRepresentation;
 import io.phasetwo.client.openapi.model.EventRepresentation;
 import io.phasetwo.client.openapi.model.WebhookRepresentation;
 import io.phasetwo.client.openapi.model.WebhookSendRepresentation;
-
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
-
-
-import java.io.InputStream;
-import java.util.Map;
 import java.util.List;
 
-
-/**
-* Represents a collection of functions to interact with the API endpoints.
-*/
-@Path("/{realm}")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.21.0")
+/** Represents a collection of functions to interact with the API endpoints. */
+@Path("")
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen",
+    comments = "Generator version: 7.27.0")
 public interface EventsApi {
 
-    /**
-     * 
-     *
-     * @param realm realm name (not id!)
-     * @param eventRepresentation JSON body
-     * @return Event received
-     * @return Malformed event
-     * @return Rate limit exceeded
-     * @return Reserved event type
-     */
-    @POST
-    @Path("/events")
-    @Consumes({ "application/json" })
-    Response createEvent(@PathParam("realm") String realm,EventRepresentation eventRepresentation);
+  /**
+   * @param realm realm name (not id!)
+   * @param eventRepresentation JSON body
+   * @return Event received
+   * @return Malformed event
+   * @return Rate limit exceeded
+   * @return Reserved event type
+   */
+  @POST
+  @Path("/{realm}/events")
+  @Consumes({"application/json"})
+  Response createEvent(@PathParam("realm") String realm, EventRepresentation eventRepresentation);
 
+  /**
+   * @param realm realm name (not id!)
+   * @param webhookRepresentation JSON body
+   * @return Webhook created
+   * @return Malformed webhook
+   */
+  @POST
+  @Path("/{realm}/webhooks")
+  @Consumes({"application/json"})
+  Response createWebhook(
+      @PathParam("realm") String realm, WebhookRepresentation webhookRepresentation);
 
-    /**
-     * 
-     *
-     * @param realm realm name (not id!)
-     * @param webhookRepresentation JSON body
-     * @return Webhook created
-     * @return Malformed webhook
-     */
-    @POST
-    @Path("/webhooks")
-    @Consumes({ "application/json" })
-    Response createWebhook(@PathParam("realm") String realm,WebhookRepresentation webhookRepresentation);
+  /**
+   * @param realm realm name (not id!)
+   * @param webhookId webhook id
+   * @return success
+   * @return Webhook doesn't exist
+   */
+  @DELETE
+  @Path("/{realm}/webhooks/{webhookId}")
+  void deleteWebhook(@PathParam("realm") String realm, @PathParam("webhookId") String webhookId);
 
+  /**
+   * @param realm realm name (not id!)
+   * @param type keycloak event type
+   * @param kid keycloak event id
+   * @return success
+   */
+  @GET
+  @Path("/{realm}/webhooks/payload/{type}/{kid}")
+  @Produces({"application/json"})
+  EventRepresentation getPayloadByKeycloakTypeAndId(
+      @PathParam("realm") String realm,
+      @PathParam("type") String type,
+      @PathParam("kid") String kid);
 
-    /**
-     * 
-     *
-     * @param realm realm name (not id!)
-     * @param webhookId webhook id
-     * @return success
-     * @return Webhook doesn't exist
-     */
-    @DELETE
-    @Path("/webhooks/{webhookId}")
-    void deleteWebhook(@PathParam("realm") String realm,@PathParam("webhookId") String webhookId);
+  /**
+   * @param realm realm name (not id!)
+   * @param webhookId webhook id
+   * @return success
+   * @return Webhook doesn't exist
+   */
+  @GET
+  @Path("/{realm}/webhooks/{webhookId}")
+  @Produces({"application/json"})
+  WebhookRepresentation getWebhookById(
+      @PathParam("realm") String realm, @PathParam("webhookId") String webhookId);
 
+  /**
+   * @param realm realm name (not id!)
+   * @param webhookId webhook id
+   * @return success
+   * @return Webhook doesn't exist
+   */
+  @GET
+  @Path("/{realm}/webhooks/{webhookId}/secret")
+  @Produces({"application/json"})
+  CredentialRepresentation getWebhookSecretById(
+      @PathParam("realm") String realm, @PathParam("webhookId") String webhookId);
 
-    /**
-     * 
-     *
-     * @param realm realm name (not id!)
-     * @param type keycloak event type
-     * @param kid keycloak event id
-     * @return success
-     */
-    @GET
-    @Path("/webhooks/payload/{type}/{kid}")
-    @Produces({ "application/json" })
-    EventRepresentation getPayloadByKeycloakTypeAndId(@PathParam("realm") String realm,@PathParam("type") String type,@PathParam("kid") String kid);
+  /**
+   * @param realm realm name (not id!)
+   * @param webhookId webhook id
+   * @param sendId send id
+   * @return success
+   * @return Webhook or send doesn't exist
+   */
+  @GET
+  @Path("/{realm}/webhooks/{webhookId}/sends/{sendId}")
+  @Produces({"application/json"})
+  WebhookSendRepresentation getWebhookSendById(
+      @PathParam("realm") String realm,
+      @PathParam("webhookId") String webhookId,
+      @PathParam("sendId") String sendId);
 
+  /**
+   * @param realm realm name (not id!)
+   * @param webhookId webhook id
+   * @param first
+   * @param max
+   * @return success
+   * @return Webhook doesn't exist
+   */
+  @GET
+  @Path("/{realm}/webhooks/{webhookId}/sends")
+  @Produces({"application/json"})
+  List<WebhookSendRepresentation> getWebhookSends(
+      @PathParam("realm") String realm,
+      @PathParam("webhookId") String webhookId,
+      @QueryParam("first") Integer first,
+      @QueryParam("max") Integer max);
 
-    /**
-     * 
-     *
-     * @param realm realm name (not id!)
-     * @param webhookId webhook id
-     * @return success
-     * @return Webhook doesn't exist
-     */
-    @GET
-    @Path("/webhooks/{webhookId}")
-    @Produces({ "application/json" })
-    WebhookRepresentation getWebhookById(@PathParam("realm") String realm,@PathParam("webhookId") String webhookId);
+  /**
+   * @param realm realm name (not id!)
+   * @param type keycloak event type
+   * @param kid keycloak event id
+   * @return success
+   */
+  @GET
+  @Path("/{realm}/webhooks/sends/{type}/{kid}")
+  @Produces({"application/json"})
+  List<WebhookSendRepresentation> getWebhookSendsByKeycloakTypeAndId(
+      @PathParam("realm") String realm,
+      @PathParam("type") String type,
+      @PathParam("kid") String kid);
 
+  /**
+   * Get a list of webhooks for this realm
+   *
+   * @param realm realm name (not id!)
+   * @param first
+   * @param max
+   * @return success
+   */
+  @GET
+  @Path("/{realm}/webhooks")
+  @Produces({"application/json"})
+  List<WebhookRepresentation> getWebhooks(
+      @PathParam("realm") String realm,
+      @QueryParam("first") Integer first,
+      @QueryParam("max") Integer max);
 
-    /**
-     * 
-     *
-     * @param realm realm name (not id!)
-     * @param webhookId webhook id
-     * @return success
-     * @return Webhook doesn't exist
-     */
-    @GET
-    @Path("/webhooks/{webhookId}/secret")
-    @Produces({ "application/json" })
-    CredentialRepresentation getWebhookSecretById(@PathParam("realm") String realm,@PathParam("webhookId") String webhookId);
+  /**
+   * Get a count of webhooks.
+   *
+   * @param realm realm name (not id!)
+   * @return success
+   */
+  @GET
+  @Path("/{realm}/webhooks/count")
+  @Produces({"application/json"})
+  Integer getWebhooksCount(@PathParam("realm") String realm);
 
+  /**
+   * @param realm realm name (not id!)
+   * @param webhookId webhook id
+   * @param sendId send id
+   * @return success
+   */
+  @POST
+  @Path("/{realm}/webhooks/{webhookId}/sends/{sendId}/resend")
+  void resendWebhookById(
+      @PathParam("realm") String realm,
+      @PathParam("webhookId") String webhookId,
+      @PathParam("sendId") String sendId);
 
-    /**
-     * 
-     *
-     * @param realm realm name (not id!)
-     * @param webhookId webhook id
-     * @param sendId send id
-     * @return success
-     * @return Webhook or send doesn't exist
-     */
-    @GET
-    @Path("/webhooks/{webhookId}/sends/{sendId}")
-    @Produces({ "application/json" })
-    WebhookSendRepresentation getWebhookSendById(@PathParam("realm") String realm,@PathParam("webhookId") String webhookId,@PathParam("sendId") String sendId);
-
-
-    /**
-     * 
-     *
-     * @param realm realm name (not id!)
-     * @param webhookId webhook id
-     * @param first 
-     * @param max 
-     * @return success
-     * @return Webhook doesn't exist
-     */
-    @GET
-    @Path("/webhooks/{webhookId}/sends")
-    @Produces({ "application/json" })
-    List<WebhookSendRepresentation> getWebhookSends(@PathParam("realm") String realm,@PathParam("webhookId") String webhookId,@QueryParam("first")   Integer first,@QueryParam("max")   Integer max);
-
-
-    /**
-     * 
-     *
-     * @param realm realm name (not id!)
-     * @param type keycloak event type
-     * @param kid keycloak event id
-     * @return success
-     */
-    @GET
-    @Path("/webhooks/sends/{type}/{kid}")
-    @Produces({ "application/json" })
-    List<WebhookSendRepresentation> getWebhookSendsByKeycloakTypeAndId(@PathParam("realm") String realm,@PathParam("type") String type,@PathParam("kid") String kid);
-
-
-    /**
-     * Get a list of webhooks for this realm
-     *
-     * @param realm realm name (not id!)
-     * @param first 
-     * @param max 
-     * @return success
-     */
-    @GET
-    @Path("/webhooks")
-    @Produces({ "application/json" })
-    List<WebhookRepresentation> getWebhooks(@PathParam("realm") String realm,@QueryParam("first")   Integer first,@QueryParam("max")   Integer max);
-
-
-    /**
-     * Get a count of webhooks.
-     *
-     * @param realm realm name (not id!)
-     * @return success
-     */
-    @GET
-    @Path("/webhooks/count")
-    @Produces({ "application/json" })
-    Integer getWebhooksCount(@PathParam("realm") String realm);
-
-
-    /**
-     * 
-     *
-     * @param realm realm name (not id!)
-     * @param webhookId webhook id
-     * @param sendId send id
-     * @return success
-     */
-    @POST
-    @Path("/webhooks/{webhookId}/sends/{sendId}/resend")
-    void resendWebhookById(@PathParam("realm") String realm,@PathParam("webhookId") String webhookId,@PathParam("sendId") String sendId);
-
-
-    /**
-     * 
-     *
-     * @param realm realm name (not id!)
-     * @param webhookId webhook id
-     * @param webhookRepresentation 
-     * @return success
-     * @return Webhook doesn't exist
-     */
-    @PUT
-    @Path("/webhooks/{webhookId}")
-    @Consumes({ "application/json" })
-    void updateWebhook(@PathParam("realm") String realm,@PathParam("webhookId") String webhookId,WebhookRepresentation webhookRepresentation);
-
+  /**
+   * @param realm realm name (not id!)
+   * @param webhookId webhook id
+   * @param webhookRepresentation
+   * @return success
+   * @return Webhook doesn't exist
+   */
+  @PUT
+  @Path("/{realm}/webhooks/{webhookId}")
+  @Consumes({"application/json"})
+  void updateWebhook(
+      @PathParam("realm") String realm,
+      @PathParam("webhookId") String webhookId,
+      WebhookRepresentation webhookRepresentation);
 }

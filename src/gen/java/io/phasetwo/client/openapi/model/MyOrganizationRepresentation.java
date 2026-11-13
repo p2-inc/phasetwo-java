@@ -1,40 +1,32 @@
 package io.phasetwo.client.openapi.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import org.openapitools.jackson.nullable.JsonNullable;
-
-
 
 @JsonTypeName("MyOrganizationRepresentation")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.21.0")
-public class MyOrganizationRepresentation   {
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen",
+    comments = "Generator version: 7.27.0")
+public class MyOrganizationRepresentation {
   private String name;
   private String displayName;
   private String url;
   private Map<String, List<String>> attributes = new HashMap<>();
   private List<String> roles = new ArrayList<>();
 
-  public MyOrganizationRepresentation() {
-  }
+  public MyOrganizationRepresentation() {}
 
-  /**
-   **/
+  /** */
   public MyOrganizationRepresentation name(String name) {
     this.name = name;
     return this;
   }
 
-  
   @JsonProperty("name")
   public String getName() {
     return name;
@@ -45,14 +37,12 @@ public class MyOrganizationRepresentation   {
     this.name = name;
   }
 
-  /**
-   **/
+  /** */
   public MyOrganizationRepresentation displayName(String displayName) {
     this.displayName = displayName;
     return this;
   }
 
-  
   @JsonProperty("displayName")
   public String getDisplayName() {
     return displayName;
@@ -63,14 +53,12 @@ public class MyOrganizationRepresentation   {
     this.displayName = displayName;
   }
 
-  /**
-   **/
+  /** */
   public MyOrganizationRepresentation url(String url) {
     this.url = url;
     return this;
   }
 
-  
   @JsonProperty("url")
   public String getUrl() {
     return url;
@@ -81,14 +69,12 @@ public class MyOrganizationRepresentation   {
     this.url = url;
   }
 
-  /**
-   **/
+  /** */
   public MyOrganizationRepresentation attributes(Map<String, List<String>> attributes) {
     this.attributes = attributes;
     return this;
   }
 
-  
   @JsonProperty("attributes")
   public Map<String, List<String>> getAttributes() {
     return attributes;
@@ -115,14 +101,13 @@ public class MyOrganizationRepresentation   {
 
     return this;
   }
-  /**
-   **/
+
+  /** */
   public MyOrganizationRepresentation roles(List<String> roles) {
     this.roles = roles;
     return this;
   }
 
-  
   @JsonProperty("roles")
   public List<String> getRoles() {
     return roles;
@@ -159,11 +144,11 @@ public class MyOrganizationRepresentation   {
       return false;
     }
     MyOrganizationRepresentation myOrganizationRepresentation = (MyOrganizationRepresentation) o;
-    return Objects.equals(this.name, myOrganizationRepresentation.name) &&
-        Objects.equals(this.displayName, myOrganizationRepresentation.displayName) &&
-        Objects.equals(this.url, myOrganizationRepresentation.url) &&
-        Objects.equals(this.attributes, myOrganizationRepresentation.attributes) &&
-        Objects.equals(this.roles, myOrganizationRepresentation.roles);
+    return Objects.equals(this.name, myOrganizationRepresentation.name)
+        && Objects.equals(this.displayName, myOrganizationRepresentation.displayName)
+        && Objects.equals(this.url, myOrganizationRepresentation.url)
+        && Objects.equals(this.attributes, myOrganizationRepresentation.attributes)
+        && Objects.equals(this.roles, myOrganizationRepresentation.roles);
   }
 
   @Override
@@ -175,7 +160,7 @@ public class MyOrganizationRepresentation   {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class MyOrganizationRepresentation {\n");
-    
+
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
     sb.append("    url: ").append(toIndentedString(url)).append("\n");
@@ -186,12 +171,9 @@ public class MyOrganizationRepresentation   {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
-
-
 }

@@ -1,0 +1,10 @@
+{
+  "comment": "Written by p2-inc/phasetwo-sdk-generator. Do not edit by hand.",
+  "spec": {
+    "repo": "p2-inc/phasetwo-docs",
+    "path": "openapi.yaml",
+    "sha": "f59db603e5bd3199c3aaefe3043dc52eb514c7f4"
+  },
+  "openapiGenerator": "v7.27.0",
+  "generatedPaths": "src/gen/java/io/phasetwo/client/openapi/api src/gen/java/io/phasetwo/client/openapi/model src/gen/java/io/phasetwo/client/openapi/RestResourceRoot.java src/main/openapi/openapi.yaml"
+}

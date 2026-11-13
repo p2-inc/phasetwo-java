@@ -1,32 +1,25 @@
 package io.phasetwo.client.openapi.model;
 
-
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import org.openapitools.jackson.nullable.JsonNullable;
-
-
+import java.util.Objects;
 
 @JsonTypeName("CredentialRepresentation")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.21.0")
-public class CredentialRepresentation   {
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen",
+    comments = "Generator version: 7.27.0")
+public class CredentialRepresentation {
   private String type;
   private String value;
 
-  public CredentialRepresentation() {
-  }
+  public CredentialRepresentation() {}
 
-  /**
-   **/
+  /** */
   public CredentialRepresentation type(String type) {
     this.type = type;
     return this;
   }
 
-  
   @JsonProperty("type")
   public String getType() {
     return type;
@@ -37,14 +30,12 @@ public class CredentialRepresentation   {
     this.type = type;
   }
 
-  /**
-   **/
+  /** */
   public CredentialRepresentation value(String value) {
     this.value = value;
     return this;
   }
 
-  
   @JsonProperty("value")
   public String getValue() {
     return value;
@@ -55,7 +46,6 @@ public class CredentialRepresentation   {
     this.value = value;
   }
 
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -65,8 +55,8 @@ public class CredentialRepresentation   {
       return false;
     }
     CredentialRepresentation credentialRepresentation = (CredentialRepresentation) o;
-    return Objects.equals(this.type, credentialRepresentation.type) &&
-        Objects.equals(this.value, credentialRepresentation.value);
+    return Objects.equals(this.type, credentialRepresentation.type)
+        && Objects.equals(this.value, credentialRepresentation.value);
   }
 
   @Override
@@ -78,7 +68,7 @@ public class CredentialRepresentation   {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CredentialRepresentation {\n");
-    
+
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("}");
@@ -86,12 +76,9 @@ public class CredentialRepresentation   {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
-
-
 }

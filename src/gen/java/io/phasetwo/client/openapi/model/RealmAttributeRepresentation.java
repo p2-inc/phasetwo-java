@@ -1,33 +1,26 @@
 package io.phasetwo.client.openapi.model;
 
-
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import org.openapitools.jackson.nullable.JsonNullable;
-
-
+import java.util.Objects;
 
 @JsonTypeName("RealmAttributeRepresentation")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.21.0")
-public class RealmAttributeRepresentation   {
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen",
+    comments = "Generator version: 7.27.0")
+public class RealmAttributeRepresentation {
   private String name;
   private String value;
   private String realm;
 
-  public RealmAttributeRepresentation() {
-  }
+  public RealmAttributeRepresentation() {}
 
-  /**
-   **/
+  /** */
   public RealmAttributeRepresentation name(String name) {
     this.name = name;
     return this;
   }
 
-  
   @JsonProperty("name")
   public String getName() {
     return name;
@@ -38,14 +31,12 @@ public class RealmAttributeRepresentation   {
     this.name = name;
   }
 
-  /**
-   **/
+  /** */
   public RealmAttributeRepresentation value(String value) {
     this.value = value;
     return this;
   }
 
-  
   @JsonProperty("value")
   public String getValue() {
     return value;
@@ -56,14 +47,12 @@ public class RealmAttributeRepresentation   {
     this.value = value;
   }
 
-  /**
-   **/
+  /** */
   public RealmAttributeRepresentation realm(String realm) {
     this.realm = realm;
     return this;
   }
 
-  
   @JsonProperty("realm")
   public String getRealm() {
     return realm;
@@ -74,7 +63,6 @@ public class RealmAttributeRepresentation   {
     this.realm = realm;
   }
 
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -84,9 +72,9 @@ public class RealmAttributeRepresentation   {
       return false;
     }
     RealmAttributeRepresentation realmAttributeRepresentation = (RealmAttributeRepresentation) o;
-    return Objects.equals(this.name, realmAttributeRepresentation.name) &&
-        Objects.equals(this.value, realmAttributeRepresentation.value) &&
-        Objects.equals(this.realm, realmAttributeRepresentation.realm);
+    return Objects.equals(this.name, realmAttributeRepresentation.name)
+        && Objects.equals(this.value, realmAttributeRepresentation.value)
+        && Objects.equals(this.realm, realmAttributeRepresentation.realm);
   }
 
   @Override
@@ -98,7 +86,7 @@ public class RealmAttributeRepresentation   {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class RealmAttributeRepresentation {\n");
-    
+
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    realm: ").append(toIndentedString(realm)).append("\n");
@@ -107,12 +95,9 @@ public class RealmAttributeRepresentation   {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
-
-
 }

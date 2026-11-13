@@ -1,33 +1,26 @@
 package io.phasetwo.client.openapi.model;
 
-
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import org.openapitools.jackson.nullable.JsonNullable;
-
-
+import java.util.Objects;
 
 @JsonTypeName("LinkIdentityProviderRepresentation")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.21.0")
-public class LinkIdentityProviderRepresentation   {
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen",
+    comments = "Generator version: 7.27.0")
+public class LinkIdentityProviderRepresentation {
   private String alias;
   private String postBrokerFlow;
   private String syncMode;
 
-  public LinkIdentityProviderRepresentation() {
-  }
+  public LinkIdentityProviderRepresentation() {}
 
-  /**
-   **/
+  /** */
   public LinkIdentityProviderRepresentation alias(String alias) {
     this.alias = alias;
     return this;
   }
 
-  
   @JsonProperty("alias")
   public String getAlias() {
     return alias;
@@ -38,14 +31,12 @@ public class LinkIdentityProviderRepresentation   {
     this.alias = alias;
   }
 
-  /**
-   **/
+  /** */
   public LinkIdentityProviderRepresentation postBrokerFlow(String postBrokerFlow) {
     this.postBrokerFlow = postBrokerFlow;
     return this;
   }
 
-  
   @JsonProperty("post_broker_flow")
   public String getPostBrokerFlow() {
     return postBrokerFlow;
@@ -56,14 +47,12 @@ public class LinkIdentityProviderRepresentation   {
     this.postBrokerFlow = postBrokerFlow;
   }
 
-  /**
-   **/
+  /** */
   public LinkIdentityProviderRepresentation syncMode(String syncMode) {
     this.syncMode = syncMode;
     return this;
   }
 
-  
   @JsonProperty("sync_mode")
   public String getSyncMode() {
     return syncMode;
@@ -74,7 +63,6 @@ public class LinkIdentityProviderRepresentation   {
     this.syncMode = syncMode;
   }
 
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -83,10 +71,11 @@ public class LinkIdentityProviderRepresentation   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    LinkIdentityProviderRepresentation linkIdentityProviderRepresentation = (LinkIdentityProviderRepresentation) o;
-    return Objects.equals(this.alias, linkIdentityProviderRepresentation.alias) &&
-        Objects.equals(this.postBrokerFlow, linkIdentityProviderRepresentation.postBrokerFlow) &&
-        Objects.equals(this.syncMode, linkIdentityProviderRepresentation.syncMode);
+    LinkIdentityProviderRepresentation linkIdentityProviderRepresentation =
+        (LinkIdentityProviderRepresentation) o;
+    return Objects.equals(this.alias, linkIdentityProviderRepresentation.alias)
+        && Objects.equals(this.postBrokerFlow, linkIdentityProviderRepresentation.postBrokerFlow)
+        && Objects.equals(this.syncMode, linkIdentityProviderRepresentation.syncMode);
   }
 
   @Override
@@ -98,7 +87,7 @@ public class LinkIdentityProviderRepresentation   {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class LinkIdentityProviderRepresentation {\n");
-    
+
     sb.append("    alias: ").append(toIndentedString(alias)).append("\n");
     sb.append("    postBrokerFlow: ").append(toIndentedString(postBrokerFlow)).append("\n");
     sb.append("    syncMode: ").append(toIndentedString(syncMode)).append("\n");
@@ -107,12 +96,9 @@ public class LinkIdentityProviderRepresentation   {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
-
-
 }
