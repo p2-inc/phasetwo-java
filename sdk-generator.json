@@ -3,7 +3,7 @@
   "spec": {
     "repo": "p2-inc/phasetwo-docs",
     "path": "openapi.yaml",
-    "sha": "59c4e87a5e665fb365d2c567f9bf49ec6a187d1b"
+    "sha": "60ff247924fcdb8145592f8b031c5735e6ea4e0c"
   },
   "apiVersion": "0.2.0",
   "openapiGenerator": "v7.27.0",
