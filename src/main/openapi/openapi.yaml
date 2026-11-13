@@ -61,30 +61,6 @@ servers:
         - http://localhost:8081/auth
 security:
 - access_token: []
-tags:
-- description: "Create, read, update and delete organizations; the caller's organizations\
-    \ and invitations; portal links; import and export."
-  name: Organizations
-- description: "Add, list, count and remove organization members, and member attributes."
-  name: Organization Memberships
-- description: Claim and verify email domains for an organization.
-  name: Organization Domains
-- description: "Invite users to an organization, and list, resend and remove invitations."
-  name: Organization Invitations
-- description: Define roles within an organization and grant them to members.
-  name: Organization Roles
-- description: "Per-organization identity providers, mappers, config import and IdP-initiated\
-    \ clients."
-  name: Identity Providers
-- description: Directory sync (SCIM) configuration per organization.
-  name: Organization SCIM
-- description: "User-centric views across organizations, the active organization,\
-    \ and magic links."
-  name: Users
-- description: "Event storage, webhooks and delivery inspection."
-  name: Events
-- description: Realm attribute management.
-  name: Attributes
 paths:
   /{realm}/orgs:
     get:
