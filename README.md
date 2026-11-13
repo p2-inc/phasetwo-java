@@ -1,6 +1,4 @@
-> :bug: **This is alpha software**
-
-# Java SDK for Phase Two API
+# Phase Two Java SDK
 
 <!-- phasetwo:banner:start - managed by p2-inc/shared-github-actions, edit there -->
 [![Maven Central](https://img.shields.io/maven-central/v/io.phasetwo/phasetwo-admin-client?label=maven%20central)](https://central.sonatype.com/artifact/io.phasetwo/phasetwo-admin-client) [![license](https://img.shields.io/badge/license-Apache--2.0-blue)](COPYING) [![docs](https://img.shields.io/badge/docs-phasetwo.io-blue)](https://phasetwo.io/docs/api/sdks/)
@@ -23,9 +21,12 @@
 
 The Phase Two Java SDK library provides access to the Phase Two API from applications written in JVM-compatible languages.
 
+> [!NOTE]
+> Pre-1.0: minor versions can contain breaking changes, which come from changes to the API spec. Pin a version.
+
 ## Documentation
 
-See the [API Reference]([https://phasetwo.io/api/](https://phasetwo.io/api/phase-two-admin-rest-api)) and [Javadoc](https://javadoc.io/doc/io.phasetwo/phasetwo-admin-client)
+See the [API Reference](https://phasetwo.io/api/phase-two-admin-rest-api) and [Javadoc](https://javadoc.io/doc/io.phasetwo/phasetwo-admin-client).
 
 ## Installation
 
@@ -83,7 +84,7 @@ phaseTwo.organizations(realm).organization(orgId).portalLink(Optional.empty());
 // Create and publish an Audit Event
 phaseTwo.events(realm).send(new EventRepresentation()
     .type("foo.bar")
-    .organizationId(orgId)
+    .representation("{\"orgId\":\"" + orgId + "\"}")
     .time(System.currentTimeMillis()));
 ```
 
@@ -91,6 +92,6 @@ phaseTwo.events(realm).send(new EventRepresentation()
 
 The interfaces and models in `src/gen/java/io/phasetwo/client/openapi` are generated from the [Phase Two OpenAPI spec](https://github.com/p2-inc/phasetwo-docs/blob/main/openapi.yaml) by [phasetwo-sdk-generator](https://github.com/p2-inc/phasetwo-sdk-generator). Don't edit them by hand; `sdk-generator.json` records the spec commit they came from. Everything in `src/main` is hand-written.
 
----
+## License
 
-All documentation, source code and other files in this repository are Copyright 2025 Phase Two, Inc.
+Apache License 2.0, see [COPYING](COPYING).
