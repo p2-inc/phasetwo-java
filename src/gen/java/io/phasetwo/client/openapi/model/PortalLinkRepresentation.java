@@ -1,33 +1,26 @@
 package io.phasetwo.client.openapi.model;
 
-
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import org.openapitools.jackson.nullable.JsonNullable;
-
-
+import java.util.Objects;
 
 @JsonTypeName("PortalLinkRepresentation")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.21.0")
-public class PortalLinkRepresentation   {
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen",
+    comments = "Generator version: 7.27.0")
+public class PortalLinkRepresentation {
   private String user;
   private String link;
   private String redirect;
 
-  public PortalLinkRepresentation() {
-  }
+  public PortalLinkRepresentation() {}
 
-  /**
-   **/
+  /** */
   public PortalLinkRepresentation user(String user) {
     this.user = user;
     return this;
   }
 
-  
   @JsonProperty("user")
   public String getUser() {
     return user;
@@ -38,14 +31,12 @@ public class PortalLinkRepresentation   {
     this.user = user;
   }
 
-  /**
-   **/
+  /** */
   public PortalLinkRepresentation link(String link) {
     this.link = link;
     return this;
   }
 
-  
   @JsonProperty("link")
   public String getLink() {
     return link;
@@ -56,14 +47,12 @@ public class PortalLinkRepresentation   {
     this.link = link;
   }
 
-  /**
-   **/
+  /** */
   public PortalLinkRepresentation redirect(String redirect) {
     this.redirect = redirect;
     return this;
   }
 
-  
   @JsonProperty("redirect")
   public String getRedirect() {
     return redirect;
@@ -74,7 +63,6 @@ public class PortalLinkRepresentation   {
     this.redirect = redirect;
   }
 
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -84,9 +72,9 @@ public class PortalLinkRepresentation   {
       return false;
     }
     PortalLinkRepresentation portalLinkRepresentation = (PortalLinkRepresentation) o;
-    return Objects.equals(this.user, portalLinkRepresentation.user) &&
-        Objects.equals(this.link, portalLinkRepresentation.link) &&
-        Objects.equals(this.redirect, portalLinkRepresentation.redirect);
+    return Objects.equals(this.user, portalLinkRepresentation.user)
+        && Objects.equals(this.link, portalLinkRepresentation.link)
+        && Objects.equals(this.redirect, portalLinkRepresentation.redirect);
   }
 
   @Override
@@ -98,7 +86,7 @@ public class PortalLinkRepresentation   {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class PortalLinkRepresentation {\n");
-    
+
     sb.append("    user: ").append(toIndentedString(user)).append("\n");
     sb.append("    link: ").append(toIndentedString(link)).append("\n");
     sb.append("    redirect: ").append(toIndentedString(redirect)).append("\n");
@@ -107,12 +95,9 @@ public class PortalLinkRepresentation   {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
-
-
 }

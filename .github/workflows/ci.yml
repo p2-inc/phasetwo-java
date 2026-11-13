@@ -1,0 +1,23 @@
+# Build and test every PR (including phasetwo-sdk-generator's) and main.
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: maven
+      # verify runs the Testcontainers integration test against Phase Two Keycloak.
+      - run: mvn -B verify

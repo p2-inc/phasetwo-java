@@ -1,23 +1,18 @@
 package io.phasetwo.client.openapi.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import org.openapitools.jackson.nullable.JsonNullable;
-
-
 
 @JsonTypeName("OrganizationRepresentation")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.21.0")
-public class OrganizationRepresentation   {
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen",
+    comments = "Generator version: 7.27.0")
+public class OrganizationRepresentation {
   private String id;
   private String name;
   private String displayName;
@@ -26,17 +21,14 @@ public class OrganizationRepresentation   {
   private List<String> domains = new ArrayList<>();
   private Map<String, List<String>> attributes = new HashMap<>();
 
-  public OrganizationRepresentation() {
-  }
+  public OrganizationRepresentation() {}
 
-  /**
-   **/
+  /** */
   public OrganizationRepresentation id(String id) {
     this.id = id;
     return this;
   }
 
-  
   @JsonProperty("id")
   public String getId() {
     return id;
@@ -47,14 +39,12 @@ public class OrganizationRepresentation   {
     this.id = id;
   }
 
-  /**
-   **/
+  /** */
   public OrganizationRepresentation name(String name) {
     this.name = name;
     return this;
   }
 
-  
   @JsonProperty("name")
   public String getName() {
     return name;
@@ -65,14 +55,12 @@ public class OrganizationRepresentation   {
     this.name = name;
   }
 
-  /**
-   **/
+  /** */
   public OrganizationRepresentation displayName(String displayName) {
     this.displayName = displayName;
     return this;
   }
 
-  
   @JsonProperty("displayName")
   public String getDisplayName() {
     return displayName;
@@ -83,14 +71,12 @@ public class OrganizationRepresentation   {
     this.displayName = displayName;
   }
 
-  /**
-   **/
+  /** */
   public OrganizationRepresentation url(String url) {
     this.url = url;
     return this;
   }
 
-  
   @JsonProperty("url")
   public String getUrl() {
     return url;
@@ -101,14 +87,12 @@ public class OrganizationRepresentation   {
     this.url = url;
   }
 
-  /**
-   **/
+  /** */
   public OrganizationRepresentation realm(String realm) {
     this.realm = realm;
     return this;
   }
 
-  
   @JsonProperty("realm")
   public String getRealm() {
     return realm;
@@ -119,14 +103,12 @@ public class OrganizationRepresentation   {
     this.realm = realm;
   }
 
-  /**
-   **/
+  /** */
   public OrganizationRepresentation domains(List<String> domains) {
     this.domains = domains;
     return this;
   }
 
-  
   @JsonProperty("domains")
   public List<String> getDomains() {
     return domains;
@@ -153,14 +135,13 @@ public class OrganizationRepresentation   {
 
     return this;
   }
-  /**
-   **/
+
+  /** */
   public OrganizationRepresentation attributes(Map<String, List<String>> attributes) {
     this.attributes = attributes;
     return this;
   }
 
-  
   @JsonProperty("attributes")
   public Map<String, List<String>> getAttributes() {
     return attributes;
@@ -197,13 +178,13 @@ public class OrganizationRepresentation   {
       return false;
     }
     OrganizationRepresentation organizationRepresentation = (OrganizationRepresentation) o;
-    return Objects.equals(this.id, organizationRepresentation.id) &&
-        Objects.equals(this.name, organizationRepresentation.name) &&
-        Objects.equals(this.displayName, organizationRepresentation.displayName) &&
-        Objects.equals(this.url, organizationRepresentation.url) &&
-        Objects.equals(this.realm, organizationRepresentation.realm) &&
-        Objects.equals(this.domains, organizationRepresentation.domains) &&
-        Objects.equals(this.attributes, organizationRepresentation.attributes);
+    return Objects.equals(this.id, organizationRepresentation.id)
+        && Objects.equals(this.name, organizationRepresentation.name)
+        && Objects.equals(this.displayName, organizationRepresentation.displayName)
+        && Objects.equals(this.url, organizationRepresentation.url)
+        && Objects.equals(this.realm, organizationRepresentation.realm)
+        && Objects.equals(this.domains, organizationRepresentation.domains)
+        && Objects.equals(this.attributes, organizationRepresentation.attributes);
   }
 
   @Override
@@ -215,7 +196,7 @@ public class OrganizationRepresentation   {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class OrganizationRepresentation {\n");
-    
+
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
@@ -228,12 +209,9 @@ public class OrganizationRepresentation   {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
-
-
 }

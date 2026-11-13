@@ -1,37 +1,30 @@
 package io.phasetwo.client.openapi.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.util.HashMap;
 import java.util.Map;
-
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import org.openapitools.jackson.nullable.JsonNullable;
-
-
 
 @JsonTypeName("IdentityProviderMapperRepresentation")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.21.0")
-public class IdentityProviderMapperRepresentation   {
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen",
+    comments = "Generator version: 7.27.0")
+public class IdentityProviderMapperRepresentation {
   private Map<String, Object> config = new HashMap<>();
   private String id;
   private String identityProviderAlias;
   private String identityProviderMapper;
   private String name;
 
-  public IdentityProviderMapperRepresentation() {
-  }
+  public IdentityProviderMapperRepresentation() {}
 
-  /**
-   **/
+  /** */
   public IdentityProviderMapperRepresentation config(Map<String, Object> config) {
     this.config = config;
     return this;
   }
 
-  
   @JsonProperty("config")
   public Map<String, Object> getConfig() {
     return config;
@@ -58,14 +51,13 @@ public class IdentityProviderMapperRepresentation   {
 
     return this;
   }
-  /**
-   **/
+
+  /** */
   public IdentityProviderMapperRepresentation id(String id) {
     this.id = id;
     return this;
   }
 
-  
   @JsonProperty("id")
   public String getId() {
     return id;
@@ -76,14 +68,12 @@ public class IdentityProviderMapperRepresentation   {
     this.id = id;
   }
 
-  /**
-   **/
+  /** */
   public IdentityProviderMapperRepresentation identityProviderAlias(String identityProviderAlias) {
     this.identityProviderAlias = identityProviderAlias;
     return this;
   }
 
-  
   @JsonProperty("identityProviderAlias")
   public String getIdentityProviderAlias() {
     return identityProviderAlias;
@@ -94,14 +84,13 @@ public class IdentityProviderMapperRepresentation   {
     this.identityProviderAlias = identityProviderAlias;
   }
 
-  /**
-   **/
-  public IdentityProviderMapperRepresentation identityProviderMapper(String identityProviderMapper) {
+  /** */
+  public IdentityProviderMapperRepresentation identityProviderMapper(
+      String identityProviderMapper) {
     this.identityProviderMapper = identityProviderMapper;
     return this;
   }
 
-  
   @JsonProperty("identityProviderMapper")
   public String getIdentityProviderMapper() {
     return identityProviderMapper;
@@ -112,14 +101,12 @@ public class IdentityProviderMapperRepresentation   {
     this.identityProviderMapper = identityProviderMapper;
   }
 
-  /**
-   **/
+  /** */
   public IdentityProviderMapperRepresentation name(String name) {
     this.name = name;
     return this;
   }
 
-  
   @JsonProperty("name")
   public String getName() {
     return name;
@@ -130,7 +117,6 @@ public class IdentityProviderMapperRepresentation   {
     this.name = name;
   }
 
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -139,12 +125,16 @@ public class IdentityProviderMapperRepresentation   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    IdentityProviderMapperRepresentation identityProviderMapperRepresentation = (IdentityProviderMapperRepresentation) o;
-    return Objects.equals(this.config, identityProviderMapperRepresentation.config) &&
-        Objects.equals(this.id, identityProviderMapperRepresentation.id) &&
-        Objects.equals(this.identityProviderAlias, identityProviderMapperRepresentation.identityProviderAlias) &&
-        Objects.equals(this.identityProviderMapper, identityProviderMapperRepresentation.identityProviderMapper) &&
-        Objects.equals(this.name, identityProviderMapperRepresentation.name);
+    IdentityProviderMapperRepresentation identityProviderMapperRepresentation =
+        (IdentityProviderMapperRepresentation) o;
+    return Objects.equals(this.config, identityProviderMapperRepresentation.config)
+        && Objects.equals(this.id, identityProviderMapperRepresentation.id)
+        && Objects.equals(
+            this.identityProviderAlias, identityProviderMapperRepresentation.identityProviderAlias)
+        && Objects.equals(
+            this.identityProviderMapper,
+            identityProviderMapperRepresentation.identityProviderMapper)
+        && Objects.equals(this.name, identityProviderMapperRepresentation.name);
   }
 
   @Override
@@ -156,23 +146,24 @@ public class IdentityProviderMapperRepresentation   {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class IdentityProviderMapperRepresentation {\n");
-    
+
     sb.append("    config: ").append(toIndentedString(config)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    identityProviderAlias: ").append(toIndentedString(identityProviderAlias)).append("\n");
-    sb.append("    identityProviderMapper: ").append(toIndentedString(identityProviderMapper)).append("\n");
+    sb.append("    identityProviderAlias: ")
+        .append(toIndentedString(identityProviderAlias))
+        .append("\n");
+    sb.append("    identityProviderMapper: ")
+        .append(toIndentedString(identityProviderMapper))
+        .append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
-
-
 }

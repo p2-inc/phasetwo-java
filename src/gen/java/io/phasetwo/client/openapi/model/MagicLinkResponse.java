@@ -1,33 +1,26 @@
 package io.phasetwo.client.openapi.model;
 
-
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import org.openapitools.jackson.nullable.JsonNullable;
-
-
+import java.util.Objects;
 
 @JsonTypeName("MagicLinkResponse")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.21.0")
-public class MagicLinkResponse   {
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen",
+    comments = "Generator version: 7.27.0")
+public class MagicLinkResponse {
   private String userId;
   private String link;
   private Boolean sent;
 
-  public MagicLinkResponse() {
-  }
+  public MagicLinkResponse() {}
 
-  /**
-   **/
+  /** */
   public MagicLinkResponse userId(String userId) {
     this.userId = userId;
     return this;
   }
 
-  
   @JsonProperty("user_id")
   public String getUserId() {
     return userId;
@@ -38,14 +31,12 @@ public class MagicLinkResponse   {
     this.userId = userId;
   }
 
-  /**
-   **/
+  /** */
   public MagicLinkResponse link(String link) {
     this.link = link;
     return this;
   }
 
-  
   @JsonProperty("link")
   public String getLink() {
     return link;
@@ -56,14 +47,12 @@ public class MagicLinkResponse   {
     this.link = link;
   }
 
-  /**
-   **/
+  /** */
   public MagicLinkResponse sent(Boolean sent) {
     this.sent = sent;
     return this;
   }
 
-  
   @JsonProperty("sent")
   public Boolean getSent() {
     return sent;
@@ -74,7 +63,6 @@ public class MagicLinkResponse   {
     this.sent = sent;
   }
 
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -84,9 +72,9 @@ public class MagicLinkResponse   {
       return false;
     }
     MagicLinkResponse magicLinkResponse = (MagicLinkResponse) o;
-    return Objects.equals(this.userId, magicLinkResponse.userId) &&
-        Objects.equals(this.link, magicLinkResponse.link) &&
-        Objects.equals(this.sent, magicLinkResponse.sent);
+    return Objects.equals(this.userId, magicLinkResponse.userId)
+        && Objects.equals(this.link, magicLinkResponse.link)
+        && Objects.equals(this.sent, magicLinkResponse.sent);
   }
 
   @Override
@@ -98,7 +86,7 @@ public class MagicLinkResponse   {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class MagicLinkResponse {\n");
-    
+
     sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
     sb.append("    link: ").append(toIndentedString(link)).append("\n");
     sb.append("    sent: ").append(toIndentedString(sent)).append("\n");
@@ -107,12 +95,9 @@ public class MagicLinkResponse   {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
-
-
 }

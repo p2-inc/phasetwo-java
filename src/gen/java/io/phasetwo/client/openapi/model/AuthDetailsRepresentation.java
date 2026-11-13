@@ -1,18 +1,14 @@
 package io.phasetwo.client.openapi.model;
 
-
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import org.openapitools.jackson.nullable.JsonNullable;
-
-
+import java.util.Objects;
 
 @JsonTypeName("AuthDetailsRepresentation")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.21.0")
-public class AuthDetailsRepresentation   {
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen",
+    comments = "Generator version: 7.27.0")
+public class AuthDetailsRepresentation {
   private String realmId;
   private String clientId;
   private String userId;
@@ -20,17 +16,14 @@ public class AuthDetailsRepresentation   {
   private String username;
   private String sessionId;
 
-  public AuthDetailsRepresentation() {
-  }
+  public AuthDetailsRepresentation() {}
 
-  /**
-   **/
+  /** */
   public AuthDetailsRepresentation realmId(String realmId) {
     this.realmId = realmId;
     return this;
   }
 
-  
   @JsonProperty("realmId")
   public String getRealmId() {
     return realmId;
@@ -41,14 +34,12 @@ public class AuthDetailsRepresentation   {
     this.realmId = realmId;
   }
 
-  /**
-   **/
+  /** */
   public AuthDetailsRepresentation clientId(String clientId) {
     this.clientId = clientId;
     return this;
   }
 
-  
   @JsonProperty("clientId")
   public String getClientId() {
     return clientId;
@@ -59,14 +50,12 @@ public class AuthDetailsRepresentation   {
     this.clientId = clientId;
   }
 
-  /**
-   **/
+  /** */
   public AuthDetailsRepresentation userId(String userId) {
     this.userId = userId;
     return this;
   }
 
-  
   @JsonProperty("userId")
   public String getUserId() {
     return userId;
@@ -77,14 +66,12 @@ public class AuthDetailsRepresentation   {
     this.userId = userId;
   }
 
-  /**
-   **/
+  /** */
   public AuthDetailsRepresentation ipAddress(String ipAddress) {
     this.ipAddress = ipAddress;
     return this;
   }
 
-  
   @JsonProperty("ipAddress")
   public String getIpAddress() {
     return ipAddress;
@@ -95,14 +82,12 @@ public class AuthDetailsRepresentation   {
     this.ipAddress = ipAddress;
   }
 
-  /**
-   **/
+  /** */
   public AuthDetailsRepresentation username(String username) {
     this.username = username;
     return this;
   }
 
-  
   @JsonProperty("username")
   public String getUsername() {
     return username;
@@ -113,14 +98,12 @@ public class AuthDetailsRepresentation   {
     this.username = username;
   }
 
-  /**
-   **/
+  /** */
   public AuthDetailsRepresentation sessionId(String sessionId) {
     this.sessionId = sessionId;
     return this;
   }
 
-  
   @JsonProperty("sessionId")
   public String getSessionId() {
     return sessionId;
@@ -131,7 +114,6 @@ public class AuthDetailsRepresentation   {
     this.sessionId = sessionId;
   }
 
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -141,12 +123,12 @@ public class AuthDetailsRepresentation   {
       return false;
     }
     AuthDetailsRepresentation authDetailsRepresentation = (AuthDetailsRepresentation) o;
-    return Objects.equals(this.realmId, authDetailsRepresentation.realmId) &&
-        Objects.equals(this.clientId, authDetailsRepresentation.clientId) &&
-        Objects.equals(this.userId, authDetailsRepresentation.userId) &&
-        Objects.equals(this.ipAddress, authDetailsRepresentation.ipAddress) &&
-        Objects.equals(this.username, authDetailsRepresentation.username) &&
-        Objects.equals(this.sessionId, authDetailsRepresentation.sessionId);
+    return Objects.equals(this.realmId, authDetailsRepresentation.realmId)
+        && Objects.equals(this.clientId, authDetailsRepresentation.clientId)
+        && Objects.equals(this.userId, authDetailsRepresentation.userId)
+        && Objects.equals(this.ipAddress, authDetailsRepresentation.ipAddress)
+        && Objects.equals(this.username, authDetailsRepresentation.username)
+        && Objects.equals(this.sessionId, authDetailsRepresentation.sessionId);
   }
 
   @Override
@@ -158,7 +140,7 @@ public class AuthDetailsRepresentation   {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class AuthDetailsRepresentation {\n");
-    
+
     sb.append("    realmId: ").append(toIndentedString(realmId)).append("\n");
     sb.append("    clientId: ").append(toIndentedString(clientId)).append("\n");
     sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
@@ -170,12 +152,9 @@ public class AuthDetailsRepresentation   {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
-
-
 }

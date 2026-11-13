@@ -1,26 +1,18 @@
 package io.phasetwo.client.openapi.model;
 
-import io.phasetwo.client.openapi.model.IdentityProviderRepresentation;
-import io.phasetwo.client.openapi.model.OrganizationExportRepresentationAllOfMembers;
-import io.phasetwo.client.openapi.model.OrganizationRoleRepresentation;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import org.openapitools.jackson.nullable.JsonNullable;
-
-
 
 @JsonTypeName("OrganizationExportRepresentation")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.21.0")
-public class OrganizationExportRepresentation   {
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen",
+    comments = "Generator version: 7.27.0")
+public class OrganizationExportRepresentation {
   private String id;
   private String name;
   private String displayName;
@@ -32,17 +24,14 @@ public class OrganizationExportRepresentation   {
   private List<IdentityProviderRepresentation> identityProviders = new ArrayList<>();
   private List<OrganizationExportRepresentationAllOfMembers> members = new ArrayList<>();
 
-  public OrganizationExportRepresentation() {
-  }
+  public OrganizationExportRepresentation() {}
 
-  /**
-   **/
+  /** */
   public OrganizationExportRepresentation id(String id) {
     this.id = id;
     return this;
   }
 
-  
   @JsonProperty("id")
   public String getId() {
     return id;
@@ -53,14 +42,12 @@ public class OrganizationExportRepresentation   {
     this.id = id;
   }
 
-  /**
-   **/
+  /** */
   public OrganizationExportRepresentation name(String name) {
     this.name = name;
     return this;
   }
 
-  
   @JsonProperty("name")
   public String getName() {
     return name;
@@ -71,14 +58,12 @@ public class OrganizationExportRepresentation   {
     this.name = name;
   }
 
-  /**
-   **/
+  /** */
   public OrganizationExportRepresentation displayName(String displayName) {
     this.displayName = displayName;
     return this;
   }
 
-  
   @JsonProperty("displayName")
   public String getDisplayName() {
     return displayName;
@@ -89,14 +74,12 @@ public class OrganizationExportRepresentation   {
     this.displayName = displayName;
   }
 
-  /**
-   **/
+  /** */
   public OrganizationExportRepresentation url(String url) {
     this.url = url;
     return this;
   }
 
-  
   @JsonProperty("url")
   public String getUrl() {
     return url;
@@ -107,14 +90,12 @@ public class OrganizationExportRepresentation   {
     this.url = url;
   }
 
-  /**
-   **/
+  /** */
   public OrganizationExportRepresentation realm(String realm) {
     this.realm = realm;
     return this;
   }
 
-  
   @JsonProperty("realm")
   public String getRealm() {
     return realm;
@@ -125,14 +106,12 @@ public class OrganizationExportRepresentation   {
     this.realm = realm;
   }
 
-  /**
-   **/
+  /** */
   public OrganizationExportRepresentation domains(List<String> domains) {
     this.domains = domains;
     return this;
   }
 
-  
   @JsonProperty("domains")
   public List<String> getDomains() {
     return domains;
@@ -159,14 +138,13 @@ public class OrganizationExportRepresentation   {
 
     return this;
   }
-  /**
-   **/
+
+  /** */
   public OrganizationExportRepresentation attributes(Map<String, List<String>> attributes) {
     this.attributes = attributes;
     return this;
   }
 
-  
   @JsonProperty("attributes")
   public Map<String, List<String>> getAttributes() {
     return attributes;
@@ -177,7 +155,8 @@ public class OrganizationExportRepresentation   {
     this.attributes = attributes;
   }
 
-  public OrganizationExportRepresentation putAttributesItem(String key, List<String> attributesItem) {
+  public OrganizationExportRepresentation putAttributesItem(
+      String key, List<String> attributesItem) {
     if (this.attributes == null) {
       this.attributes = new HashMap<>();
     }
@@ -193,14 +172,13 @@ public class OrganizationExportRepresentation   {
 
     return this;
   }
-  /**
-   **/
+
+  /** */
   public OrganizationExportRepresentation roles(List<OrganizationRoleRepresentation> roles) {
     this.roles = roles;
     return this;
   }
 
-  
   @JsonProperty("roles")
   public List<OrganizationRoleRepresentation> getRoles() {
     return roles;
@@ -220,21 +198,22 @@ public class OrganizationExportRepresentation   {
     return this;
   }
 
-  public OrganizationExportRepresentation removeRolesItem(OrganizationRoleRepresentation rolesItem) {
+  public OrganizationExportRepresentation removeRolesItem(
+      OrganizationRoleRepresentation rolesItem) {
     if (rolesItem != null && this.roles != null) {
       this.roles.remove(rolesItem);
     }
 
     return this;
   }
-  /**
-   **/
-  public OrganizationExportRepresentation identityProviders(List<IdentityProviderRepresentation> identityProviders) {
+
+  /** */
+  public OrganizationExportRepresentation identityProviders(
+      List<IdentityProviderRepresentation> identityProviders) {
     this.identityProviders = identityProviders;
     return this;
   }
 
-  
   @JsonProperty("identityProviders")
   public List<IdentityProviderRepresentation> getIdentityProviders() {
     return identityProviders;
@@ -245,7 +224,8 @@ public class OrganizationExportRepresentation   {
     this.identityProviders = identityProviders;
   }
 
-  public OrganizationExportRepresentation addIdentityProvidersItem(IdentityProviderRepresentation identityProvidersItem) {
+  public OrganizationExportRepresentation addIdentityProvidersItem(
+      IdentityProviderRepresentation identityProvidersItem) {
     if (this.identityProviders == null) {
       this.identityProviders = new ArrayList<>();
     }
@@ -254,21 +234,22 @@ public class OrganizationExportRepresentation   {
     return this;
   }
 
-  public OrganizationExportRepresentation removeIdentityProvidersItem(IdentityProviderRepresentation identityProvidersItem) {
+  public OrganizationExportRepresentation removeIdentityProvidersItem(
+      IdentityProviderRepresentation identityProvidersItem) {
     if (identityProvidersItem != null && this.identityProviders != null) {
       this.identityProviders.remove(identityProvidersItem);
     }
 
     return this;
   }
-  /**
-   **/
-  public OrganizationExportRepresentation members(List<OrganizationExportRepresentationAllOfMembers> members) {
+
+  /** */
+  public OrganizationExportRepresentation members(
+      List<OrganizationExportRepresentationAllOfMembers> members) {
     this.members = members;
     return this;
   }
 
-  
   @JsonProperty("members")
   public List<OrganizationExportRepresentationAllOfMembers> getMembers() {
     return members;
@@ -279,7 +260,8 @@ public class OrganizationExportRepresentation   {
     this.members = members;
   }
 
-  public OrganizationExportRepresentation addMembersItem(OrganizationExportRepresentationAllOfMembers membersItem) {
+  public OrganizationExportRepresentation addMembersItem(
+      OrganizationExportRepresentationAllOfMembers membersItem) {
     if (this.members == null) {
       this.members = new ArrayList<>();
     }
@@ -288,7 +270,8 @@ public class OrganizationExportRepresentation   {
     return this;
   }
 
-  public OrganizationExportRepresentation removeMembersItem(OrganizationExportRepresentationAllOfMembers membersItem) {
+  public OrganizationExportRepresentation removeMembersItem(
+      OrganizationExportRepresentationAllOfMembers membersItem) {
     if (membersItem != null && this.members != null) {
       this.members.remove(membersItem);
     }
@@ -304,29 +287,32 @@ public class OrganizationExportRepresentation   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    OrganizationExportRepresentation organizationExportRepresentation = (OrganizationExportRepresentation) o;
-    return Objects.equals(this.id, organizationExportRepresentation.id) &&
-        Objects.equals(this.name, organizationExportRepresentation.name) &&
-        Objects.equals(this.displayName, organizationExportRepresentation.displayName) &&
-        Objects.equals(this.url, organizationExportRepresentation.url) &&
-        Objects.equals(this.realm, organizationExportRepresentation.realm) &&
-        Objects.equals(this.domains, organizationExportRepresentation.domains) &&
-        Objects.equals(this.attributes, organizationExportRepresentation.attributes) &&
-        Objects.equals(this.roles, organizationExportRepresentation.roles) &&
-        Objects.equals(this.identityProviders, organizationExportRepresentation.identityProviders) &&
-        Objects.equals(this.members, organizationExportRepresentation.members);
+    OrganizationExportRepresentation organizationExportRepresentation =
+        (OrganizationExportRepresentation) o;
+    return Objects.equals(this.id, organizationExportRepresentation.id)
+        && Objects.equals(this.name, organizationExportRepresentation.name)
+        && Objects.equals(this.displayName, organizationExportRepresentation.displayName)
+        && Objects.equals(this.url, organizationExportRepresentation.url)
+        && Objects.equals(this.realm, organizationExportRepresentation.realm)
+        && Objects.equals(this.domains, organizationExportRepresentation.domains)
+        && Objects.equals(this.attributes, organizationExportRepresentation.attributes)
+        && Objects.equals(this.roles, organizationExportRepresentation.roles)
+        && Objects.equals(
+            this.identityProviders, organizationExportRepresentation.identityProviders)
+        && Objects.equals(this.members, organizationExportRepresentation.members);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, displayName, url, realm, domains, attributes, roles, identityProviders, members);
+    return Objects.hash(
+        id, name, displayName, url, realm, domains, attributes, roles, identityProviders, members);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class OrganizationExportRepresentation {\n");
-    
+
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
@@ -342,12 +328,9 @@ public class OrganizationExportRepresentation   {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
-
-
 }

@@ -1,24 +1,19 @@
 package io.phasetwo.client.openapi.model;
 
-import io.phasetwo.client.openapi.model.AuthDetailsRepresentation;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.util.HashMap;
 import java.util.Map;
-
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import org.openapitools.jackson.nullable.JsonNullable;
-
-
 
 @JsonTypeName("EventRepresentation")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.21.0")
-public class EventRepresentation   {
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen",
+    comments = "Generator version: 7.27.0")
+public class EventRepresentation {
   private String id;
   private String uid;
-  private Integer time;
+  private Long time;
   private String realmId;
   private String realmName;
   private String organizationId;
@@ -31,17 +26,14 @@ public class EventRepresentation   {
   private AuthDetailsRepresentation authDetails;
   private Map<String, Object> details = new HashMap<>();
 
-  public EventRepresentation() {
-  }
+  public EventRepresentation() {}
 
-  /**
-   **/
+  /** */
   public EventRepresentation id(String id) {
     this.id = id;
     return this;
   }
 
-  
   @JsonProperty("id")
   public String getId() {
     return id;
@@ -52,14 +44,12 @@ public class EventRepresentation   {
     this.id = id;
   }
 
-  /**
-   **/
+  /** */
   public EventRepresentation uid(String uid) {
     this.uid = uid;
     return this;
   }
 
-  
   @JsonProperty("uid")
   public String getUid() {
     return uid;
@@ -70,32 +60,28 @@ public class EventRepresentation   {
     this.uid = uid;
   }
 
-  /**
-   **/
-  public EventRepresentation time(Integer time) {
+  /** */
+  public EventRepresentation time(Long time) {
     this.time = time;
     return this;
   }
 
-  
   @JsonProperty("time")
-  public Integer getTime() {
+  public Long getTime() {
     return time;
   }
 
   @JsonProperty("time")
-  public void setTime(Integer time) {
+  public void setTime(Long time) {
     this.time = time;
   }
 
-  /**
-   **/
+  /** */
   public EventRepresentation realmId(String realmId) {
     this.realmId = realmId;
     return this;
   }
 
-  
   @JsonProperty("realmId")
   public String getRealmId() {
     return realmId;
@@ -106,14 +92,12 @@ public class EventRepresentation   {
     this.realmId = realmId;
   }
 
-  /**
-   **/
+  /** */
   public EventRepresentation realmName(String realmName) {
     this.realmName = realmName;
     return this;
   }
 
-  
   @JsonProperty("realmName")
   public String getRealmName() {
     return realmName;
@@ -124,14 +108,12 @@ public class EventRepresentation   {
     this.realmName = realmName;
   }
 
-  /**
-   **/
+  /** */
   public EventRepresentation organizationId(String organizationId) {
     this.organizationId = organizationId;
     return this;
   }
 
-  
   @JsonProperty("organizationId")
   public String getOrganizationId() {
     return organizationId;
@@ -142,14 +124,12 @@ public class EventRepresentation   {
     this.organizationId = organizationId;
   }
 
-  /**
-   **/
+  /** */
   public EventRepresentation type(String type) {
     this.type = type;
     return this;
   }
 
-  
   @JsonProperty("type")
   public String getType() {
     return type;
@@ -160,14 +140,12 @@ public class EventRepresentation   {
     this.type = type;
   }
 
-  /**
-   **/
+  /** */
   public EventRepresentation representation(String representation) {
     this.representation = representation;
     return this;
   }
 
-  
   @JsonProperty("representation")
   public String getRepresentation() {
     return representation;
@@ -178,14 +156,12 @@ public class EventRepresentation   {
     this.representation = representation;
   }
 
-  /**
-   **/
+  /** */
   public EventRepresentation operationType(String operationType) {
     this.operationType = operationType;
     return this;
   }
 
-  
   @JsonProperty("operationType")
   public String getOperationType() {
     return operationType;
@@ -196,14 +172,12 @@ public class EventRepresentation   {
     this.operationType = operationType;
   }
 
-  /**
-   **/
+  /** */
   public EventRepresentation resourcePath(String resourcePath) {
     this.resourcePath = resourcePath;
     return this;
   }
 
-  
   @JsonProperty("resourcePath")
   public String getResourcePath() {
     return resourcePath;
@@ -214,14 +188,12 @@ public class EventRepresentation   {
     this.resourcePath = resourcePath;
   }
 
-  /**
-   **/
+  /** */
   public EventRepresentation resourceType(String resourceType) {
     this.resourceType = resourceType;
     return this;
   }
 
-  
   @JsonProperty("resourceType")
   public String getResourceType() {
     return resourceType;
@@ -232,14 +204,12 @@ public class EventRepresentation   {
     this.resourceType = resourceType;
   }
 
-  /**
-   **/
+  /** */
   public EventRepresentation error(String error) {
     this.error = error;
     return this;
   }
 
-  
   @JsonProperty("error")
   public String getError() {
     return error;
@@ -250,14 +220,12 @@ public class EventRepresentation   {
     this.error = error;
   }
 
-  /**
-   **/
+  /** */
   public EventRepresentation authDetails(AuthDetailsRepresentation authDetails) {
     this.authDetails = authDetails;
     return this;
   }
 
-  
   @JsonProperty("authDetails")
   public AuthDetailsRepresentation getAuthDetails() {
     return authDetails;
@@ -268,14 +236,12 @@ public class EventRepresentation   {
     this.authDetails = authDetails;
   }
 
-  /**
-   **/
+  /** */
   public EventRepresentation details(Map<String, Object> details) {
     this.details = details;
     return this;
   }
 
-  
   @JsonProperty("details")
   public Map<String, Object> getDetails() {
     return details;
@@ -312,32 +278,46 @@ public class EventRepresentation   {
       return false;
     }
     EventRepresentation eventRepresentation = (EventRepresentation) o;
-    return Objects.equals(this.id, eventRepresentation.id) &&
-        Objects.equals(this.uid, eventRepresentation.uid) &&
-        Objects.equals(this.time, eventRepresentation.time) &&
-        Objects.equals(this.realmId, eventRepresentation.realmId) &&
-        Objects.equals(this.realmName, eventRepresentation.realmName) &&
-        Objects.equals(this.organizationId, eventRepresentation.organizationId) &&
-        Objects.equals(this.type, eventRepresentation.type) &&
-        Objects.equals(this.representation, eventRepresentation.representation) &&
-        Objects.equals(this.operationType, eventRepresentation.operationType) &&
-        Objects.equals(this.resourcePath, eventRepresentation.resourcePath) &&
-        Objects.equals(this.resourceType, eventRepresentation.resourceType) &&
-        Objects.equals(this.error, eventRepresentation.error) &&
-        Objects.equals(this.authDetails, eventRepresentation.authDetails) &&
-        Objects.equals(this.details, eventRepresentation.details);
+    return Objects.equals(this.id, eventRepresentation.id)
+        && Objects.equals(this.uid, eventRepresentation.uid)
+        && Objects.equals(this.time, eventRepresentation.time)
+        && Objects.equals(this.realmId, eventRepresentation.realmId)
+        && Objects.equals(this.realmName, eventRepresentation.realmName)
+        && Objects.equals(this.organizationId, eventRepresentation.organizationId)
+        && Objects.equals(this.type, eventRepresentation.type)
+        && Objects.equals(this.representation, eventRepresentation.representation)
+        && Objects.equals(this.operationType, eventRepresentation.operationType)
+        && Objects.equals(this.resourcePath, eventRepresentation.resourcePath)
+        && Objects.equals(this.resourceType, eventRepresentation.resourceType)
+        && Objects.equals(this.error, eventRepresentation.error)
+        && Objects.equals(this.authDetails, eventRepresentation.authDetails)
+        && Objects.equals(this.details, eventRepresentation.details);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, uid, time, realmId, realmName, organizationId, type, representation, operationType, resourcePath, resourceType, error, authDetails, details);
+    return Objects.hash(
+        id,
+        uid,
+        time,
+        realmId,
+        realmName,
+        organizationId,
+        type,
+        representation,
+        operationType,
+        resourcePath,
+        resourceType,
+        error,
+        authDetails,
+        details);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class EventRepresentation {\n");
-    
+
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    uid: ").append(toIndentedString(uid)).append("\n");
     sb.append("    time: ").append(toIndentedString(time)).append("\n");
@@ -357,12 +337,9 @@ public class EventRepresentation   {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
-
-
 }

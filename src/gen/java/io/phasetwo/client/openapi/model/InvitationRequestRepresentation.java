@@ -1,23 +1,18 @@
 package io.phasetwo.client.openapi.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import org.openapitools.jackson.nullable.JsonNullable;
-
-
 
 @JsonTypeName("InvitationRequestRepresentation")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.21.0")
-public class InvitationRequestRepresentation   {
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen",
+    comments = "Generator version: 7.27.0")
+public class InvitationRequestRepresentation {
   private String email;
   private Boolean send;
   private String inviterId;
@@ -25,17 +20,14 @@ public class InvitationRequestRepresentation   {
   private List<String> roles = new ArrayList<>();
   private Map<String, List<String>> attributes = new HashMap<>();
 
-  public InvitationRequestRepresentation() {
-  }
+  public InvitationRequestRepresentation() {}
 
-  /**
-   **/
+  /** */
   public InvitationRequestRepresentation email(String email) {
     this.email = email;
     return this;
   }
 
-  
   @JsonProperty("email")
   public String getEmail() {
     return email;
@@ -46,14 +38,12 @@ public class InvitationRequestRepresentation   {
     this.email = email;
   }
 
-  /**
-   **/
+  /** */
   public InvitationRequestRepresentation send(Boolean send) {
     this.send = send;
     return this;
   }
 
-  
   @JsonProperty("send")
   public Boolean getSend() {
     return send;
@@ -64,14 +54,12 @@ public class InvitationRequestRepresentation   {
     this.send = send;
   }
 
-  /**
-   **/
+  /** */
   public InvitationRequestRepresentation inviterId(String inviterId) {
     this.inviterId = inviterId;
     return this;
   }
 
-  
   @JsonProperty("inviterId")
   public String getInviterId() {
     return inviterId;
@@ -82,14 +70,12 @@ public class InvitationRequestRepresentation   {
     this.inviterId = inviterId;
   }
 
-  /**
-   **/
+  /** */
   public InvitationRequestRepresentation redirectUri(String redirectUri) {
     this.redirectUri = redirectUri;
     return this;
   }
 
-  
   @JsonProperty("redirectUri")
   public String getRedirectUri() {
     return redirectUri;
@@ -100,14 +86,12 @@ public class InvitationRequestRepresentation   {
     this.redirectUri = redirectUri;
   }
 
-  /**
-   **/
+  /** */
   public InvitationRequestRepresentation roles(List<String> roles) {
     this.roles = roles;
     return this;
   }
 
-  
   @JsonProperty("roles")
   public List<String> getRoles() {
     return roles;
@@ -134,14 +118,13 @@ public class InvitationRequestRepresentation   {
 
     return this;
   }
-  /**
-   **/
+
+  /** */
   public InvitationRequestRepresentation attributes(Map<String, List<String>> attributes) {
     this.attributes = attributes;
     return this;
   }
 
-  
   @JsonProperty("attributes")
   public Map<String, List<String>> getAttributes() {
     return attributes;
@@ -152,7 +135,8 @@ public class InvitationRequestRepresentation   {
     this.attributes = attributes;
   }
 
-  public InvitationRequestRepresentation putAttributesItem(String key, List<String> attributesItem) {
+  public InvitationRequestRepresentation putAttributesItem(
+      String key, List<String> attributesItem) {
     if (this.attributes == null) {
       this.attributes = new HashMap<>();
     }
@@ -177,13 +161,14 @@ public class InvitationRequestRepresentation   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    InvitationRequestRepresentation invitationRequestRepresentation = (InvitationRequestRepresentation) o;
-    return Objects.equals(this.email, invitationRequestRepresentation.email) &&
-        Objects.equals(this.send, invitationRequestRepresentation.send) &&
-        Objects.equals(this.inviterId, invitationRequestRepresentation.inviterId) &&
-        Objects.equals(this.redirectUri, invitationRequestRepresentation.redirectUri) &&
-        Objects.equals(this.roles, invitationRequestRepresentation.roles) &&
-        Objects.equals(this.attributes, invitationRequestRepresentation.attributes);
+    InvitationRequestRepresentation invitationRequestRepresentation =
+        (InvitationRequestRepresentation) o;
+    return Objects.equals(this.email, invitationRequestRepresentation.email)
+        && Objects.equals(this.send, invitationRequestRepresentation.send)
+        && Objects.equals(this.inviterId, invitationRequestRepresentation.inviterId)
+        && Objects.equals(this.redirectUri, invitationRequestRepresentation.redirectUri)
+        && Objects.equals(this.roles, invitationRequestRepresentation.roles)
+        && Objects.equals(this.attributes, invitationRequestRepresentation.attributes);
   }
 
   @Override
@@ -195,7 +180,7 @@ public class InvitationRequestRepresentation   {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class InvitationRequestRepresentation {\n");
-    
+
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    send: ").append(toIndentedString(send)).append("\n");
     sb.append("    inviterId: ").append(toIndentedString(inviterId)).append("\n");
@@ -207,12 +192,9 @@ public class InvitationRequestRepresentation   {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
-
-
 }

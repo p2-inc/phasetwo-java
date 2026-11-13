@@ -1,21 +1,16 @@
 package io.phasetwo.client.openapi.model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import org.openapitools.jackson.nullable.JsonNullable;
-
-
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @JsonTypeName("WebhookRepresentation")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.21.0")
-public class WebhookRepresentation   {
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen",
+    comments = "Generator version: 7.27.0")
+public class WebhookRepresentation {
   private Object attributes;
   private String id;
   private Boolean enabled;
@@ -26,17 +21,14 @@ public class WebhookRepresentation   {
   private String realm;
   private List<String> eventTypes = new ArrayList<>();
 
-  public WebhookRepresentation() {
-  }
+  public WebhookRepresentation() {}
 
-  /**
-   **/
+  /** */
   public WebhookRepresentation attributes(Object attributes) {
     this.attributes = attributes;
     return this;
   }
 
-  
   @JsonProperty("attributes")
   public Object getAttributes() {
     return attributes;
@@ -47,14 +39,12 @@ public class WebhookRepresentation   {
     this.attributes = attributes;
   }
 
-  /**
-   **/
+  /** */
   public WebhookRepresentation id(String id) {
     this.id = id;
     return this;
   }
 
-  
   @JsonProperty("id")
   public String getId() {
     return id;
@@ -65,14 +55,12 @@ public class WebhookRepresentation   {
     this.id = id;
   }
 
-  /**
-   **/
+  /** */
   public WebhookRepresentation enabled(Boolean enabled) {
     this.enabled = enabled;
     return this;
   }
 
-  
   @JsonProperty("enabled")
   public Boolean getEnabled() {
     return enabled;
@@ -83,14 +71,12 @@ public class WebhookRepresentation   {
     this.enabled = enabled;
   }
 
-  /**
-   **/
+  /** */
   public WebhookRepresentation url(String url) {
     this.url = url;
     return this;
   }
 
-  
   @JsonProperty("url")
   public String getUrl() {
     return url;
@@ -101,14 +87,12 @@ public class WebhookRepresentation   {
     this.url = url;
   }
 
-  /**
-   **/
+  /** */
   public WebhookRepresentation secret(String secret) {
     this.secret = secret;
     return this;
   }
 
-  
   @JsonProperty("secret")
   public String getSecret() {
     return secret;
@@ -119,14 +103,12 @@ public class WebhookRepresentation   {
     this.secret = secret;
   }
 
-  /**
-   **/
+  /** */
   public WebhookRepresentation createdBy(String createdBy) {
     this.createdBy = createdBy;
     return this;
   }
 
-  
   @JsonProperty("createdBy")
   public String getCreatedBy() {
     return createdBy;
@@ -137,14 +119,12 @@ public class WebhookRepresentation   {
     this.createdBy = createdBy;
   }
 
-  /**
-   **/
+  /** */
   public WebhookRepresentation createdAt(Long createdAt) {
     this.createdAt = createdAt;
     return this;
   }
 
-  
   @JsonProperty("createdAt")
   public Long getCreatedAt() {
     return createdAt;
@@ -155,14 +135,12 @@ public class WebhookRepresentation   {
     this.createdAt = createdAt;
   }
 
-  /**
-   **/
+  /** */
   public WebhookRepresentation realm(String realm) {
     this.realm = realm;
     return this;
   }
 
-  
   @JsonProperty("realm")
   public String getRealm() {
     return realm;
@@ -173,14 +151,12 @@ public class WebhookRepresentation   {
     this.realm = realm;
   }
 
-  /**
-   **/
+  /** */
   public WebhookRepresentation eventTypes(List<String> eventTypes) {
     this.eventTypes = eventTypes;
     return this;
   }
 
-  
   @JsonProperty("eventTypes")
   public List<String> getEventTypes() {
     return eventTypes;
@@ -217,27 +193,28 @@ public class WebhookRepresentation   {
       return false;
     }
     WebhookRepresentation webhookRepresentation = (WebhookRepresentation) o;
-    return Objects.equals(this.attributes, webhookRepresentation.attributes) &&
-        Objects.equals(this.id, webhookRepresentation.id) &&
-        Objects.equals(this.enabled, webhookRepresentation.enabled) &&
-        Objects.equals(this.url, webhookRepresentation.url) &&
-        Objects.equals(this.secret, webhookRepresentation.secret) &&
-        Objects.equals(this.createdBy, webhookRepresentation.createdBy) &&
-        Objects.equals(this.createdAt, webhookRepresentation.createdAt) &&
-        Objects.equals(this.realm, webhookRepresentation.realm) &&
-        Objects.equals(this.eventTypes, webhookRepresentation.eventTypes);
+    return Objects.equals(this.attributes, webhookRepresentation.attributes)
+        && Objects.equals(this.id, webhookRepresentation.id)
+        && Objects.equals(this.enabled, webhookRepresentation.enabled)
+        && Objects.equals(this.url, webhookRepresentation.url)
+        && Objects.equals(this.secret, webhookRepresentation.secret)
+        && Objects.equals(this.createdBy, webhookRepresentation.createdBy)
+        && Objects.equals(this.createdAt, webhookRepresentation.createdAt)
+        && Objects.equals(this.realm, webhookRepresentation.realm)
+        && Objects.equals(this.eventTypes, webhookRepresentation.eventTypes);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(attributes, id, enabled, url, secret, createdBy, createdAt, realm, eventTypes);
+    return Objects.hash(
+        attributes, id, enabled, url, secret, createdBy, createdAt, realm, eventTypes);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class WebhookRepresentation {\n");
-    
+
     sb.append("    attributes: ").append(toIndentedString(attributes)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    enabled: ").append(toIndentedString(enabled)).append("\n");
@@ -252,12 +229,9 @@ public class WebhookRepresentation   {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
-
-
 }

@@ -1,9 +1,15 @@
+# Versions follow the API version in sdk-generator.json (the spec's info.version),
+# shared by all Phase Two SDKs: the first release for API X.Y is X.Y.0, and later
+# releases (e.g. SDK-only fixes) are X.Y.1, X.Y.2, ... based on this repo's tags.
 name: release version
 
 on:
   push:
     branches:
       - main
+
+permissions:
+  contents: read
 
 jobs:
   build:
@@ -12,6 +18,19 @@ jobs:
 
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Choose version
+        id: version
+        run: |
+          api=$(sed -n 's/.*"apiVersion": *"\([^"]*\)".*/\1/p' sdk-generator.json)
+          [ -n "$api" ] || { echo "::error::no apiVersion in sdk-generator.json"; exit 1; }
+          mm=${api%.*}
+          last=$(git tag --list "v$mm.*" --sort=-v:refname | head -1)
+          if [ -z "$last" ]; then next="$mm.0"; else next="$mm.$(( ${last##*.} + 1 ))"; fi
+          echo "next=$next" >> "$GITHUB_OUTPUT"
+          echo "dev=$mm.$(( ${next##*.} + 1 ))-SNAPSHOT" >> "$GITHUB_OUTPUT"
 
       - name: Build and Test
         uses: qcastel/github-actions-maven-cmd@master
@@ -22,7 +41,8 @@ jobs:
         uses: qcastel/github-actions-maven-release@master
         with:
           release-branch-name: "main"
-          version-patch: true
+          maven-release-version-number: ${{ steps.version.outputs.next }}
+          maven-development-version-number: ${{ steps.version.outputs.dev }}
 
           git-release-bot-name: "phasetwo-bot"
           git-release-bot-email: "support@phasetwo.io"

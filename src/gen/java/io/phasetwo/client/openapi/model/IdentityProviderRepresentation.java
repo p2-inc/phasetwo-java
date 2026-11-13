@@ -1,20 +1,16 @@
 package io.phasetwo.client.openapi.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.util.HashMap;
 import java.util.Map;
-
 import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.fasterxml.jackson.annotation.JsonTypeName;
-import org.openapitools.jackson.nullable.JsonNullable;
-
-
 
 @JsonTypeName("IdentityProviderRepresentation")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", comments = "Generator version: 7.21.0")
-public class IdentityProviderRepresentation   {
+@jakarta.annotation.Generated(
+    value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen",
+    comments = "Generator version: 7.27.0")
+public class IdentityProviderRepresentation {
   private Boolean addReadTokenRoleOnCreate;
   private String alias;
   private Map<String, Object> config = new HashMap<>();
@@ -28,17 +24,14 @@ public class IdentityProviderRepresentation   {
   private Boolean storeToken;
   private Boolean trustEmail;
 
-  public IdentityProviderRepresentation() {
-  }
+  public IdentityProviderRepresentation() {}
 
-  /**
-   **/
+  /** */
   public IdentityProviderRepresentation addReadTokenRoleOnCreate(Boolean addReadTokenRoleOnCreate) {
     this.addReadTokenRoleOnCreate = addReadTokenRoleOnCreate;
     return this;
   }
 
-  
   @JsonProperty("addReadTokenRoleOnCreate")
   public Boolean getAddReadTokenRoleOnCreate() {
     return addReadTokenRoleOnCreate;
@@ -49,14 +42,12 @@ public class IdentityProviderRepresentation   {
     this.addReadTokenRoleOnCreate = addReadTokenRoleOnCreate;
   }
 
-  /**
-   **/
+  /** */
   public IdentityProviderRepresentation alias(String alias) {
     this.alias = alias;
     return this;
   }
 
-  
   @JsonProperty("alias")
   public String getAlias() {
     return alias;
@@ -67,14 +58,12 @@ public class IdentityProviderRepresentation   {
     this.alias = alias;
   }
 
-  /**
-   **/
+  /** */
   public IdentityProviderRepresentation config(Map<String, Object> config) {
     this.config = config;
     return this;
   }
 
-  
   @JsonProperty("config")
   public Map<String, Object> getConfig() {
     return config;
@@ -101,14 +90,13 @@ public class IdentityProviderRepresentation   {
 
     return this;
   }
-  /**
-   **/
+
+  /** */
   public IdentityProviderRepresentation displayName(String displayName) {
     this.displayName = displayName;
     return this;
   }
 
-  
   @JsonProperty("displayName")
   public String getDisplayName() {
     return displayName;
@@ -119,14 +107,12 @@ public class IdentityProviderRepresentation   {
     this.displayName = displayName;
   }
 
-  /**
-   **/
+  /** */
   public IdentityProviderRepresentation enabled(Boolean enabled) {
     this.enabled = enabled;
     return this;
   }
 
-  
   @JsonProperty("enabled")
   public Boolean getEnabled() {
     return enabled;
@@ -137,14 +123,13 @@ public class IdentityProviderRepresentation   {
     this.enabled = enabled;
   }
 
-  /**
-   **/
-  public IdentityProviderRepresentation firstBrokerLoginFlowAlias(String firstBrokerLoginFlowAlias) {
+  /** */
+  public IdentityProviderRepresentation firstBrokerLoginFlowAlias(
+      String firstBrokerLoginFlowAlias) {
     this.firstBrokerLoginFlowAlias = firstBrokerLoginFlowAlias;
     return this;
   }
 
-  
   @JsonProperty("firstBrokerLoginFlowAlias")
   public String getFirstBrokerLoginFlowAlias() {
     return firstBrokerLoginFlowAlias;
@@ -155,14 +140,12 @@ public class IdentityProviderRepresentation   {
     this.firstBrokerLoginFlowAlias = firstBrokerLoginFlowAlias;
   }
 
-  /**
-   **/
+  /** */
   public IdentityProviderRepresentation internalId(String internalId) {
     this.internalId = internalId;
     return this;
   }
 
-  
   @JsonProperty("internalId")
   public String getInternalId() {
     return internalId;
@@ -173,14 +156,12 @@ public class IdentityProviderRepresentation   {
     this.internalId = internalId;
   }
 
-  /**
-   **/
+  /** */
   public IdentityProviderRepresentation linkOnly(Boolean linkOnly) {
     this.linkOnly = linkOnly;
     return this;
   }
 
-  
   @JsonProperty("linkOnly")
   public Boolean getLinkOnly() {
     return linkOnly;
@@ -191,14 +172,12 @@ public class IdentityProviderRepresentation   {
     this.linkOnly = linkOnly;
   }
 
-  /**
-   **/
+  /** */
   public IdentityProviderRepresentation postBrokerLoginFlowAlias(String postBrokerLoginFlowAlias) {
     this.postBrokerLoginFlowAlias = postBrokerLoginFlowAlias;
     return this;
   }
 
-  
   @JsonProperty("postBrokerLoginFlowAlias")
   public String getPostBrokerLoginFlowAlias() {
     return postBrokerLoginFlowAlias;
@@ -209,14 +188,12 @@ public class IdentityProviderRepresentation   {
     this.postBrokerLoginFlowAlias = postBrokerLoginFlowAlias;
   }
 
-  /**
-   **/
+  /** */
   public IdentityProviderRepresentation providerId(String providerId) {
     this.providerId = providerId;
     return this;
   }
 
-  
   @JsonProperty("providerId")
   public String getProviderId() {
     return providerId;
@@ -227,14 +204,12 @@ public class IdentityProviderRepresentation   {
     this.providerId = providerId;
   }
 
-  /**
-   **/
+  /** */
   public IdentityProviderRepresentation storeToken(Boolean storeToken) {
     this.storeToken = storeToken;
     return this;
   }
 
-  
   @JsonProperty("storeToken")
   public Boolean getStoreToken() {
     return storeToken;
@@ -245,14 +220,12 @@ public class IdentityProviderRepresentation   {
     this.storeToken = storeToken;
   }
 
-  /**
-   **/
+  /** */
   public IdentityProviderRepresentation trustEmail(Boolean trustEmail) {
     this.trustEmail = trustEmail;
     return this;
   }
 
-  
   @JsonProperty("trustEmail")
   public Boolean getTrustEmail() {
     return trustEmail;
@@ -263,7 +236,6 @@ public class IdentityProviderRepresentation   {
     this.trustEmail = trustEmail;
   }
 
-
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -272,40 +244,63 @@ public class IdentityProviderRepresentation   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    IdentityProviderRepresentation identityProviderRepresentation = (IdentityProviderRepresentation) o;
-    return Objects.equals(this.addReadTokenRoleOnCreate, identityProviderRepresentation.addReadTokenRoleOnCreate) &&
-        Objects.equals(this.alias, identityProviderRepresentation.alias) &&
-        Objects.equals(this.config, identityProviderRepresentation.config) &&
-        Objects.equals(this.displayName, identityProviderRepresentation.displayName) &&
-        Objects.equals(this.enabled, identityProviderRepresentation.enabled) &&
-        Objects.equals(this.firstBrokerLoginFlowAlias, identityProviderRepresentation.firstBrokerLoginFlowAlias) &&
-        Objects.equals(this.internalId, identityProviderRepresentation.internalId) &&
-        Objects.equals(this.linkOnly, identityProviderRepresentation.linkOnly) &&
-        Objects.equals(this.postBrokerLoginFlowAlias, identityProviderRepresentation.postBrokerLoginFlowAlias) &&
-        Objects.equals(this.providerId, identityProviderRepresentation.providerId) &&
-        Objects.equals(this.storeToken, identityProviderRepresentation.storeToken) &&
-        Objects.equals(this.trustEmail, identityProviderRepresentation.trustEmail);
+    IdentityProviderRepresentation identityProviderRepresentation =
+        (IdentityProviderRepresentation) o;
+    return Objects.equals(
+            this.addReadTokenRoleOnCreate, identityProviderRepresentation.addReadTokenRoleOnCreate)
+        && Objects.equals(this.alias, identityProviderRepresentation.alias)
+        && Objects.equals(this.config, identityProviderRepresentation.config)
+        && Objects.equals(this.displayName, identityProviderRepresentation.displayName)
+        && Objects.equals(this.enabled, identityProviderRepresentation.enabled)
+        && Objects.equals(
+            this.firstBrokerLoginFlowAlias,
+            identityProviderRepresentation.firstBrokerLoginFlowAlias)
+        && Objects.equals(this.internalId, identityProviderRepresentation.internalId)
+        && Objects.equals(this.linkOnly, identityProviderRepresentation.linkOnly)
+        && Objects.equals(
+            this.postBrokerLoginFlowAlias, identityProviderRepresentation.postBrokerLoginFlowAlias)
+        && Objects.equals(this.providerId, identityProviderRepresentation.providerId)
+        && Objects.equals(this.storeToken, identityProviderRepresentation.storeToken)
+        && Objects.equals(this.trustEmail, identityProviderRepresentation.trustEmail);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(addReadTokenRoleOnCreate, alias, config, displayName, enabled, firstBrokerLoginFlowAlias, internalId, linkOnly, postBrokerLoginFlowAlias, providerId, storeToken, trustEmail);
+    return Objects.hash(
+        addReadTokenRoleOnCreate,
+        alias,
+        config,
+        displayName,
+        enabled,
+        firstBrokerLoginFlowAlias,
+        internalId,
+        linkOnly,
+        postBrokerLoginFlowAlias,
+        providerId,
+        storeToken,
+        trustEmail);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class IdentityProviderRepresentation {\n");
-    
-    sb.append("    addReadTokenRoleOnCreate: ").append(toIndentedString(addReadTokenRoleOnCreate)).append("\n");
+
+    sb.append("    addReadTokenRoleOnCreate: ")
+        .append(toIndentedString(addReadTokenRoleOnCreate))
+        .append("\n");
     sb.append("    alias: ").append(toIndentedString(alias)).append("\n");
     sb.append("    config: ").append(toIndentedString(config)).append("\n");
     sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
     sb.append("    enabled: ").append(toIndentedString(enabled)).append("\n");
-    sb.append("    firstBrokerLoginFlowAlias: ").append(toIndentedString(firstBrokerLoginFlowAlias)).append("\n");
+    sb.append("    firstBrokerLoginFlowAlias: ")
+        .append(toIndentedString(firstBrokerLoginFlowAlias))
+        .append("\n");
     sb.append("    internalId: ").append(toIndentedString(internalId)).append("\n");
     sb.append("    linkOnly: ").append(toIndentedString(linkOnly)).append("\n");
-    sb.append("    postBrokerLoginFlowAlias: ").append(toIndentedString(postBrokerLoginFlowAlias)).append("\n");
+    sb.append("    postBrokerLoginFlowAlias: ")
+        .append(toIndentedString(postBrokerLoginFlowAlias))
+        .append("\n");
     sb.append("    providerId: ").append(toIndentedString(providerId)).append("\n");
     sb.append("    storeToken: ").append(toIndentedString(storeToken)).append("\n");
     sb.append("    trustEmail: ").append(toIndentedString(trustEmail)).append("\n");
@@ -314,12 +309,9 @@ public class IdentityProviderRepresentation   {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(Object o) {
     return o == null ? "null" : o.toString().replace("\n", "\n    ");
   }
-
-
 }

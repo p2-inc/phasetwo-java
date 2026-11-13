@@ -1,0 +1,36 @@
+# Fails a PR that hand-edits generated code. Regenerates from the spec commit in
+# sdk-generator.json with the generator's main branch and expects no diff.
+# Fix generated code in p2-inc/phasetwo-sdk-generator, never here.
+name: openapi-drift
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  LANGUAGE: java
+
+jobs:
+  drift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          repository: p2-inc/phasetwo-sdk-generator
+      - uses: actions/checkout@v7
+        with:
+          path: .work/sdks/${{ env.LANGUAGE }}
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: "21"
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - uses: astral-sh/setup-uv@v10.3.3
+      - uses: actions/setup-go@v6
+        with:
+          go-version: stable
+      - run: scripts/check-drift.sh "$LANGUAGE" ".work/sdks/$LANGUAGE"

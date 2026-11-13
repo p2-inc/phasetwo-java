@@ -1,6 +1,4 @@
-> :bug: **This is alpha software**
-
-# Java SDK for Phase Two API
+# Phase Two Java SDK
 
 <!-- phasetwo:banner:start - managed by p2-inc/shared-github-actions, edit there -->
 [![Maven Central](https://img.shields.io/maven-central/v/io.phasetwo/phasetwo-admin-client?label=maven%20central)](https://central.sonatype.com/artifact/io.phasetwo/phasetwo-admin-client) [![license](https://img.shields.io/badge/license-Apache--2.0-blue)](COPYING) [![docs](https://img.shields.io/badge/docs-phasetwo.io-blue)](https://phasetwo.io/docs/api/sdks/)
@@ -23,9 +21,12 @@
 
 The Phase Two Java SDK library provides access to the Phase Two API from applications written in JVM-compatible languages.
 
+> [!NOTE]
+> All Phase Two SDKs (Java, TypeScript, Python, Go) share the version of the Phase Two API they implement: every SDK release X.Y.* implements API X.Y, and patch releases are SDK-only fixes. While on 0.x, a new minor version can contain breaking changes from the API spec, so pin a version.
+
 ## Documentation
 
-See the [API Reference]([https://phasetwo.io/api/](https://phasetwo.io/api/phase-two-admin-rest-api)) and [Javadoc](https://javadoc.io/doc/io.phasetwo/phasetwo-admin-client)
+See the [API Reference](https://phasetwo.io/api/phase-two-admin-rest-api) and [Javadoc](https://javadoc.io/doc/io.phasetwo/phasetwo-admin-client).
 
 ## Installation
 
@@ -83,28 +84,14 @@ phaseTwo.organizations(realm).organization(orgId).portalLink(Optional.empty());
 // Create and publish an Audit Event
 phaseTwo.events(realm).send(new EventRepresentation()
     .type("foo.bar")
-    .organizationId(orgId)
+    .representation("{\"orgId\":\"" + orgId + "\"}")
     .time(System.currentTimeMillis()));
 ```
 
-## Generating sources from openapi.yaml
+## Generated code
 
-1. create an empty directory `local`
-2. copy the current `openapi.yml` from the `phasetwo-docs` repo to that directory
-3. run the generator in the `local` directory
-```
-docker run --rm --user $(id -u):$(id -g) -v $PWD:/local openapitools/openapi-generator-cli generate -i /local/openapi.yaml -g jaxrs-spec -o /local/java-sdk  --additional-properties=groupId=io.phasetwo,artifactId=phasetwo-admin-client,apiPackage=io.phasetwo.client.openapi.api,modelPackage=io.phasetwo.client.openapi.model,useSwaggerAnnotations=false,useBeanValidation=false,useTags=true,interfaceOnly=true,useJakartaEe=true,hideGenerationTimestamp=true
-```
-4. copy the relevant files
-```
-cp java-sdk/src/gen/java/io/phasetwo/client/openapi/*.java $PWD/../src/gen/java/io/phasetwo/client/openapi/
-cp java-sdk/src/gen/java/io/phasetwo/client/openapi/api/*.java $PWD/../src/gen/java/io/phasetwo/client/openapi/api/
-cp java-sdk/src/gen/java/io/phasetwo/client/openapi/model/*.java $PWD/../src/gen/java/io/phasetwo/client/openapi/model/
-cp java-sdk/src/main/openapi/openapi.yaml $PWD/../src/main/openapi/openapi.yaml
-```
-5. resolve all of the `Response` issues in the `*Api` classes. This is because we need the response object in order to get the status code and `Location` header, but openapi and this generator doesn't give us a good way to specify that or do it by default.
-6. push a pr and merge to main. auto releases using `.github/workflows/release.yml`
+The interfaces and models in `src/gen/java/io/phasetwo/client/openapi` are generated from the [Phase Two OpenAPI spec](https://github.com/p2-inc/phasetwo-docs/blob/main/openapi.yaml) by [phasetwo-sdk-generator](https://github.com/p2-inc/phasetwo-sdk-generator). Don't edit them by hand; `sdk-generator.json` records the spec commit they came from. Everything in `src/main` is hand-written.
 
----
+## License
 
-All documentation, source code and other files in this repository are Copyright 2025 Phase Two, Inc.
+Apache License 2.0, see [COPYING](COPYING).

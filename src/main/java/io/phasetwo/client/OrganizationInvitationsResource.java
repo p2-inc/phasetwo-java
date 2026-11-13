@@ -11,9 +11,9 @@ public class OrganizationInvitationsResource  {
 
   private final String orgId;
   private final String realm;
-  private final OrganizationInvitationApi impl;
+  private final OrganizationInvitationsApi impl;
   
-  OrganizationInvitationsResource(String orgId, String realm, OrganizationInvitationApi impl) {
+  OrganizationInvitationsResource(String orgId, String realm, OrganizationInvitationsApi impl) {
     this.orgId = orgId;
     this.realm = realm;
     this.impl = impl;
