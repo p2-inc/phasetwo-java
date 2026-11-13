@@ -22,7 +22,7 @@
 The Phase Two Java SDK library provides access to the Phase Two API from applications written in JVM-compatible languages.
 
 > [!NOTE]
-> Pre-1.0: minor versions can contain breaking changes, which come from changes to the API spec. Pin a version.
+> All Phase Two SDKs (Java, TypeScript, Python, Go) share the version of the Phase Two API they implement: every SDK release X.Y.* implements API X.Y, and patch releases are SDK-only fixes. While on 0.x, a new minor version can contain breaking changes from the API spec, so pin a version.
 
 ## Documentation
 

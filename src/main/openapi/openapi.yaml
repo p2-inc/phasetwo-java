@@ -43,7 +43,7 @@ info:
     | JavaScript/TypeScript | https://github.com/p2-inc/phasetwo-js |
     | Python | https://github.com/p2-inc/phasetwo-python |
   title: Phase Two Admin REST API
-  version: v1
+  version: 0.2.0
 externalDocs:
   description: Public documentation
   url: https://phasetwo.io/docs
