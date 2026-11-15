@@ -16,12 +16,12 @@ public class EventRepresentation {
   private Long time;
   private String realmId;
   private String realmName;
-  private String organizationId;
   private String type;
   private String representation;
   private String operationType;
   private String resourcePath;
   private String resourceType;
+  private String resourceId;
   private String error;
   private AuthDetailsRepresentation authDetails;
   private Map<String, Object> details = new HashMap<>();
@@ -109,22 +109,6 @@ public class EventRepresentation {
   }
 
   /** */
-  public EventRepresentation organizationId(String organizationId) {
-    this.organizationId = organizationId;
-    return this;
-  }
-
-  @JsonProperty("organizationId")
-  public String getOrganizationId() {
-    return organizationId;
-  }
-
-  @JsonProperty("organizationId")
-  public void setOrganizationId(String organizationId) {
-    this.organizationId = organizationId;
-  }
-
-  /** */
   public EventRepresentation type(String type) {
     this.type = type;
     return this;
@@ -202,6 +186,22 @@ public class EventRepresentation {
   @JsonProperty("resourceType")
   public void setResourceType(String resourceType) {
     this.resourceType = resourceType;
+  }
+
+  /** Id of the affected resource (set by the server). */
+  public EventRepresentation resourceId(String resourceId) {
+    this.resourceId = resourceId;
+    return this;
+  }
+
+  @JsonProperty("resourceId")
+  public String getResourceId() {
+    return resourceId;
+  }
+
+  @JsonProperty("resourceId")
+  public void setResourceId(String resourceId) {
+    this.resourceId = resourceId;
   }
 
   /** */
@@ -283,12 +283,12 @@ public class EventRepresentation {
         && Objects.equals(this.time, eventRepresentation.time)
         && Objects.equals(this.realmId, eventRepresentation.realmId)
         && Objects.equals(this.realmName, eventRepresentation.realmName)
-        && Objects.equals(this.organizationId, eventRepresentation.organizationId)
         && Objects.equals(this.type, eventRepresentation.type)
         && Objects.equals(this.representation, eventRepresentation.representation)
         && Objects.equals(this.operationType, eventRepresentation.operationType)
         && Objects.equals(this.resourcePath, eventRepresentation.resourcePath)
         && Objects.equals(this.resourceType, eventRepresentation.resourceType)
+        && Objects.equals(this.resourceId, eventRepresentation.resourceId)
         && Objects.equals(this.error, eventRepresentation.error)
         && Objects.equals(this.authDetails, eventRepresentation.authDetails)
         && Objects.equals(this.details, eventRepresentation.details);
@@ -302,12 +302,12 @@ public class EventRepresentation {
         time,
         realmId,
         realmName,
-        organizationId,
         type,
         representation,
         operationType,
         resourcePath,
         resourceType,
+        resourceId,
         error,
         authDetails,
         details);
@@ -323,12 +323,12 @@ public class EventRepresentation {
     sb.append("    time: ").append(toIndentedString(time)).append("\n");
     sb.append("    realmId: ").append(toIndentedString(realmId)).append("\n");
     sb.append("    realmName: ").append(toIndentedString(realmName)).append("\n");
-    sb.append("    organizationId: ").append(toIndentedString(organizationId)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    representation: ").append(toIndentedString(representation)).append("\n");
     sb.append("    operationType: ").append(toIndentedString(operationType)).append("\n");
     sb.append("    resourcePath: ").append(toIndentedString(resourcePath)).append("\n");
     sb.append("    resourceType: ").append(toIndentedString(resourceType)).append("\n");
+    sb.append("    resourceId: ").append(toIndentedString(resourceId)).append("\n");
     sb.append("    error: ").append(toIndentedString(error)).append("\n");
     sb.append("    authDetails: ").append(toIndentedString(authDetails)).append("\n");
     sb.append("    details: ").append(toIndentedString(details)).append("\n");
