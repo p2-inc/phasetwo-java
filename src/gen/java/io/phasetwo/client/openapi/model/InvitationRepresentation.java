@@ -40,7 +40,10 @@ public class InvitationRepresentation {
     this.id = id;
   }
 
-  /** */
+  /**
+   * Creation time in UTC, to the minute (&#x60;yyyy-MM-ddTHH:mmZ&#x60;, e.g.
+   * &#x60;2026-01-31T09:15Z&#x60;).
+   */
   public InvitationRepresentation createdAt(String createdAt) {
     this.createdAt = createdAt;
     return this;

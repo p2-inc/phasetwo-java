@@ -13,8 +13,8 @@ public class WebhookSendRepresentation {
   private String type;
   private Integer status;
   private String statusMessage;
-  private Integer retried;
-  private String sentAt;
+  private Integer retries;
+  private Long sentAt;
   private String eventId;
   private String keycloakEventType;
   private String keycloakEventId;
@@ -88,34 +88,34 @@ public class WebhookSendRepresentation {
   }
 
   /** */
-  public WebhookSendRepresentation retried(Integer retried) {
-    this.retried = retried;
+  public WebhookSendRepresentation retries(Integer retries) {
+    this.retries = retries;
     return this;
   }
 
-  @JsonProperty("retried")
-  public Integer getRetried() {
-    return retried;
+  @JsonProperty("retries")
+  public Integer getRetries() {
+    return retries;
   }
 
-  @JsonProperty("retried")
-  public void setRetried(Integer retried) {
-    this.retried = retried;
+  @JsonProperty("retries")
+  public void setRetries(Integer retries) {
+    this.retries = retries;
   }
 
-  /** */
-  public WebhookSendRepresentation sentAt(String sentAt) {
+  /** When the send was attempted, in milliseconds since the epoch. */
+  public WebhookSendRepresentation sentAt(Long sentAt) {
     this.sentAt = sentAt;
     return this;
   }
 
   @JsonProperty("sent_at")
-  public String getSentAt() {
+  public Long getSentAt() {
     return sentAt;
   }
 
   @JsonProperty("sent_at")
-  public void setSentAt(String sentAt) {
+  public void setSentAt(Long sentAt) {
     this.sentAt = sentAt;
   }
 
@@ -212,7 +212,7 @@ public class WebhookSendRepresentation {
         && Objects.equals(this.type, webhookSendRepresentation.type)
         && Objects.equals(this.status, webhookSendRepresentation.status)
         && Objects.equals(this.statusMessage, webhookSendRepresentation.statusMessage)
-        && Objects.equals(this.retried, webhookSendRepresentation.retried)
+        && Objects.equals(this.retries, webhookSendRepresentation.retries)
         && Objects.equals(this.sentAt, webhookSendRepresentation.sentAt)
         && Objects.equals(this.eventId, webhookSendRepresentation.eventId)
         && Objects.equals(this.keycloakEventType, webhookSendRepresentation.keycloakEventType)
@@ -228,7 +228,7 @@ public class WebhookSendRepresentation {
         type,
         status,
         statusMessage,
-        retried,
+        retries,
         sentAt,
         eventId,
         keycloakEventType,
@@ -246,7 +246,7 @@ public class WebhookSendRepresentation {
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    statusMessage: ").append(toIndentedString(statusMessage)).append("\n");
-    sb.append("    retried: ").append(toIndentedString(retried)).append("\n");
+    sb.append("    retries: ").append(toIndentedString(retries)).append("\n");
     sb.append("    sentAt: ").append(toIndentedString(sentAt)).append("\n");
     sb.append("    eventId: ").append(toIndentedString(eventId)).append("\n");
     sb.append("    keycloakEventType: ").append(toIndentedString(keycloakEventType)).append("\n");

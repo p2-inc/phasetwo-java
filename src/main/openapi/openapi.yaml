@@ -42,8 +42,11 @@ info:
     | Java (and other JVM langs) | https://github.com/p2-inc/phasetwo-java |
     | JavaScript/TypeScript | https://github.com/p2-inc/phasetwo-js |
     | Python | https://github.com/p2-inc/phasetwo-python |
+    | Go | https://github.com/p2-inc/phasetwo-go |
+
+    See [SDKs](https://phasetwo.io/docs/api/sdks/) for installation and examples.
   title: Phase Two Admin REST API
-  version: 0.2.0
+  version: 0.3.0
 externalDocs:
   description: Public documentation
   url: https://phasetwo.io/docs
@@ -1012,6 +1015,13 @@ paths:
       responses:
         "201":
           description: success
+          headers:
+            Location:
+              description: URI of the new resource.
+              explode: false
+              schema:
+                type: string
+              style: simple
       summary: Add an organization member
       tags:
       - Organization Memberships
@@ -1220,6 +1230,13 @@ paths:
       responses:
         "201":
           description: success
+          headers:
+            Location:
+              description: URI of the new resource.
+              explode: false
+              schema:
+                type: string
+              style: simple
         "409":
           description: invitation already exists
       summary: Create an invitation to an organization
@@ -1494,6 +1511,13 @@ paths:
       responses:
         "201":
           description: success
+          headers:
+            Location:
+              description: URI of the new resource.
+              explode: false
+              schema:
+                type: string
+              style: simple
       summary: Create a new role for this organization
       tags:
       - Organization Roles
@@ -1846,6 +1870,13 @@ paths:
       responses:
         "201":
           description: success
+          headers:
+            Location:
+              description: URI of the new resource.
+              explode: false
+              schema:
+                type: string
+              style: simple
       summary: Grant a user an organization role
       tags:
       - Organization Roles
@@ -1953,6 +1984,13 @@ paths:
       responses:
         "201":
           description: success
+          headers:
+            Location:
+              description: URI of the new resource.
+              explode: false
+              schema:
+                type: string
+              style: simple
       summary: Create a new identity provider for this organization
       tags:
       - Identity Providers
@@ -2047,6 +2085,13 @@ paths:
       responses:
         "201":
           description: success
+          headers:
+            Location:
+              description: URI of the new resource.
+              explode: false
+              schema:
+                type: string
+              style: simple
       summary: Link an existing identity provider to this organization
       tags:
       - Identity Providers
@@ -2295,6 +2340,13 @@ paths:
       responses:
         "201":
           description: success
+          headers:
+            Location:
+              description: URI of the new resource.
+              explode: false
+              schema:
+                type: string
+              style: simple
       summary: Add a mapper to identity provider
       tags:
       - Identity Providers
@@ -2979,6 +3031,13 @@ paths:
       responses:
         "201":
           description: Attribute created
+          headers:
+            Location:
+              description: URI of the new resource.
+              explode: false
+              schema:
+                type: string
+              style: simple
         "400":
           description: Malformed attribute
       summary: Create a new realm attribute
@@ -3160,6 +3219,13 @@ paths:
       responses:
         "201":
           description: Webhook created
+          headers:
+            Location:
+              description: URI of the new resource.
+              explode: false
+              schema:
+                type: string
+              style: simple
         "400":
           description: Malformed webhook
       summary: Create a new webhook
@@ -4414,6 +4480,8 @@ components:
         id:
           type: string
         createdAt:
+          description: "Creation time in UTC, to the minute (`yyyy-MM-ddTHH:mmZ`,\
+            \ e.g. `2026-01-31T09:15Z`)."
           type: string
         email:
           type: string
@@ -4562,12 +4630,12 @@ components:
         time: 0
         realmId: realmId
         realmName: realmName
-        organizationId: organizationId
         type: type
         representation: representation
         operationType: operationType
         resourcePath: resourcePath
         resourceType: resourceType
+        resourceId: resourceId
         error: error
         authDetails:
           realmId: realmId
@@ -4590,8 +4658,6 @@ components:
           type: string
         realmName:
           type: string
-        organizationId:
-          type: string
         type:
           type: string
         representation:
@@ -4601,6 +4667,10 @@ components:
         resourcePath:
           type: string
         resourceType:
+          type: string
+        resourceId:
+          description: Id of the affected resource (set by the server).
+          readOnly: true
           type: string
         error:
           type: string
@@ -4662,8 +4732,8 @@ components:
         type: type
         status: 0
         status_message: status_message
-        retried: 6
-        sent_at: sent_at
+        retries: 6
+        sent_at: 1
         event_id: event_id
         keycloak_event_type: keycloak_event_type
         keycloak_event_id: keycloak_event_id
@@ -4689,10 +4759,12 @@ components:
           type: integer
         status_message:
           type: string
-        retried:
+        retries:
           type: integer
         sent_at:
-          type: string
+          description: "When the send was attempted, in milliseconds since the epoch."
+          format: int64
+          type: integer
         event_id:
           type: string
         keycloak_event_type:

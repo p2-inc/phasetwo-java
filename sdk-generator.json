@@ -3,9 +3,9 @@
   "spec": {
     "repo": "p2-inc/phasetwo-docs",
     "path": "openapi.yaml",
-    "sha": "60ff247924fcdb8145592f8b031c5735e6ea4e0c"
+    "sha": "12f70733cc69ee03205c0537f1747c6922523422"
   },
-  "apiVersion": "0.2.0",
+  "apiVersion": "0.3.0",
   "openapiGenerator": "v7.27.0",
   "generatedPaths": "src/gen/java/io/phasetwo/client/openapi/api src/gen/java/io/phasetwo/client/openapi/model src/gen/java/io/phasetwo/client/openapi/RestResourceRoot.java src/main/openapi/openapi.yaml"
 }
